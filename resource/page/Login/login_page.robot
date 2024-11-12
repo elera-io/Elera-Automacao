@@ -9,6 +9,7 @@ ${LOGIN_BUTTON}    id:Login
 
 *** Keywords ***
 Preencher campos
+    Sleep    2s
     Input Text    ${USER_FIELD}    ${USER}
     Sleep    1s
     Input Text    ${PASSWORD_FIELD}    ${PASSWD}
