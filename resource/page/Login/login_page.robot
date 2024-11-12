@@ -9,6 +9,7 @@ ${LOGIN_BUTTON}    id:Login
 
 *** Keywords ***
 Preencher campos
+    Wait Until Element Is Visible    ${USER_FIELD}    10s
     Input Text    ${USER_FIELD}    ${USER}
     Sleep    1s
     Input Text    ${PASSWORD_FIELD}    ${PASSWD}
