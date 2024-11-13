@@ -1,6 +1,7 @@
 *** Settings ***
 Resource    ../../resource/keywords/common_keywords.robot
-Resource    ./keywords/keywords.robot
+Resource    ../../resource/keywords/Marco_Zero/keywords.robot
+
 Test Setup    Efetuar login
 Test Teardown    Close Browser
 
