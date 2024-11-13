@@ -1,12 +1,6 @@
 *** Settings ***
-Resource    ../../../resource/keywords/common_keywords.robot
-
-*** Variables ***
-${BOTOES_XPATH}    xpath=//span[contains(@class,'bBody') and contains(@class,'label')]
-${MESSAGES_XPATH}    xpath=//div[contains(@class,'agent') and contains(@class,'chatMessage')]
-${NOME_COMPLETO}    Teste Elera
-${CHAT_INPUT}    xpath=//textarea[contains(@class,'textarea') and contains(@class, 'uiInput')]
-${MENU_ITENS_XPATH}    xpath=//button[contains(@class,'rich-menu-item')]    
+Resource    ../common_keywords.robot
+Resource    ../../variables/Marco_Zero/variables.robot
 
 *** Keywords ***
 
@@ -15,7 +9,18 @@ Dado que o usuário clique no ícone de chat
     Sleep    2s
 
 Então o bot apresenta as mensagens de boas vindas e política de privacidade
-    Validar mensagens de boas vindas
+    Sleep    2s
+    Wait Until Element Is Visible    ${MESSAGES_XPATH}    15s
+    ${MESSAGES_LIST}    Get WebElements    ${MESSAGES_XPATH}
+
+    FOR  ${INDEX}    IN RANGE    0    2
+        ${TEXT}    Get Text    ${MESSAGES_LIST}[${INDEX}]
+        ${TEXT}    Strip String    ${TEXT}
+        ${TEXT}    Remove String    ${TEXT}    \s+    ""
+        ${TEXT}    Remove String    ${TEXT}    \n
+        Should Be Equal    ${TEXT}    ${EXPECTED_MESSAGES}[${INDEX}]
+    END
+    Sleep    2s
 
 Quando o usuário clica no botão Concordo
     Sleep    2s
