@@ -1,6 +1,8 @@
 *** Settings ***
 Resource    ../../resource/keywords/common_keywords.robot
 Resource    ../../resource/keywords/Marco_Zero/keywords.robot
+Resource    ../../resource/keywords/Imoveis_Residenciais/keywords.robot
+
 
 Test Setup    Efetuar login
 Test Teardown    Close Browser
@@ -22,4 +24,115 @@ Marco Zero | Ramificação ainda não é cliente
 
 CT01:Pesquisa de imóveis por cidade vários imóveis| telefone e email válidos
     Marco Zero | Ramificação ainda não é cliente
-    
+    Dado que o usuário escolha "Imóveis Residenciais" no menu
+    Então o bot deve mostrar o menu de estados em ordem alfabetica
+    Dado que o usuário escolha "SP" no menu
+    Então o bot deve exibir a mensagem "Agora escolha a cidade"
+    Dado que o usuário escolha "Taubaté" no menu
+    Então o bot deverá responder com a mensagem de imóveis disponíveis
+    Dado que o usuário escolha um imóvel no menu
+    Então o bot deverá responder com uma mensagem e solicitar o número de celular
+    Dado que o usuário informe seu número
+    Então o bot deverá solicitar seu email
+    Dado que o usuário informe seu email
+
+CT02:Pesquisa de imóveis por cidade vários imóveis| email invalido sem @
+    Marco Zero | Ramificação ainda não é cliente
+    Dado que o usuário escolha "Imóveis Residenciais" no menu
+    Então o bot deve mostrar o menu de estados em ordem alfabetica
+    Dado que o usuário escolha "SP" no menu
+    Então o bot deve exibir a mensagem "Agora escolha a cidade"
+    Dado que o usuário escolha "Taubaté" no menu
+    Então o bot deverá responder com a mensagem de imóveis disponíveis
+    Dado que o usuário escolha um imóvel no menu
+    Então o bot deverá responder com uma mensagem e solicitar o número de celular
+    Dado que o usuário informe seu número
+    Então o bot deverá solicitar seu email
+    Dado que o usuário informe um email inválido sem @
+    Então o bot deverá exibir a mensagem de confusão
+
+CT03:Pesquisa de imóveis por cidade vários imóveis| email invalido sem .
+    Marco Zero | Ramificação ainda não é cliente
+    Dado que o usuário escolha "Imóveis Residenciais" no menu
+    Então o bot deve mostrar o menu de estados em ordem alfabetica
+    Dado que o usuário escolha "SP" no menu
+    Então o bot deve exibir a mensagem "Agora escolha a cidade"
+    Dado que o usuário escolha "Taubaté" no menu
+    Então o bot deverá responder com a mensagem de imóveis disponíveis
+    Dado que o usuário escolha um imóvel no menu
+    Então o bot deverá responder com uma mensagem e solicitar o número de celular
+    Dado que o usuário informe seu número
+    Então o bot deverá solicitar seu email
+    Dado que o usuário informe um email inválido sem .
+    Então o bot deverá exibir a mensagem de confusão
+
+CT04:Pesquisa de imóveis por cidade vários imóveis| email invalido sem .com
+    Marco Zero | Ramificação ainda não é cliente
+    Dado que o usuário escolha "Imóveis Residenciais" no menu
+    Então o bot deve mostrar o menu de estados em ordem alfabetica
+    Dado que o usuário escolha "SP" no menu
+    Então o bot deve exibir a mensagem "Agora escolha a cidade"
+    Dado que o usuário escolha "Taubaté" no menu
+    Então o bot deverá responder com a mensagem de imóveis disponíveis
+    Dado que o usuário escolha um imóvel no menu
+    Então o bot deverá responder com uma mensagem e solicitar o número de celular
+    Dado que o usuário informe seu número
+    Então o bot deverá solicitar seu email
+    Dado que o usuário informe um email inválido sem .com
+    Então o bot deverá exibir a mensagem de confusão
+
+CT05:Pesquisa de imóveis por cidade vários imóveis| email invalido sem com
+    Marco Zero | Ramificação ainda não é cliente
+    Dado que o usuário escolha "Imóveis Residenciais" no menu
+    Então o bot deve mostrar o menu de estados em ordem alfabetica
+    Dado que o usuário escolha "SP" no menu
+    Então o bot deve exibir a mensagem "Agora escolha a cidade"
+    Dado que o usuário escolha "Taubaté" no menu
+    Então o bot deverá responder com a mensagem de imóveis disponíveis
+    Dado que o usuário escolha um imóvel no menu
+    Então o bot deverá responder com uma mensagem e solicitar o número de celular
+    Dado que o usuário informe seu número
+    Então o bot deverá solicitar seu email
+    Dado que o usuário informe um email inválido sem .com
+    Então o bot deverá exibir a mensagem de confusão
+
+CT05:Pesquisa de imóveis por cidade vários imóveis| email invalido sem UserName
+    Marco Zero | Ramificação ainda não é cliente
+    Dado que o usuário escolha "Imóveis Residenciais" no menu
+    Então o bot deve mostrar o menu de estados em ordem alfabetica
+    Dado que o usuário escolha "SP" no menu
+    Então o bot deve exibir a mensagem "Agora escolha a cidade"
+    Dado que o usuário escolha "Taubaté" no menu
+    Então o bot deverá responder com a mensagem de imóveis disponíveis
+    Dado que o usuário escolha um imóvel no menu
+    Então o bot deverá responder com uma mensagem e solicitar o número de celular
+    Dado que o usuário informe seu número
+    Então o bot deverá solicitar seu email
+    Dado que o usuário informe um email inválido sem UserName
+    Então o bot deverá exibir a mensagem de confusão
+
+CT07:Pesquisa de imóveis por cidade vários imóveis| telefone faltando números
+    Marco Zero | Ramificação ainda não é cliente
+    Dado que o usuário escolha "Imóveis Residenciais" no menu
+    Então o bot deve mostrar o menu de estados em ordem alfabetica
+    Dado que o usuário escolha "SP" no menu
+    Então o bot deve exibir a mensagem "Agora escolha a cidade"
+    Dado que o usuário escolha "Taubaté" no menu
+    Então o bot deverá responder com a mensagem de imóveis disponíveis
+    Dado que o usuário escolha um imóvel no menu
+    Então o bot deverá responder com uma mensagem e solicitar o número de celular
+    Dado que o usuário informe um número faltando digitos
+    Então o bot deverá exibir a mensagem de confusão
+
+CT08:Pesquisa de imóveis por cidade vários imóveis| telefone faltando números
+    Marco Zero | Ramificação ainda não é cliente
+    Dado que o usuário escolha "Imóveis Residenciais" no menu
+    Então o bot deve mostrar o menu de estados em ordem alfabetica
+    Dado que o usuário escolha "SP" no menu
+    Então o bot deve exibir a mensagem "Agora escolha a cidade"
+    Dado que o usuário escolha "Taubaté" no menu
+    Então o bot deverá responder com a mensagem de imóveis disponíveis
+    Dado que o usuário escolha um imóvel no menu
+    Então o bot deverá responder com uma mensagem e solicitar o número de celular
+    Dado que o usuário informe um número com letras
+    Então o bot deverá exibir a mensagem de confusão
