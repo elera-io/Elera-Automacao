@@ -6,11 +6,8 @@ Library    String
 Resource    ./Marco_Zero/keywords.robot
 
 *** Keywords ***
-Abrir navegador
-    Open Browser    ${BASE_URL}    ${BROWSER}
-
 Abrir Whatsapp
-    Open Browser    ${URL_WHATS}    ${BROWSER}
+    Open Browser    ${BASE_URL}    ${BROWSER}
 
 Iniciar conversa
     Abrir Whatsapp
