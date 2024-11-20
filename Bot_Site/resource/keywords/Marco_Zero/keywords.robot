@@ -9,7 +9,7 @@ Dado que o usuário clique no ícone de chat
     Sleep    2s
 
 Então o bot apresenta as mensagens de boas vindas e política de privacidade
-    Sleep    2s
+    Sleep    5s
     Wait Until Element Is Visible    ${MESSAGES_XPATH}    15s
     ${MESSAGES_LIST}    Get WebElements    ${MESSAGES_XPATH}
 
