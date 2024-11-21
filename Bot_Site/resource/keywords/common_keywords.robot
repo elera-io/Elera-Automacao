@@ -81,3 +81,22 @@ Clique no botão
 
     Run Keyword If    '${BOTAO_EXISTE}' == 'False'    Fail    Botão ${BOTAO} não foi encontrado
     Sleep    3s
+
+Validar ultimas mensagens
+    [Arguments]    @{MENSAGENS_ESPERADAS}
+    ${MENSAGENS}    Get WebElements    ${MESSAGES_XPATH}
+    ${MENSAGENS_LENGTH}    Get Length    ${MENSAGENS}
+    ${QTD_MENSAGENS}    Get Length    ${MENSAGENS_ESPERADAS}
+    ${MENSAGENS_LENGTH}    Evaluate    ${MENSAGENS_LENGTH} - 1
+    ${ULTIMAS_TRES_MENSAGENS_INDEX}    Evaluate    ${MENSAGENS_LENGTH} - ${QTD_MENSAGENS}
+    ${ULTIMAS_TRES_MENSAGENS}    Create List
+
+
+    FOR    ${INDEX}    IN RANGE    ${MENSAGENS_LENGTH}    ${ULTIMAS_TRES_MENSAGENS_INDEX}    -1
+        ${TEXT}    Get Text    ${MENSAGENS}[${INDEX}]
+        ${TEXT}    Remove String    ${TEXT}    \n    ''
+        ${TEXT}    Strip String    ${TEXT}
+        Append To List    ${ULTIMAS_TRES_MENSAGENS}    ${TEXT}
+    END
+
+    Should Be Equal As Strings    ${ULTIMAS_TRES_MENSAGENS}    ${MENSAGENS_ESPERADAS}
