@@ -6,7 +6,7 @@ Library    Collections
 *** Keywords ***
 
 Dado que o usuário escolha "Imóveis Residenciais" no menu
-    Clique no botão    Imóveis Residenciais
+    Clique no item do menu    Imóveis Residenciais
     
 Então o bot deve mostrar o menu de estados em ordem alfabetica
     ${MENSAGEM_ESPERADA}    Set Variable    
@@ -36,7 +36,7 @@ Então o bot deve mostrar o menu de estados em ordem alfabetica
 
 
 Dado que o usuário escolha "SP" no menu
-    Clique no botão    SP
+    Clique no item do menu    SP
 
 Então o bot deve exibir a mensagem "Agora escolha a cidade"
     Sleep    2
@@ -45,7 +45,7 @@ Então o bot deve exibir a mensagem "Agora escolha a cidade"
     Should Be Equal    ${ULTIMA_MENSAGEM}    Agora escolha a cidade.
 
 Dado que o usuário escolha "Taubaté" no menu
-    Clique no botão    Taubaté
+    Clique no item do menu    Taubaté
 
 Então o bot deverá responder com a mensagem de imóveis disponíveis
     Sleep    5
@@ -63,7 +63,7 @@ Então o bot deverá responder com a mensagem de imóveis disponíveis
     Should Be Equal As Strings    ${ULTIMAS_TRES_MENSAGENS}    ${MENSAGEM_ESPERADA_IMOVEIS}
 
 Dado que o usuário escolha um imóvel no menu
-    Clique no botão    Mirante das Flores
+    Clique no item do menu    Mirante das Flores
 
 Então o bot deverá responder com uma mensagem e solicitar o número de celular
     Sleep    5
