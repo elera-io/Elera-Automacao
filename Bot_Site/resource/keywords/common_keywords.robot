@@ -60,3 +60,24 @@ Valide os botões
     END
 
     Should Be Equal As Strings    ${BOTOES_CONTENT}    ${CONTEUDO_ESPERADO_BOTOES}
+
+Clique no botão
+    Sleep    5s
+    [Arguments]    ${BOTAO}
+    ${BOTOES}    Get WebElements    ${BOTOES_XPATH}
+    ${BOTOES_LENGHT}    Get Length    ${BOTOES}
+    ${BOTAO_EXISTE}    Set Variable    False
+
+    FOR  ${INDEX}  IN RANGE    0    ${BOTOES_LENGHT}
+        ${BOTOES_CONTENT}    Get Text    ${BOTOES}[${INDEX}]
+
+        IF    '${BOTOES_CONTENT}' == '${BOTAO}'
+            Click Element    ${BOTOES}[${INDEX}]
+            ${BOTAO_EXISTE}    Set Variable    True
+            BREAK
+        END
+
+    END
+
+    Run Keyword If    '${BOTAO_EXISTE}' == 'False'    Fail    Botão ${BOTAO} não foi encontrado
+    Sleep    3s
