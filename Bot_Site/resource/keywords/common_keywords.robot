@@ -47,3 +47,16 @@ Clique no item do menu
 
     Run Keyword If    '${BOTAO_EXISTE}' == 'False'    Fail    Item ${BOTAO} não foi encontrado
     Sleep    3s
+
+Valide os botões
+    [Arguments]     @{CONTEUDO_ESPERADO_BOTOES}
+    ${BOTOES}    Get WebElements    ${BOTOES_XPATH}
+    ${BOTOES_LENGHT}    Get Length    ${BOTOES}
+    ${BOTOES_CONTENT}    Create List
+
+    FOR  ${INDEX}    IN RANGE    ${BOTOES_LENGHT}
+        ${TEXT}    Get Text    ${BOTOES}[${INDEX}]
+        Append To List    ${BOTOES_CONTENT}    ${TEXT}
+    END
+
+    Should Be Equal As Strings    ${BOTOES_CONTENT}    ${CONTEUDO_ESPERADO_BOTOES}
