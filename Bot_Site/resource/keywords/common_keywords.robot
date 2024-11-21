@@ -4,6 +4,8 @@ Resource    ../locator/locator.robot
 Library    String
 Resource    ../variables/common_variables.robot
 Resource    ../variables/Marco_Zero/variables.robot
+Resource    ../keywords/Imoveis_Residenciais/keywords.robot
+Library    Collections
 
 *** Keywords ***
 Abrir navegador
@@ -15,6 +17,7 @@ Efetuar Login
 
 Clicar no chat
     Sleep    5s
+    Wait Until Element Is Visible    ${CHAT}    5s
     Click Element    ${CHAT}
     Sleep    15s
 
@@ -26,7 +29,7 @@ Preencher campos
     Sleep    1s
     Click Button    ${LOGIN_BUTTON}
 
-Clique no botão
+Clique no item do menu
     Sleep    5s
     [Arguments]    ${BOTAO}
     ${ITENS_MENU}    Get WebElements    ${MENU_ITENS_XPATH}
@@ -42,5 +45,5 @@ Clique no botão
 
     END
 
-    Run Keyword If    '${BOTAO_EXISTE}' == 'False'    Fail    Botão de ${BOTAO} não foi encontrado
+    Run Keyword If    '${BOTAO_EXISTE}' == 'False'    Fail    Item ${BOTAO} não foi encontrado
     Sleep    3s
