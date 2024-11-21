@@ -5,6 +5,7 @@ Library    String
 Resource    ../variables/common_variables.robot
 Resource    ../variables/Marco_Zero/variables.robot
 Resource    ../keywords/Imoveis_Residenciais/keywords.robot
+Resource    ../keywords/Marco_Zero/keywords.robot
 Library    Collections
 
 *** Keywords ***
@@ -129,3 +130,14 @@ Validar ultimas mensagens
     END
 
     Should Be Equal As Strings    ${ULTIMAS_TRES_MENSAGENS}    ${MENSAGENS_ESPERADAS}
+
+Marco Zero | Ramificação ainda não é cliente 
+    Dado que o usuário clique no ícone de chat
+    Então o bot apresenta as mensagens de boas vindas e política de privacidade
+    Quando o usuário clica no botão Concordo
+    Então o bot solicita o nome completo
+    Dado que o usuário preencha o seu nome completo
+    Então o bot deve perguntar se o usuário já é um cliente
+    E exibir os botões "Sim, sou" e "Ainda não"
+    Dado que o usuário clique no botão "Ainda não"
+    Então o bot deve apresentar uma mensagem e exibir o menu
