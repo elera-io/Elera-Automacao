@@ -180,3 +180,7 @@ Então o bot deve enviar a mensagem de encerramento
     ${TEXT}    Remove String    ${TEXT}    \s+    ""
     ${TEXT}    Remove String    ${TEXT}    \n    ""
     Should Be Equal    ${TEXT}    Obrigada por entrar em contato com a gente! Estamos por aqui sempre que precisar!Quero te convidar também a nos acompanhar pelo Instagram Um abraço da Pam ❤️
+
+Dado que o usuário envie seu nome como "João Pedro Silva"
+    Sleep    3s
+    Enviar mensagem    ${NOME_JOAO}

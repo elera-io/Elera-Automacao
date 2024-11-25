@@ -11,3 +11,4 @@ ${MENU_ITENS_XPATH}    xpath=//button[contains(@class,'rich-menu-item')]
 ...    Ao seguir com o atendimento, você está concordando com a nossa Política de privacidade. Se estiver de acordo, é só clicar em "concordo".
 ...    Infelizmente, sem o seu aceite ao termo não posso continuar com o atendimento por aqui. 😕
 ...    Mas, você ainda pode ligar para a nossa Central de Relacionamento, pelo número 0800 730 2020, ou me chamar novamente dando o aceite ao termo, combinado? Um abraço da Pam ❤️
+${NOME_JOAO}    João Pedro Silva

@@ -49,37 +49,14 @@ Dado que o usuário escolha "Taubaté" no menu
 
 Então o bot deverá responder com a mensagem de imóveis disponíveis
     Sleep    5
-    ${MENSAGENS}    Get WebElements    ${MESSAGES_XPATH}
-    ${MENSAGENS_LENGTH}    Get Length    ${MENSAGENS}
-    ${MENSAGENS_LENGTH}    Evaluate    ${MENSAGENS_LENGTH} - 1
-    ${ULTIMAS_TRES_MENSAGENS_INDEX}    Evaluate    ${MENSAGENS_LENGTH} - 3
-    ${ULTIMAS_TRES_MENSAGENS}    Create List
-
-    FOR    ${INDEX}    IN RANGE    ${MENSAGENS_LENGTH}    ${ULTIMAS_TRES_MENSAGENS_INDEX}    -1
-        ${TEXT}    Get Text    ${MENSAGENS}[${INDEX}]
-        Append To List    ${ULTIMAS_TRES_MENSAGENS}    ${TEXT}
-    END
-
-    Should Be Equal As Strings    ${ULTIMAS_TRES_MENSAGENS}    ${MENSAGEM_ESPERADA_IMOVEIS}
+    Validar ultimas mensagens    @{MENSAGEM_ESPERADA_IMOVEIS}
 
 Dado que o usuário escolha um imóvel no menu
     Clique no item do menu    Mirante das Flores
 
 Então o bot deverá responder com uma mensagem e solicitar o número de celular
     Sleep    5
-    ${MENSAGENS}    Get WebElements    ${MESSAGES_XPATH}
-    ${MENSAGENS_LENGTH}    Get Length    ${MENSAGENS}
-    ${MENSAGENS_LENGTH}    Evaluate    ${MENSAGENS_LENGTH} - 1
-    ${ULTIMAS_DUAS_MENSAGENS_INDEX}    Evaluate    ${MENSAGENS_LENGTH} - 2
-    ${ULTIMAS_DUAS_MENSAGENS}    Create List
-
-    FOR    ${INDEX}    IN RANGE    ${MENSAGENS_LENGTH}    ${ULTIMAS_DUAS_MENSAGENS_INDEX}    -1
-        ${TEXT}    Get Text    ${MENSAGENS}[${INDEX}]
-        ${TEXT}    Remove String    ${TEXT}    \n    ""
-        Append To List    ${ULTIMAS_DUAS_MENSAGENS}    ${TEXT}
-    END
-
-    Should Be Equal As Strings    ${ULTIMAS_DUAS_MENSAGENS}    ${MENSAGEM_IMOVEL}
+    Validar ultimas mensagens    @{MENSAGEM_IMOVEL}
 
 Dado que o usuário informe seu número
     Enviar mensagem    ${CELULAR}   
