@@ -181,6 +181,23 @@ Então o bot deve enviar a mensagem de encerramento
     ${TEXT}    Remove String    ${TEXT}    \n    ""
     Should Be Equal    ${TEXT}    Obrigada por entrar em contato com a gente! Estamos por aqui sempre que precisar!Quero te convidar também a nos acompanhar pelo Instagram Um abraço da Pam ❤️
 
-Dado que o usuário envie seu nome como "João Pedro Silva"
-    Sleep    3s
-    Enviar mensagem    ${NOME_JOAO}
+Redefinir nome padrão
+    [Documentation]    Aqui o nome é redefinido para utilizar o nome necessario no teste
+    [Arguments]    ${NOVO_NOME}
+    Set Global Variable    ${NOME_COMPLETO}    ${NOVO_NOME}
+
+Definir nome como João Pedro
+    Redefinir nome padrão    João Pedro
+
+Definir nome como Amanda Pompéia
+    Redefinir nome padrão    Amanda Pompéia
+
+
+Definir nome como João Pedro Santos
+    Redefinir nome padrão    João Pedro Santos
+
+Definir nome como icaro Bezerra
+    Redefinir nome padrão    icaro Bezerra
+    
+Redefinir nome Para Teste Elera
+    Redefinir nome padrão    Teste Elera
