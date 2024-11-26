@@ -135,8 +135,9 @@ Marco Zero | Ramificação ainda não é cliente
     Dado que o usuário clique no ícone de chat
     Então o bot apresenta as mensagens de boas vindas e política de privacidade
     Quando o usuário clica no botão Concordo
-    Então o bot solicita o nome completo
-    Dado que o usuário preencha o seu nome completo
+    Então o bot solicita o primeiro nome    
+    Dado que o usuário preencha o seu primeiro nome
+    Então o bot solicita o sobrenome
     Então o bot deve perguntar se o usuário já é um cliente
     E exibir os botões "Sim, sou" e "Ainda não"
     Dado que o usuário clique no botão "Ainda não"
