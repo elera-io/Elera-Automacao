@@ -39,7 +39,7 @@ Então o bot solicita o primeiro nome
 
 Dado que o usuário preencha o seu primeiro nome
     Sleep    3s
-    Wait Until Element Is Visible    ${CHAT_INPUT}    2s
+    Wait Until Element Is Visible    ${CHAT_INPUT}    3s
     Input Text    ${CHAT_INPUT}    ${PRIMEIRO_NOME} 
     Press Keys    ${CHAT_INPUT}    ENTER
 
@@ -88,23 +88,21 @@ Dado que o usuário clique no botão "Sim, sou"
 Então o bot deve apresentar uma mensagem e exibir o menu
     Sleep    10s
     Wait Until Element Is Visible    ${MESSAGES_XPATH}    15s
-    ${MESSAGES_LIST}    Get WebElements    ${MESSAGES_XPATH}
+    Validar ultimas mensagens    Certo, ${PRIMEIRO_NOME}! Sobre o que gostaria de conversar? 🥰
+    Validar itens no menu     Imóveis Residenciais    Seja um parceiro imobiliário    Outros
+    
+Então o bot deve apresentar uma mensagem e exibir o menu de estados
+    Sleep    5s
+    Wait Until Element Is Visible    ${MESSAGES_XPATH}    15s
+    Validar ultimas mensagens    Legal! De qual estado gostaria de conhecer nossos imóveis, por favor? 😊
+    @{ESTADOS_ESPERADOS}    Set Variable    BA    MG     MT    PR    SP    ZZ
 
-    ${TEXT}    Get Text    ${MESSAGES_LIST}[-1]
-    ${TEXT}    Strip String    ${TEXT}
-    ${TEXT}    Remove String    ${TEXT}    \s+    ""
-    Log To Console    ESPERADO: E sobrenome?
-    Log To Console    RESULTADO: ${TEXT}
-    Should Be Equal    ${TEXT}    Certo, ${PRIMEIRO_NOME}! Sobre o que gostaria de conversar? 🥰
-
-    @{CONTEUDOS_ESPERADOS_ITENS}    Set Variable    Imóveis Residenciais    Seja um parceiro imobiliário    Outros
+Dado que o usuário clique em "ZZ" no menu de estados
     ${MENU_ITENS}    Get WebElements    ${MENU_ITENS_XPATH}
-    
-    FOR  ${INDEX}  IN RANGE    3
-        ${CONTEUDO_ITEM}    Get Text    ${MENU_ITENS}[${INDEX}]
-        Should Be Equal    ${CONTEUDOS_ESPERADOS_ITENS}[${INDEX}]    ${CONTEUDO_ITEM}
-    END
-    
+    Clique no item do menu    ZZ
+    Sleep    2s
+Dado que o usuário clique em "Imóveis Residenciais" no menu
+    Clique no item do menu    Imóveis Residenciais
 Então o bot deve mostrar as mensagens de encerramento
     Sleep    5s
     Wait Until Element Is Visible    ${MESSAGES_XPATH}    10s
@@ -213,3 +211,26 @@ Redefinir email padrão
     [Documentation]    Aqui o nome é redefinido para utilizar o telefone necessario no teste
     [Arguments]    ${NOVO_EMAIL}
     Set Global Variable    ${EMAIL}    ${NOVO_EMAIL}
+
+Então o bot deve apresentar uma mensagem e exibir o menu de cidades
+    Sleep    5s
+    Wait Until Element Is Visible    ${MESSAGES_XPATH}    15s
+    Validar ultimas mensagens   Agora escolha a cidade.
+    Valida presença do botão voltar no menu
+
+Validar Ocultação de Cidades
+    [Arguments]    ${STATUS ESPERADO}    ${MENU_ITENS_XPATH}
+    ${MENU_ITENS}    Get WebElements    ${MENU_ITENS_XPATH}
+    ${CIDADES_EXIBIDAS}    Create List
+
+    FOR    ${ITEM}    IN    @{MENU_ITENS}
+        ${texto_item}    Get Text    ${ITEM}
+        Append To List    ${CIDADES_EXIBIDAS}    ${texto_item}
+    END
+
+    Log    Cidades exibidas no menu: ${CIDADES_EXIBIDAS}
+
+    # Verifica se nenhuma cidade com o status esperado está visível
+    FOR    ${cidade}    IN    ${status_esperado}
+        Should Not Contain    ${CIDADES_EXIBIDAS}    ${cidade}
+    END

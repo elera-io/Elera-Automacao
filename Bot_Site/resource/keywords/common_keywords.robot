@@ -100,6 +100,40 @@ Clique no item do menu
     Run Keyword If    '${BOTAO_EXISTE}' == 'False'    Fail    Item ${BOTAO} não foi encontrado
     Sleep    3s
 
+
+Validar itens no menu
+    Sleep    5s
+    [Arguments]    @{ITENS_ESPERADOS}
+    ${ITENS_MENU}    Get WebElements    ${MENU_ITENS_XPATH}
+    ${ITENS_LENGHT}    Get Length    ${ITENS_MENU}
+    ${ITENS_ESPERADOS_LENGTH}    Get Length    ${ITENS_ESPERADOS}
+    IF  ${ITENS_LENGHT} != ${ITENS_ESPERADOS_LENGTH}
+        Fail    Quantidade de itens no menu diferente do esperado
+    END
+
+    FOR  ${INDEX}  IN RANGE    0    ${ITENS_LENGHT}
+        ${MENU_CONTENT}    Get Text    ${ITENS_MENU}[${INDEX}]
+        Should Be Equal    ${MENU_CONTENT}    ${ITENS_ESPERADOS}[${INDEX}]
+    END
+
+Valida presença do botão voltar no menu
+    Sleep    5s
+    ${ITENS_MENU}    Get WebElements    ${MENU_ITENS_XPATH}
+    ${ITENS_LENGHT}    Get Length    ${ITENS_MENU}
+    ${BOTAO_EXISTE}    Set Variable    False
+
+    FOR  ${INDEX}  IN RANGE    0    ${ITENS_LENGHT}
+        ${MENU_CONTENT}    Get Text    ${ITENS_MENU}[${INDEX}]
+
+        IF    '${MENU_CONTENT}' == 'Voltar'
+            ${BOTAO_EXISTE}    Set Variable    True
+            BREAK
+        END
+
+    END
+
+    Run Keyword If    '${BOTAO_EXISTE}' == 'False'    Fail    Botão Voltar não foi encontrado
+    Sleep    3s
 Valide os botões
     [Arguments]     @{CONTEUDO_ESPERADO_BOTOES}
     ${BOTOES}    Get WebElements    ${BOTOES_XPATH}

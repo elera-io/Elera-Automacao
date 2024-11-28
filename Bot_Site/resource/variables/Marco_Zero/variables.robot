@@ -7,6 +7,18 @@ ${MESSAGES_XPATH}    xpath=//div[contains(@class,'agent') and contains(@class,'c
 ${PRIMEIRO_NOME}    Teste
 ${SOBRENOME}    Elera
 ${NOME_COMPLETO}    ${PRIMEIRO_NOME} ${SOBRENOME}
+
+# Cidades com imóveis apenas em status que não devem aparecer
+${STATUS_REPASSADO}    Barro Alto (Repassado)
+${STATUS_RESERVADO}    São Vicente do Sul (Reservado)
+${STATUS_EM_DISTRATO}    Serra Dourada (Em Distrato)
+${STATUS_EM_CESSAO}    Ribeirão do Norte (Em Cessão)
+${STATUS_EM_ASSINATURA}    Porto Esperança (Em Assinatura)
+${STATUS_BLOQUEADO}    Cachoeira das Pedras (Bloqueado)
+${STATUS_ASSINADO}    Morro Verde (Assinado)
+
+
+
 ${CHAT_INPUT}    xpath=//textarea[contains(@class,'textarea') and contains(@class, 'uiInput')]
 ${MENU_ITENS_XPATH}    xpath=//button[contains(@class,'rich-menu-item')]
 @{EXPECTED_MESSAGES}    Olá! Tudo bem? Sou a Pam, Atendente Virtual da Pacaembu, especialista no desenvolvimento de bairros planejados. 🏠Tô muito feliz em falar com você!
