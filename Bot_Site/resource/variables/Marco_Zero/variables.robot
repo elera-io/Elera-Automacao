@@ -4,7 +4,9 @@ Resource    ../../../resource/keywords/common_keywords.robot
 *** Variables ***
 ${BOTOES_XPATH}    xpath=//span[contains(@class,'bBody') and contains(@class,'label')]
 ${MESSAGES_XPATH}    xpath=//div[contains(@class,'agent') and contains(@class,'chatMessage')]
-${NOME_COMPLETO}    Teste Elera
+${PRIMEIRO_NOME}    Teste
+${SOBRENOME}    Elera
+${NOME_COMPLETO}    ${PRIMEIRO_NOME} ${SOBRENOME}
 ${CHAT_INPUT}    xpath=//textarea[contains(@class,'textarea') and contains(@class, 'uiInput')]
 ${MENU_ITENS_XPATH}    xpath=//button[contains(@class,'rich-menu-item')]
 @{EXPECTED_MESSAGES}    Olá! Tudo bem? Sou a Pam, Atendente Virtual da Pacaembu, especialista no desenvolvimento de bairros planejados. 🏠Tô muito feliz em falar com você!

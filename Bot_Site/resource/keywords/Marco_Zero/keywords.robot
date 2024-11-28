@@ -9,7 +9,7 @@ Dado que o usuário clique no ícone de chat
     Sleep    2s
 
 Então o bot apresenta as mensagens de boas vindas e política de privacidade
-    Sleep    5s
+    Sleep    10s
     Wait Until Element Is Visible    ${MESSAGES_XPATH}    15s
     ${MESSAGES_LIST}    Get WebElements    ${MESSAGES_XPATH}
 
@@ -33,37 +33,33 @@ Quando o usuário clica no botão Não Concordo
     Click Element    ${BOTOES_ACEITAR_POLITICA}[1]
 
 
-Então o bot solicita o nome completo
+Então o bot solicita o primeiro nome
     Sleep    3s
-    Wait Until Element Is Visible    ${MESSAGES_XPATH}    10s
-    ${MESSAGES_LIST}    Get WebElements    ${MESSAGES_XPATH}
-
-    FOR  ${INDEX}    IN RANGE    2    3
-        ${TEXT}    Get Text    ${MESSAGES_LIST}[${INDEX}]
-        ${TEXT}    Strip String    ${TEXT}
-        ${TEXT}    Remove String    ${TEXT}    \s+    ""
-        Should Be Equal    ${TEXT}    Para começarmos, qual o seu nome completo?
-    END
+    Validar ultimas mensagens    Para começarmos, qual seu primeiro nome? 
 
 
-Dado que o usuário preencha o seu nome completo
+Dado que o usuário preencha o seu primeiro nome
     Sleep    3s
     Wait Until Element Is Visible    ${CHAT_INPUT}    2s
-    Input Text    ${CHAT_INPUT}    ${NOME_COMPLETO} 
+    Input Text    ${CHAT_INPUT}    ${PRIMEIRO_NOME} 
+    Press Keys    ${CHAT_INPUT}    ENTER
+
+
+Então o bot solicita o sobrenome
+    Sleep    3s
+    Validar ultimas mensagens    E sobrenome?
+
+Dado que o usuário preencha o seu sobrenome
+    Sleep    3s
+    Wait Until Element Is Visible    ${CHAT_INPUT}    2s
+    Input Text    ${CHAT_INPUT}    ${SOBRENOME} 
     Press Keys    ${CHAT_INPUT}    ENTER
 
 
 Então o bot deve perguntar se o usuário já é um cliente
     Sleep    5s
     Wait Until Element Is Visible    ${MESSAGES_XPATH}    15s
-    ${MESSAGES_LIST}    Get WebElements    ${MESSAGES_XPATH}
-
-    FOR  ${INDEX}    IN RANGE    3    4
-        ${TEXT}    Get Text    ${MESSAGES_LIST}[${INDEX}]
-        ${TEXT}    Strip String    ${TEXT}
-        ${TEXT}    Remove String    ${TEXT}    \s+    ""
-        Should Be Equal    ${TEXT}    ${NOME_COMPLETO}, agora me diz se você já é cliente Pacaembu, por favor.
-    END
+    Validar ultimas mensagens    ${PRIMEIRO_NOME}, agora me diz se você já é cliente Pacaembu, por favor.
 
 E exibir os botões "Sim, sou" e "Ainda não"
     Sleep    5s
@@ -183,21 +179,22 @@ Então o bot deve enviar a mensagem de encerramento
 
 Redefinir nome padrão
     [Documentation]    Aqui o nome é redefinido para utilizar o nome necessario no teste
-    [Arguments]    ${NOVO_NOME}
-    Set Global Variable    ${NOME_COMPLETO}    ${NOVO_NOME}
+    [Arguments]    ${NOVO_NOME}   ${NOVOSGND_NOME}
+    Set Global Variable    ${PRIMEIRO_NOME}    ${NOVO_NOME}
+    Set Global Variable    ${SOBRENOME}    ${NOVOSGND_NOME}
 
 Definir nome como João Pedro
-    Redefinir nome padrão    João Pedro
+    Redefinir nome padrão    João    Pedro 
 
 Definir nome como Amanda Pompéia
-    Redefinir nome padrão    Amanda Pompéia
+    Redefinir nome padrão    Amanda     Pompéia
 
 
 Definir nome como João Pedro Santos
-    Redefinir nome padrão    João Pedro Santos
+    Redefinir nome padrão    João Pedro     Santos
 
 Definir nome como icaro Bezerra
-    Redefinir nome padrão    icaro Bezerra
+    Redefinir nome padrão    icaro     Bezerra
     
 Redefinir nome Para Teste Elera
-    Redefinir nome padrão    Teste Elera
+    Redefinir nome padrão    Teste     Elera
