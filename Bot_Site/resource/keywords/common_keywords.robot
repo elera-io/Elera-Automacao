@@ -18,6 +18,8 @@ Efetuar Login
 
 Clicar no chat
     Sleep    10s
+    Sleep    5s
+    Wait Until Element Is Visible    ${CHAT}    5s
     Click Element    ${CHAT}
     Sleep    15s
 
@@ -79,7 +81,7 @@ Dado que, o usuário continue a conversa
     ${TEXT}    Get Text    ${MESSAGES_LIST}[${LENGTH}]
     Should Be Equal    ${TEXT}    ${MESSAGE}
 
-Clique no botão
+Clique no item do menu
     Sleep    5s
     [Arguments]    ${BOTAO}
     ${ITENS_MENU}    Get WebElements    ${MENU_ITENS_XPATH}
@@ -95,9 +97,22 @@ Clique no botão
 
     END
 
-    Run Keyword If    '${BOTAO_EXISTE}' == 'False'    Fail    Botão de ${BOTAO} não foi encontrado
+    Run Keyword If    '${BOTAO_EXISTE}' == 'False'    Fail    Item ${BOTAO} não foi encontrado
     Sleep    3s
-    
+
+Valide os botões
+    [Arguments]     @{CONTEUDO_ESPERADO_BOTOES}
+    ${BOTOES}    Get WebElements    ${BOTOES_XPATH}
+    ${BOTOES_LENGHT}    Get Length    ${BOTOES}
+    ${BOTOES_CONTENT}    Create List
+
+    FOR  ${INDEX}    IN RANGE    ${BOTOES_LENGHT}
+        ${TEXT}    Get Text    ${BOTOES}[${INDEX}]
+        Append To List    ${BOTOES_CONTENT}    ${TEXT}
+    END
+
+    Should Be Equal As Strings    ${BOTOES_CONTENT}    ${CONTEUDO_ESPERADO_BOTOES}
+
 Validar ultimas mensagens
     [Arguments]    @{MENSAGENS_ESPERADAS}
     ${MENSAGENS}    Get WebElements    ${MESSAGES_XPATH}
