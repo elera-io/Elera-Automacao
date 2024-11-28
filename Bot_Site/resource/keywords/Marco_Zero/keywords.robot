@@ -37,24 +37,29 @@ Então o bot solicita o primeiro nome
     Sleep    3s
     Validar ultimas mensagens    Para começarmos, qual seu primeiro nome? 
 
-
 Dado que o usuário preencha o seu primeiro nome
     Sleep    3s
     Wait Until Element Is Visible    ${CHAT_INPUT}    3s
     Input Text    ${CHAT_INPUT}    ${PRIMEIRO_NOME} 
     Press Keys    ${CHAT_INPUT}    ENTER
 
-
 Então o bot solicita o sobrenome
     Sleep    3s
-    Validar ultimas mensagens    E sobrenome?
+    Wait Until Element Is Visible    ${MESSAGES_XPATH}    10s
+    ${MESSAGES_LIST}    Get WebElements    ${MESSAGES_XPATH}
+
+    ${TEXT}    Get Text    ${MESSAGES_LIST}[-1]
+    ${TEXT}    Strip String    ${TEXT}
+    ${TEXT}    Remove String    ${TEXT}    \s+    ""
+    Log To Console    ESPERADO: E sobrenome?
+    Log To Console    RESULTADO: ${TEXT}
+    Should Be Equal    ${TEXT}    E sobrenome?
 
 Dado que o usuário preencha o seu sobrenome
     Sleep    3s
     Wait Until Element Is Visible    ${CHAT_INPUT}    2s
     Input Text    ${CHAT_INPUT}    ${SOBRENOME} 
     Press Keys    ${CHAT_INPUT}    ENTER
-
 
 Então o bot deve perguntar se o usuário já é um cliente
     Sleep    5s
@@ -181,8 +186,8 @@ Redefinir nome padrão
     Set Global Variable    ${PRIMEIRO_NOME}    ${NOVO_NOME}
     Set Global Variable    ${SOBRENOME}    ${NOVOSGND_NOME}
 
-Definir nome como João Pedro
-    Redefinir nome padrão    João    Pedro 
+Definir nome como João Pedro Silva
+    Redefinir nome padrão    João    Pedro Silva
 
 Definir nome como Amanda Pompéia
     Redefinir nome padrão    Amanda     Pompéia

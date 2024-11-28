@@ -7,6 +7,13 @@ Library    Collections
 
 Dado que o usuário escolha "Imóveis Residenciais" no menu
     Clique no item do menu    Imóveis Residenciais
+
+Dado que, o usuário escolhe horário da tarde
+    Sleep    20
+    ${BOTOES_PERIODO}    Get WebElements    ${BOTOES_XPATH}
+    ${LENGTH}    Get Length    ${BOTOES_PERIODO}
+    Log To Console    LENGTH=${LENGTH}
+    Click Element    ${BOTOES_PERIODO}[-3]
     
 Então o bot deve mostrar o menu de estados em ordem alfabetica
     ${MENSAGEM_ESPERADA}    Set Variable    
@@ -55,6 +62,8 @@ Então o bot deverá responder com a mensagem de imóveis disponíveis
     ${ULTIMAS_TRES_MENSAGENS_INDEX}    Evaluate    ${MENSAGENS_LENGTH} - 3
     ${ULTIMAS_TRES_MENSAGENS}    Create List
 
+    @{MENSAGEM_ESPERADA_IMOVEIS}    Create List    Selecione qual deles deseja conhecer, por favor.    Na cidade que selecionou temos esse (s) imóvel (is) aqui, ${PRIMEIRO_NOME}. 👇    A Pacaembu está presente em mais de 50 cidades, mas cada uma delas é única pra gente!
+
     FOR    ${INDEX}    IN RANGE    ${MENSAGENS_LENGTH}    ${ULTIMAS_TRES_MENSAGENS_INDEX}    -1
         ${TEXT}    Get Text    ${MENSAGENS}[${INDEX}]
         Append To List    ${ULTIMAS_TRES_MENSAGENS}    ${TEXT}
@@ -81,6 +90,27 @@ Então o bot deverá responder com uma mensagem e solicitar o número de celular
 
     Should Be Equal As Strings    ${ULTIMAS_DUAS_MENSAGENS}    ${MENSAGEM_IMOVEL}
 
+Dado que, o usuário não valide a presença
+    Sleep    10
+    ${BOTOES_PERIODO}    Get WebElements    ${BOTOES_XPATH}
+    ${LENGTH}    Get Length    ${BOTOES_PERIODO}
+    Log To Console    LENGTH=${LENGTH}
+    Click Element    ${BOTOES_PERIODO}[-1]
+
+Então o bot encerra a conversa
+    Sleep    6s
+    ${MENSAGENS}    Get WebElements    ${MESSAGES_XPATH}
+    ${ULTIMA_MENSAGEM}    Get Text    ${MENSAGENS}[-1]
+    ${ULTIMA_MENSAGEM}    Strip String    ${ULTIMA_MENSAGEM}
+    ${EXPECTED}    Set Variable    Obrigada por entrar em contato com a gente. Estamos por aqui sempre que precisar!${\n}${\n}Quero te convidar também a nos acompanhar pelo Instagram. Um abraço da Pam ❤️
+    
+    ${REPR_ULTIMA}=    Evaluate    repr("""${ULTIMA_MENSAGEM}""")
+    ${REPR_EXPECTED}=    Evaluate    repr("""${EXPECTED}""")
+    Log To Console    RESULTADO=${\n}${REPR_ULTIMA}${\n}
+    Log To Console    ESPERADO=${\n}${REPR_EXPECTED}${\n}
+
+    Should Be Equal    ${REPR_ULTIMA}    ${REPR_EXPECTED}
+
 Dado que o usuário informe seu número
     Enviar mensagem    ${CELULAR}   
 
@@ -89,6 +119,23 @@ Então o bot deverá solicitar seu email
     ${MENSAGENS}    Get WebElements    ${MESSAGES_XPATH}
     ${ULTIMA_MENSAGEM}    Get Text    ${MENSAGENS}[-1]
     Should Be Equal    ${ULTIMA_MENSAGEM}    Insira seu e-mail:
+
+Então o bot identifique o lead novo
+    Sleep    5
+    ${MENSAGENS}    Get WebElements    ${MESSAGES_XPATH}
+    ${MENSAGENS_LENGTH}    Get Length    ${MENSAGENS}
+    ${MENSAGENS_LENGTH}    Evaluate    ${MENSAGENS_LENGTH} - 1
+    ${ULTIMAS_TRES_MENSAGENS_INDEX}    Evaluate    ${MENSAGENS_LENGTH} - 3
+    ${ULTIMAS_TRES_MENSAGENS}    Create List
+    @{EXPECTED}    Create List    FNAME, vi que você falou com a gente recentemente.    Vou pedir para que o corretor que te acompanhou siga com o seu atendimento, tá bem?    FNAME, preciso apenas de mais uma informação, por favor. 🥰
+
+    FOR    ${INDEX}    IN RANGE    ${MENSAGENS_LENGTH}    ${ULTIMAS_TRES_MENSAGENS_INDEX}    -1
+        ${TEXT}    Get Text    ${MENSAGENS}[${INDEX}]
+        ${TEXT}    Remove String    ${TEXT}    \n    ""
+        Append To List    ${ULTIMAS_TRES_MENSAGENS}    ${TEXT}
+    END
+
+    Should Be Equal As Strings    ${ULTIMAS_TRES_MENSAGENS}    ${EXPECTED}
 
 Dado que o usuário informe seu email
     Enviar mensagem    ${EMAIL}
