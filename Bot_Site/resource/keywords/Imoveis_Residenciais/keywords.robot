@@ -12,7 +12,6 @@ Dado que, o usuário escolhe horário da tarde
     Sleep    20
     ${BOTOES_PERIODO}    Get WebElements    ${BOTOES_XPATH}
     ${LENGTH}    Get Length    ${BOTOES_PERIODO}
-    Log To Console    LENGTH=${LENGTH}
     Click Element    ${BOTOES_PERIODO}[-3]
     
 Então o bot deve mostrar o menu de estados em ordem alfabetica
@@ -94,7 +93,6 @@ Dado que, o usuário não valide a presença
     Sleep    10
     ${BOTOES_PERIODO}    Get WebElements    ${BOTOES_XPATH}
     ${LENGTH}    Get Length    ${BOTOES_PERIODO}
-    Log To Console    LENGTH=${LENGTH}
     Click Element    ${BOTOES_PERIODO}[-1]
 
 Então o bot encerra a conversa
@@ -170,3 +168,44 @@ Enviar mensagem
     [Arguments]    ${MENSAGEM}
     Input Text    ${CHAT_INPUT}    ${MENSAGEM} 
     Press Keys    ${CHAT_INPUT}    ENTER
+
+Dado que, o usuário selecione nos próximos 12 meses
+    Sleep    10
+    ${BOTOES_PERIODO}    Get WebElements    ${BOTOES_XPATH}
+    ${LENGTH}    Get Length    ${BOTOES_PERIODO}
+    Click Element    ${BOTOES_PERIODO}[-2]
+
+Dado que, o usuário selecione Investir
+    ${BOTOES_PERIODO}    Get WebElements    ${BOTOES_XPATH}
+    ${LENGTH}    Get Length    ${BOTOES_PERIODO}
+    Click Element    ${BOTOES_PERIODO}[-1]
+
+Dado que, o usuário concorde que trabalha
+    ${BOTOES_PERIODO}    Get WebElements    ${BOTOES_XPATH}
+    ${LENGTH}    Get Length    ${BOTOES_PERIODO}
+    Click Element    ${BOTOES_PERIODO}[-2]
+
+Dado que, o usuário selecione CLT
+    ${BOTOES_PERIODO}    Get WebElements    ${BOTOES_XPATH}
+    ${LENGTH}    Get Length    ${BOTOES_PERIODO}
+    Click Element    ${BOTOES_PERIODO}[-2]
+
+Dado que, o usuário selecione renda mensal de Até R$2.000
+    ${BOTOES_PERIODO}    Get WebElements    ${BOTOES_XPATH}
+    ${LENGTH}    Get Length    ${BOTOES_PERIODO}
+    Click Element    ${BOTOES_PERIODO}[-4]
+
+Dado que, o usuário não queira Financiamento com o FGTS
+    ${BOTOES_PERIODO}    Get WebElements    ${BOTOES_XPATH}
+    ${LENGTH}    Get Length    ${BOTOES_PERIODO}
+    Click Element    ${BOTOES_PERIODO}[-2]
+
+Dado que, o usuário não tenha Restrição de Crédito
+    ${BOTOES_PERIODO}    Get WebElements    ${BOTOES_XPATH}
+    ${LENGTH}    Get Length    ${BOTOES_PERIODO}
+    Click Element    ${BOTOES_PERIODO}[-2]
+
+Dado que, o usuário queira Receber Contato
+    ${BOTOES_PERIODO}    Get WebElements    ${BOTOES_XPATH}
+    ${LENGTH}    Get Length    ${BOTOES_PERIODO}
+    Click Element    ${BOTOES_PERIODO}[-1]

@@ -67,3 +67,9 @@ TC05: lead criado dentro de 3 meses e com status Convertido
     Dado que, o usuário escolhe horário da tarde
     Dado que, o usuário não valide a presença
     Então o bot encerra a conversa
+
+TC06: lead criado a mais de 3 meses e com status Reavaliação
+    Redefinir telefone padrão    (11) 98765-4123
+    Redefinir email padrão    teste_lead@gmail.com
+    Marco Zero | Ramificação ainda não é cliente | Imóveis Residenciais
+    Sleep    20
