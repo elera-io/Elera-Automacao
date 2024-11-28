@@ -4,6 +4,9 @@ Resource    ../locator/locator.robot
 Library    String
 Resource    ../variables/common_variables.robot
 Resource    ../variables/Marco_Zero/variables.robot
+Resource    ../keywords/Imoveis_Residenciais/keywords.robot
+Resource    ../keywords/Marco_Zero/keywords.robot
+Library    Collections
 
 *** Keywords ***
 Abrir navegador
@@ -38,8 +41,6 @@ Validar mensagem resposta não reconhecidas
     ${MENSAGEM_RETORNO_INDEX}    Evaluate    ${LENGTH} - 3
     ${MENSAGEM_RETORNO}    Get Text    ${MESSAGES_LIST}[${MENSAGEM_RETORNO_INDEX}]
 
-    @{CONTEUDO_ESPERADO_BOTOES}    Set Variable    ${EXPECTED_MESSAGES}    ${MENSAGEM_RETORNO}
-
     FOR  ${INDEX}    IN RANGE    ${MENSAGEM_RETORNO_INDEX}+1    ${LENGTH}-1
         ${TEXT}    Get Text    ${MESSAGES_LIST}[${INDEX}]
         ${TEXT}    Strip String    ${TEXT}
@@ -52,7 +53,31 @@ Validar mensagem resposta não reconhecidas
         Should Be Equal    ${TEXT}    ${EXPECTED_MESSAGES}
     END
     Sleep    2
+    ${LAST_MESSAGE_INDEX}    Evaluate    ${LENGTH} - 1
+    ${LAST_MESSAGE}    Get Text    ${MESSAGES_LIST}[${LAST_MESSAGE_INDEX}]
+    Log To Console    ESPERADO=${MENSAGEM_RETORNO}
+    Log To Console    RESULTADO=${LAST_MESSAGE}
+    Should Be Equal    ${MENSAGEM_RETORNO}    ${LAST_MESSAGE}
 
+Dado que, o usuário fique inativo por 5 minutos
+    Sleep    310
+    ${MESSAGES_LIST}    Get WebElements    ${MESSAGES_XPATH}
+    ${LENGTH}    Get Length    ${MESSAGES_LIST}
+    ${LENGTH}    Evaluate    ${LENGTH} - 1
+    ${MESSAGE}    Get Text    ${MESSAGES_LIST}[${LENGTH}]
+    Log To Console    ${MESSAGE}
+    Sleep    5
+
+    Should Be Equal    ${MESSAGE}    Oi! 👋 Notei que não nos falamos há algum tempo. Sua sessão será encerrada automaticamente em 24 horas. Pra não voltarmos nossa conversa do início, continue conversando comigo, por favor. 🥰
+
+Dado que, o usuário continue a conversa
+    [Arguments]    ${MESSAGE}
+    Sleep    10
+    ${MESSAGES_LIST}    Get WebElements    ${MESSAGES_XPATH}
+    ${LENGTH}    Get Length    ${MESSAGES_LIST}
+    ${LENGTH}    Evaluate    ${LENGTH} - 1
+    ${TEXT}    Get Text    ${MESSAGES_LIST}[${LENGTH}]
+    Should Be Equal    ${TEXT}    ${MESSAGE}
 
 Clique no botão
     Sleep    5s
@@ -72,3 +97,34 @@ Clique no botão
 
     Run Keyword If    '${BOTAO_EXISTE}' == 'False'    Fail    Botão de ${BOTAO} não foi encontrado
     Sleep    3s
+    
+Validar ultimas mensagens
+    [Arguments]    @{MENSAGENS_ESPERADAS}
+    ${MENSAGENS}    Get WebElements    ${MESSAGES_XPATH}
+    ${MENSAGENS_LENGTH}    Get Length    ${MENSAGENS}
+    ${QTD_MENSAGENS}    Get Length    ${MENSAGENS_ESPERADAS}
+    ${MENSAGENS_LENGTH}    Evaluate    ${MENSAGENS_LENGTH} - 1
+    ${ULTIMAS_TRES_MENSAGENS_INDEX}    Evaluate    ${MENSAGENS_LENGTH} - ${QTD_MENSAGENS}
+    ${ULTIMAS_TRES_MENSAGENS}    Create List
+
+
+    FOR    ${INDEX}    IN RANGE    ${MENSAGENS_LENGTH}    ${ULTIMAS_TRES_MENSAGENS_INDEX}    -1
+        ${TEXT}    Get Text    ${MENSAGENS}[${INDEX}]
+        ${TEXT}    Remove String    ${TEXT}    \n    ''
+        ${TEXT}    Strip String    ${TEXT}
+        Append To List    ${ULTIMAS_TRES_MENSAGENS}    ${TEXT}
+    END
+
+    Should Be Equal As Strings    ${ULTIMAS_TRES_MENSAGENS}    ${MENSAGENS_ESPERADAS}
+
+Marco Zero | Ramificação ainda não é cliente 
+    Dado que o usuário clique no ícone de chat
+    Então o bot apresenta as mensagens de boas vindas e política de privacidade
+    Quando o usuário clica no botão Concordo
+    Então o bot solicita o primeiro nome    
+    Dado que o usuário preencha o seu primeiro nome
+    Então o bot solicita o sobrenome
+    Então o bot deve perguntar se o usuário já é um cliente
+    E exibir os botões "Sim, sou" e "Ainda não"
+    Dado que o usuário clique no botão "Ainda não"
+    Então o bot deve apresentar uma mensagem e exibir o menu

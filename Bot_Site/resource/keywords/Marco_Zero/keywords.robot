@@ -45,6 +45,41 @@ Então o bot solicita o nome completo
         Should Be Equal    ${TEXT}    Para começarmos, qual o seu nome completo?
     END
 
+Então o bot solicita o primeiro nome
+    Sleep    3s
+    Wait Until Element Is Visible    ${MESSAGES_XPATH}    10s
+    ${MESSAGES_LIST}    Get WebElements    ${MESSAGES_XPATH}
+
+    FOR  ${INDEX}    IN RANGE    2    3
+        ${TEXT}    Get Text    ${MESSAGES_LIST}[${INDEX}]
+        ${TEXT}    Strip String    ${TEXT}
+        ${TEXT}    Remove String    ${TEXT}    \s+    ""
+        Should Be Equal    ${TEXT}    Para começarmos, qual seu primeiro nome?
+    END
+
+Dado que o usuário preencha o seu primeiro nome
+    Sleep    3s
+    Wait Until Element Is Visible    ${CHAT_INPUT}    2s
+    Input Text    ${CHAT_INPUT}    ${PRIMEIRO_NOME} 
+    Press Keys    ${CHAT_INPUT}    ENTER
+
+Então o bot solicita o sobrenome
+    Sleep    3s
+    Wait Until Element Is Visible    ${MESSAGES_XPATH}    10s
+    ${MESSAGES_LIST}    Get WebElements    ${MESSAGES_XPATH}
+
+    ${TEXT}    Get Text    ${MESSAGES_LIST}[-1]
+    ${TEXT}    Strip String    ${TEXT}
+    ${TEXT}    Remove String    ${TEXT}    \s+    ""
+    Log To Console    ESPERADO: E sobrenome?
+    Log To Console    RESULTADO: ${TEXT}
+    Should Be Equal    ${TEXT}    E sobrenome?
+
+Dado que o usuário preencha o seu sobrenome
+    Sleep    3s
+    Wait Until Element Is Visible    ${CHAT_INPUT}    2s
+    Input Text    ${CHAT_INPUT}    ${SOBRENOME} 
+    Press Keys    ${CHAT_INPUT}    ENTER
 
 Dado que o usuário preencha o seu nome completo
     Sleep    3s
@@ -58,12 +93,10 @@ Então o bot deve perguntar se o usuário já é um cliente
     Wait Until Element Is Visible    ${MESSAGES_XPATH}    15s
     ${MESSAGES_LIST}    Get WebElements    ${MESSAGES_XPATH}
 
-    FOR  ${INDEX}    IN RANGE    3    4
-        ${TEXT}    Get Text    ${MESSAGES_LIST}[${INDEX}]
-        ${TEXT}    Strip String    ${TEXT}
-        ${TEXT}    Remove String    ${TEXT}    \s+    ""
-        Should Be Equal    ${TEXT}    ${NOME_COMPLETO}, agora me diz se você já é cliente Pacaembu, por favor.
-    END
+    ${TEXT}    Get Text    ${MESSAGES_LIST}[-1]
+    ${TEXT}    Strip String    ${TEXT}
+    ${TEXT}    Remove String    ${TEXT}    \s+    ""
+    Should Be Equal    ${TEXT}    ${PRIMEIRO_NOME}, agora me diz se você já é cliente Pacaembu, por favor.
 
 E exibir os botões "Sim, sou" e "Ainda não"
     Sleep    5s
@@ -89,12 +122,12 @@ Então o bot deve apresentar uma mensagem e exibir o menu
     Wait Until Element Is Visible    ${MESSAGES_XPATH}    15s
     ${MESSAGES_LIST}    Get WebElements    ${MESSAGES_XPATH}
 
-    FOR  ${INDEX}    IN RANGE    4    5
-        ${TEXT}    Get Text    ${MESSAGES_LIST}[${INDEX}]
-        ${TEXT}    Strip String    ${TEXT}
-        ${TEXT}    Remove String    ${TEXT}    \s+    ""
-        Should Be Equal    ${TEXT}    Certo, ${NOME_COMPLETO}! Sobre o que gostaria de conversar? 🥰
-    END
+    ${TEXT}    Get Text    ${MESSAGES_LIST}[-1]
+    ${TEXT}    Strip String    ${TEXT}
+    ${TEXT}    Remove String    ${TEXT}    \s+    ""
+    Log To Console    ESPERADO: E sobrenome?
+    Log To Console    RESULTADO: ${TEXT}
+    Should Be Equal    ${TEXT}    Certo, ${PRIMEIRO_NOME}! Sobre o que gostaria de conversar? 🥰
 
     @{CONTEUDOS_ESPERADOS_ITENS}    Set Variable    Imóveis Residenciais    Seja um parceiro imobiliário    Outros
     ${MENU_ITENS}    Get WebElements    ${MENU_ITENS_XPATH}
@@ -180,3 +213,25 @@ Então o bot deve enviar a mensagem de encerramento
     ${TEXT}    Remove String    ${TEXT}    \s+    ""
     ${TEXT}    Remove String    ${TEXT}    \n    ""
     Should Be Equal    ${TEXT}    Obrigada por entrar em contato com a gente! Estamos por aqui sempre que precisar!Quero te convidar também a nos acompanhar pelo Instagram Um abraço da Pam ❤️
+
+Redefinir nome padrão
+    [Documentation]    Aqui o nome é redefinido para utilizar o nome necessario no teste
+    [Arguments]    ${NOVO_NOME}   ${NOVOSGND_NOME}
+    Set Global Variable    ${PRIMEIRO_NOME}    ${NOVO_NOME}
+    Set Global Variable    ${SOBRENOME}    ${NOVOSGND_NOME}
+
+Definir nome como João Pedro Silva
+    Redefinir nome padrão    João    Pedro Silva
+
+Definir nome como Amanda Pompéia
+    Redefinir nome padrão    Amanda     Pompéia
+
+
+Definir nome como João Pedro Santos
+    Redefinir nome padrão    João Pedro     Santos
+
+Definir nome como icaro Bezerra
+    Redefinir nome padrão    icaro     Bezerra
+    
+Redefinir nome Para Teste Elera
+    Redefinir nome padrão    Teste     Elera
