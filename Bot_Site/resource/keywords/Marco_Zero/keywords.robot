@@ -37,18 +37,6 @@ Então o bot solicita o primeiro nome
     Sleep    3s
     Validar ultimas mensagens    Para começarmos, qual seu primeiro nome? 
 
-Então o bot solicita o primeiro nome
-    Sleep    3s
-    Wait Until Element Is Visible    ${MESSAGES_XPATH}    10s
-    ${MESSAGES_LIST}    Get WebElements    ${MESSAGES_XPATH}
-
-    FOR  ${INDEX}    IN RANGE    2    3
-        ${TEXT}    Get Text    ${MESSAGES_LIST}[${INDEX}]
-        ${TEXT}    Strip String    ${TEXT}
-        ${TEXT}    Remove String    ${TEXT}    \s+    ""
-        Should Be Equal    ${TEXT}    Para começarmos, qual seu primeiro nome?
-    END
-
 Dado que o usuário preencha o seu primeiro nome
     Sleep    3s
     Wait Until Element Is Visible    ${CHAT_INPUT}    2s
@@ -72,24 +60,6 @@ Dado que o usuário preencha o seu sobrenome
     Wait Until Element Is Visible    ${CHAT_INPUT}    2s
     Input Text    ${CHAT_INPUT}    ${SOBRENOME} 
     Press Keys    ${CHAT_INPUT}    ENTER
-
-Dado que o usuário preencha o seu primeiro nome
-    Sleep    3s
-    Wait Until Element Is Visible    ${CHAT_INPUT}    2s
-    Input Text    ${CHAT_INPUT}    ${PRIMEIRO_NOME} 
-    Press Keys    ${CHAT_INPUT}    ENTER
-
-
-Então o bot solicita o sobrenome
-    Sleep    3s
-    Validar ultimas mensagens    E sobrenome?
-
-Dado que o usuário preencha o seu sobrenome
-    Sleep    3s
-    Wait Until Element Is Visible    ${CHAT_INPUT}    2s
-    Input Text    ${CHAT_INPUT}    ${SOBRENOME} 
-    Press Keys    ${CHAT_INPUT}    ENTER
-
 
 Então o bot deve perguntar se o usuário já é um cliente
     Sleep    5s

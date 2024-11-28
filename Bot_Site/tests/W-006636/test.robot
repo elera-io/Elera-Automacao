@@ -12,7 +12,6 @@ Marco Zero | Ramificação ainda não é cliente | Imóveis Residenciais
     Dado que o usuário clique no ícone de chat
     Então o bot apresenta as mensagens de boas vindas e política de privacidade
     Quando o usuário clica no botão Concordo
-    
     Então o bot solicita o primeiro nome
     Dado que o usuário preencha o seu primeiro nome
     Então o bot solicita o sobrenome
