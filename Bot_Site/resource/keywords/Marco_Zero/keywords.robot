@@ -53,7 +53,7 @@ Então o bot solicita o sobrenome
     ${TEXT}    Remove String    ${TEXT}    \s+    ""
     Log To Console    ESPERADO: E sobrenome?
     Log To Console    RESULTADO: ${TEXT}
-    Should Be Equal    ${TEXT}    E sobrenome?
+    Should Be Equal    ${TEXT}    E sobrenome, por favor?
 
 Dado que o usuário preencha o seu sobrenome
     Sleep    3s
@@ -160,14 +160,14 @@ Então o bot deve enviar o link para acessar o portal do cliente
     Wait Until Element Is Visible    ${MESSAGES_XPATH}    15s
     ${MESSAGES_LIST}    Get WebElements    ${MESSAGES_XPATH}
     ${TEXT}    Get Text    ${MESSAGES_LIST}[6]
-    Should Be Equal    ${TEXT}    Entendi, ${NOME_COMPLETO}! É só acessar esse link aqui: 👉https://pacaembu.com/portaldocliente
+    Should Be Equal    ${TEXT}    Entendi, ${PRIMEIRO_NOME}! É só acessar esse link aqui: 👉https://pacaembu.com/portaldocliente
 
 Então o bot deve enviar o link para o whatsapp
     Sleep    5s
     Wait Until Element Is Visible    ${MESSAGES_XPATH}    15s
     ${MESSAGES_LIST}    Get WebElements    ${MESSAGES_XPATH}
     ${TEXT}    Get Text    ${MESSAGES_LIST}[6]
-    Should Be Equal    ${TEXT}    Entendi, ${NOME_COMPLETO}! É só acessar esse link aqui: 👉https://api.whatsapp.com/send?phone=5508007302020
+    Should Be Equal    ${TEXT}    Entendi, ${PRIMEIRO_NOME}! É só acessar esse link aqui: 👉https://api.whatsapp.com/send?phone=5508007302020
 
 
 Então o bot deve enviar a mensagem de encerramento
@@ -208,6 +208,25 @@ Então o bot deve apresentar uma mensagem e exibir o menu de cidades
     Wait Until Element Is Visible    ${MESSAGES_XPATH}    15s
     Validar ultimas mensagens   Agora escolha a cidade.
     Valida presença do botão voltar no menu
+
+Obter Cidades Exibidas
+    [Arguments]    ${MENU_ITENS_XPATH}
+    ${MENU_ITENS}    Get WebElements    ${MENU_ITENS_XPATH}
+    ${CIDADES_EXIBIDAS}    Create List
+    FOR    ${ITEM}    IN    @{MENU_ITENS}
+        ${texto_item}    Get Text    ${ITEM}
+        Append To List    ${CIDADES_EXIBIDAS}    ${texto_item}
+    END
+    RETURN    ${CIDADES_EXIBIDAS}
+
+Validar Exibição das Cidades
+    [Arguments]    ${MENU_ITENS_XPATH}    @{CIDADES_ESPERADAS}
+    @{CIDADES_ESPERADAS}   Set Variable    Hell Raiser
+    ${CIDADES_EXIBIDAS}    Obter Cidades Exibidas    ${MENU_ITENS_XPATH}
+    Log    Cidades exibidas no menu: ${CIDADES_EXIBIDAS}
+    Lists Should Be Equal    ${CIDADES_EXIBIDAS}    ${CIDADES_ESPERADAS}
+
+
 
 Validar Ocultação de Cidades
     [Arguments]    ${STATUS ESPERADO}    ${MENU_ITENS_XPATH}

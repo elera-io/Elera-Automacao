@@ -12,7 +12,7 @@ Dado que o usuário clique em "Seja um parceiro imobiliário" no menu
 Então o bot deverá exibir a mensagem de credenciamento
     Sleep    7s
     ${MENSAGENS}    Get WebElements    ${MESSAGES_XPATH}
-    @{MENSAGENS_ESPERADAS}    Set Variable    Posso te ajudar em outro assunto, ${NOME_COMPLETO}?    Perfeito! Para fazer seu credenciamento aqui na Paca, preencha o formulário abaixo, por favor. Nosso Time fará a análise e entrará em contato em breve, combinado? 😊
+    @{MENSAGENS_ESPERADAS}    Set Variable    Posso te ajudar em outro assunto, ${PRIMEIRO_NOME}?    Perfeito! Para fazer seu credenciamento aqui na Paca, preencha o formulário abaixo, por favor. Nosso Time fará a análise e entrará em contato em breve, combinado? 😊
     
     ${MENSAGENS_LENGTH}    Get Length    ${MENSAGENS}
     ${MENSAGENS_LENGTH}    Evaluate    ${MENSAGENS_LENGTH} - 1
@@ -34,7 +34,7 @@ Dado que o usuário clique no botão "Não"
     Clique no botão    Não    
 
 Dado que o usuário clique no botão "Sim"
-    Clique no botão    Sim
+    Clique no botão   Sim
 
 Então o bot apresenta a mensagem de despedida
     Validar ultimas mensagens    Obrigada por entrar em contato com a gente. Estamos por aqui sempre que precisar!Quero te convidar também a nos acompanhar pelo Instagram. Um abraço da Pam ❤️
