@@ -3,3 +3,10 @@
 **.xml
 locator.robot
 **.pyc
+node_modules/
+.sfdx/
+.sf/
+.vscode/
+.idea/
+package*
+sfdx-project.json

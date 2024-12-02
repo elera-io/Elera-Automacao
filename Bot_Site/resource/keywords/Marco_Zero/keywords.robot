@@ -37,24 +37,29 @@ Então o bot solicita o primeiro nome
     Sleep    3s
     Validar ultimas mensagens    Para começarmos, qual seu primeiro nome? 
 
-
 Dado que o usuário preencha o seu primeiro nome
     Sleep    3s
-    Wait Until Element Is Visible    ${CHAT_INPUT}    2s
+    Wait Until Element Is Visible    ${CHAT_INPUT}    3s
     Input Text    ${CHAT_INPUT}    ${PRIMEIRO_NOME} 
     Press Keys    ${CHAT_INPUT}    ENTER
 
-
 Então o bot solicita o sobrenome
     Sleep    3s
-    Validar ultimas mensagens    E sobrenome?
+    Wait Until Element Is Visible    ${MESSAGES_XPATH}    10s
+    ${MESSAGES_LIST}    Get WebElements    ${MESSAGES_XPATH}
+
+    ${TEXT}    Get Text    ${MESSAGES_LIST}[-1]
+    ${TEXT}    Strip String    ${TEXT}
+    ${TEXT}    Remove String    ${TEXT}    \s+    ""
+    Log To Console    ESPERADO: E sobrenome?
+    Log To Console    RESULTADO: ${TEXT}
+    Should Be Equal    ${TEXT}    E sobrenome, por favor?
 
 Dado que o usuário preencha o seu sobrenome
     Sleep    3s
     Wait Until Element Is Visible    ${CHAT_INPUT}    2s
     Input Text    ${CHAT_INPUT}    ${SOBRENOME} 
     Press Keys    ${CHAT_INPUT}    ENTER
-
 
 Então o bot deve perguntar se o usuário já é um cliente
     Sleep    5s
@@ -83,23 +88,21 @@ Dado que o usuário clique no botão "Sim, sou"
 Então o bot deve apresentar uma mensagem e exibir o menu
     Sleep    10s
     Wait Until Element Is Visible    ${MESSAGES_XPATH}    15s
-    ${MESSAGES_LIST}    Get WebElements    ${MESSAGES_XPATH}
+    Validar ultimas mensagens    Certo, ${PRIMEIRO_NOME}! Sobre o que gostaria de conversar? 🥰
+    Validar itens no menu     Imóveis Residenciais    Seja um parceiro imobiliário    Outros
+    
+Então o bot deve apresentar uma mensagem e exibir o menu de estados
+    Sleep    5s
+    Wait Until Element Is Visible    ${MESSAGES_XPATH}    15s
+    Validar ultimas mensagens    Legal! De qual estado gostaria de conhecer nossos imóveis, por favor? 😊
+    @{ESTADOS_ESPERADOS}    Set Variable    BA    MG     MT    PR    SP    ZZ
 
-    FOR  ${INDEX}    IN RANGE    4    5
-        ${TEXT}    Get Text    ${MESSAGES_LIST}[${INDEX}]
-        ${TEXT}    Strip String    ${TEXT}
-        ${TEXT}    Remove String    ${TEXT}    \s+    ""
-        Should Be Equal    ${TEXT}    Certo, ${NOME_COMPLETO}! Sobre o que gostaria de conversar? 🥰
-    END
-
-    @{CONTEUDOS_ESPERADOS_ITENS}    Set Variable    Imóveis Residenciais    Seja um parceiro imobiliário    Outros
+Dado que o usuário clique em "ZZ" no menu de estados
     ${MENU_ITENS}    Get WebElements    ${MENU_ITENS_XPATH}
-    
-    FOR  ${INDEX}  IN RANGE    3
-        ${CONTEUDO_ITEM}    Get Text    ${MENU_ITENS}[${INDEX}]
-        Should Be Equal    ${CONTEUDOS_ESPERADOS_ITENS}[${INDEX}]    ${CONTEUDO_ITEM}
-    END
-    
+    Clique no item do menu    ZZ
+    Sleep    2s
+Dado que o usuário clique em "Imóveis Residenciais" no menu
+    Clique no item do menu    Imóveis Residenciais
 Então o bot deve mostrar as mensagens de encerramento
     Sleep    5s
     Wait Until Element Is Visible    ${MESSAGES_XPATH}    10s
@@ -118,24 +121,12 @@ Então o bot apresenta a mensagem de rede de vizinhos e um menu
     Sleep    5s
     Wait Until Element Is Visible    ${MESSAGES_XPATH}    15s
     ${MESSAGES_LIST}    Get WebElements    ${MESSAGES_XPATH}
-    @{MENSAGEM_ESPERADA}    Set Variable    Ótimo saber que você já faz parte da nossa rede de vizinhos.😍Vamos te direcionar para nosso Time de Relacionamento, mas lembre-se que para 2ª via de boleto, acompanhamento de obras, acesso ao saldo devedor e mais você pode acessar o Portal do Cliente.    Como prefere seguir?
+    @{MENSAGEM_ESPERADA}    Set Variable    Como prefere seguir?    Ótimo saber que você já faz parte da nossa rede de vizinhos.😍Vamos te direcionar para nosso Time de Relacionamento, mas lembre-se que para 2ª via de boleto, acompanhamento de obras, acesso ao saldo devedor e mais você pode acessar o Portal do Cliente.
 
-    FOR  ${INDEX}    IN RANGE    4    6
-        ${J} =        Evaluate    ${INDEX} - 4
-        ${TEXT}    Get Text    ${MESSAGES_LIST}[${INDEX}]
-        ${TEXT}    Strip String    ${TEXT}
-        ${TEXT}    Remove String    ${TEXT}    \s+    ""
-        ${TEXT}    Remove String    ${TEXT}    \n    ""
-        Should Be Equal    ${MENSAGEM_ESPERADA}[${J}]    ${TEXT}
-    END
+    Validar ultimas mensagens    @{MENSAGEM_ESPERADA}
 
     @{CONTEUDOS_ESPERADOS_ITENS}    Set Variable    Acessar Portal do Cliente    Falar por WhatsApp    Encerrar atendimento
-    ${MENU_ITENS}    Get WebElements    ${MENU_ITENS_XPATH}
-    
-    FOR  ${INDEX}  IN RANGE    3
-        ${CONTEUDO_ITEM}    Get Text    ${MENU_ITENS}[${INDEX}]
-        Should Be Equal    ${CONTEUDOS_ESPERADOS_ITENS}[${INDEX}]    ${CONTEUDO_ITEM}
-    END
+    Validar itens no menu    @{CONTEUDOS_ESPERADOS_ITENS}
 
 E clicar no botão de portal do cliente
     ${MENU_ITENS}    Get WebElements    ${MENU_ITENS_XPATH}
@@ -154,28 +145,17 @@ E clicar no botão de Encerrar atendimento
 
 Então o bot deve enviar o link para acessar o portal do cliente
     Sleep    5s
-    Wait Until Element Is Visible    ${MESSAGES_XPATH}    15s
-    ${MESSAGES_LIST}    Get WebElements    ${MESSAGES_XPATH}
-    ${TEXT}    Get Text    ${MESSAGES_LIST}[6]
-    Should Be Equal    ${TEXT}    Entendi, ${NOME_COMPLETO}! É só acessar esse link aqui: 👉https://pacaembu.com/portaldocliente
+    Validar ultimas mensagens    Entendi, ${PRIMEIRO_NOME}! É só acessar esse link aqui: 👉https://pacaembu.com/portaldocliente
 
 Então o bot deve enviar o link para o whatsapp
     Sleep    5s
-    Wait Until Element Is Visible    ${MESSAGES_XPATH}    15s
-    ${MESSAGES_LIST}    Get WebElements    ${MESSAGES_XPATH}
-    ${TEXT}    Get Text    ${MESSAGES_LIST}[6]
-    Should Be Equal    ${TEXT}    Entendi, ${NOME_COMPLETO}! É só acessar esse link aqui: 👉https://api.whatsapp.com/send?phone=5508007302020
+    Validar ultimas mensagens    Entendi, ${PRIMEIRO_NOME}! É só acessar esse link aqui: 👉https://api.whatsapp.com/send?phone=5508007302020
 
 
 Então o bot deve enviar a mensagem de encerramento
     Sleep    5s
     Wait Until Element Is Visible    ${MESSAGES_XPATH}    15s
-    ${MESSAGES_LIST}    Get WebElements    ${MESSAGES_XPATH}
-    ${TEXT}    Get Text    ${MESSAGES_LIST}[6]
-    ${TEXT}    Strip String    ${TEXT}
-    ${TEXT}    Remove String    ${TEXT}    \s+    ""
-    ${TEXT}    Remove String    ${TEXT}    \n    ""
-    Should Be Equal    ${TEXT}    Obrigada por entrar em contato com a gente! Estamos por aqui sempre que precisar!Quero te convidar também a nos acompanhar pelo Instagram Um abraço da Pam ❤️
+    Validar ultimas mensagens    Obrigada por entrar em contato com a gente! Estamos por aqui sempre que precisar!Quero te convidar também a nos acompanhar pelo Instagram Um abraço da Pam ❤️
 
 Redefinir nome padrão
     [Documentation]    Aqui o nome é redefinido para utilizar o nome necessario no teste
@@ -183,8 +163,8 @@ Redefinir nome padrão
     Set Global Variable    ${PRIMEIRO_NOME}    ${NOVO_NOME}
     Set Global Variable    ${SOBRENOME}    ${NOVOSGND_NOME}
 
-Definir nome como João Pedro
-    Redefinir nome padrão    João    Pedro 
+Definir nome como João Pedro Silva
+    Redefinir nome padrão    João    Pedro Silva
 
 Definir nome como Amanda Pompéia
     Redefinir nome padrão    Amanda     Pompéia
@@ -198,3 +178,55 @@ Definir nome como icaro Bezerra
     
 Redefinir nome Para Teste Elera
     Redefinir nome padrão    Teste     Elera
+
+Redefinir telefone padrão
+    [Documentation]    Aqui o nome é redefinido para utilizar o telefone necessario no teste
+    [Arguments]    ${NOVO_CELULAR}
+    Set Global Variable    ${CELULAR}    ${NOVO_CELULAR}
+
+Redefinir email padrão
+    [Documentation]    Aqui o nome é redefinido para utilizar o telefone necessario no teste
+    [Arguments]    ${NOVO_EMAIL}
+    Set Global Variable    ${EMAIL}    ${NOVO_EMAIL}
+
+Então o bot deve apresentar uma mensagem e exibir o menu de cidades
+    Sleep    5s
+    Wait Until Element Is Visible    ${MESSAGES_XPATH}    15s
+    Validar ultimas mensagens   Agora escolha a cidade.
+    Valida presença do botão voltar no menu
+
+Obter Cidades Exibidas
+    [Arguments]    ${MENU_ITENS_XPATH}
+    ${MENU_ITENS}    Get WebElements    ${MENU_ITENS_XPATH}
+    ${CIDADES_EXIBIDAS}    Create List
+    FOR    ${ITEM}    IN    @{MENU_ITENS}
+        ${texto_item}    Get Text    ${ITEM}
+        Append To List    ${CIDADES_EXIBIDAS}    ${texto_item}
+    END
+    RETURN    ${CIDADES_EXIBIDAS}
+
+Validar Exibição das Cidades
+    [Arguments]    ${MENU_ITENS_XPATH}    @{CIDADES_ESPERADAS}
+    @{CIDADES_ESPERADAS}   Set Variable    Hell Raiser
+    ${CIDADES_EXIBIDAS}    Obter Cidades Exibidas    ${MENU_ITENS_XPATH}
+    Log    Cidades exibidas no menu: ${CIDADES_EXIBIDAS}
+    Lists Should Be Equal    ${CIDADES_EXIBIDAS}    ${CIDADES_ESPERADAS}
+
+
+
+Validar Ocultação de Cidades
+    [Arguments]    ${STATUS ESPERADO}    ${MENU_ITENS_XPATH}
+    ${MENU_ITENS}    Get WebElements    ${MENU_ITENS_XPATH}
+    ${CIDADES_EXIBIDAS}    Create List
+
+    FOR    ${ITEM}    IN    @{MENU_ITENS}
+        ${texto_item}    Get Text    ${ITEM}
+        Append To List    ${CIDADES_EXIBIDAS}    ${texto_item}
+    END
+
+    Log    Cidades exibidas no menu: ${CIDADES_EXIBIDAS}
+
+    # Verifica se nenhuma cidade com o status esperado está visível
+    FOR    ${cidade}    IN    ${status_esperado}
+        Should Not Contain    ${CIDADES_EXIBIDAS}    ${cidade}
+    END
