@@ -202,6 +202,15 @@ Definir nome como icaro Bezerra
 Redefinir nome Para Teste Elera
     Redefinir nome padrão    Teste     Elera
 
+Redefinir telefone padrão
+    [Documentation]    Aqui o nome é redefinido para utilizar o telefone necessario no teste
+    [Arguments]    ${NOVO_CELULAR}
+    Set Global Variable    ${CELULAR}    ${NOVO_CELULAR}
+
+Redefinir email padrão
+    [Documentation]    Aqui o nome é redefinido para utilizar o telefone necessario no teste
+    [Arguments]    ${NOVO_EMAIL}
+    Set Global Variable    ${EMAIL}    ${NOVO_EMAIL}
 
 Então o bot deve apresentar uma mensagem e exibir o menu de cidades
     Sleep    5s
