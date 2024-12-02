@@ -138,6 +138,11 @@ Então o bot identifique o lead novo
 Dado que o usuário informe seu email
     Enviar mensagem    ${EMAIL}
 
+Dado que o usuário informe seu número incorreto
+    Enviar mensagem    (99) 99999-88888
+
+Dado que o usuário informe um email inválido com @@
+    Enviar mensagem    Teste@@gmail.com
 
 Dado que o usuário informe um email inválido sem @
     Enviar mensagem    Testegmail.com
@@ -147,6 +152,9 @@ Dado que o usuário informe um email inválido sem .
 
 Dado que o usuário informe um email inválido sem .com
     Enviar mensagem    Teste@gmail.
+
+Dado que o usuário informe um email inválido sem o final .com
+    Enviar mensagem    Teste@gmail
 
 Dado que o usuário informe um email inválido sem UserName
     Enviar mensagem    @gmail.com
@@ -209,3 +217,19 @@ Dado que, o usuário queira Receber Contato
     ${BOTOES_PERIODO}    Get WebElements    ${BOTOES_XPATH}
     ${LENGTH}    Get Length    ${BOTOES_PERIODO}
     Click Element    ${BOTOES_PERIODO}[-1]
+
+Dado que o usuário escolha "zz" no menu
+    Clique no item do menu    ZZ
+
+Dado que o usuário escolha "Hell Raiser" no menu
+    Clique no item do menu    Hell Raiser
+
+Logar na tela de lead
+    ${BASE_URL_LEAD}=    Set Variable    
+    Open Browser  ${BASE_URL_LEAD}
+    Sleep  3s
+    Preencher campos
+    Sleep  15s
+
+Então é exibido a mensagem de usuário já cadastrado
+    Validar ultimas mensagens    ${PRIMEIRO_NOME}, vi que você falou com a gente recentemente.

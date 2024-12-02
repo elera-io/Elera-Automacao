@@ -1,6 +1,6 @@
 *** Settings ***
 Library    SeleniumLibrary
-Resource    ../locator/locator.robot
+Resource    ../../locator/locator.robot
 Library    String
 Resource    ../variables/common_variables.robot
 Resource    ../variables/Marco_Zero/variables.robot
