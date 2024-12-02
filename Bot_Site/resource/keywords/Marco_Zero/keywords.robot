@@ -45,15 +45,7 @@ Dado que o usuário preencha o seu primeiro nome
 
 Então o bot solicita o sobrenome
     Sleep    3s
-    Wait Until Element Is Visible    ${MESSAGES_XPATH}    10s
-    ${MESSAGES_LIST}    Get WebElements    ${MESSAGES_XPATH}
-
-    ${TEXT}    Get Text    ${MESSAGES_LIST}[-1]
-    ${TEXT}    Strip String    ${TEXT}
-    ${TEXT}    Remove String    ${TEXT}    \s+    ""
-    Log To Console    ESPERADO: E sobrenome?
-    Log To Console    RESULTADO: ${TEXT}
-    Should Be Equal    ${TEXT}    E sobrenome, por favor?
+    Validar ultimas mensagens    E sobrenome?
 
 Dado que o usuário preencha o seu sobrenome
     Sleep    3s
@@ -88,21 +80,23 @@ Dado que o usuário clique no botão "Sim, sou"
 Então o bot deve apresentar uma mensagem e exibir o menu
     Sleep    10s
     Wait Until Element Is Visible    ${MESSAGES_XPATH}    15s
-    Validar ultimas mensagens    Certo, ${PRIMEIRO_NOME}! Sobre o que gostaria de conversar? 🥰
-    Validar itens no menu     Imóveis Residenciais    Seja um parceiro imobiliário    Outros
-    
-Então o bot deve apresentar uma mensagem e exibir o menu de estados
-    Sleep    5s
-    Wait Until Element Is Visible    ${MESSAGES_XPATH}    15s
-    Validar ultimas mensagens    Legal! De qual estado gostaria de conhecer nossos imóveis, por favor? 😊
-    @{ESTADOS_ESPERADOS}    Set Variable    BA    MG     MT    PR    SP    ZZ
+    ${MESSAGES_LIST}    Get WebElements    ${MESSAGES_XPATH}
 
-Dado que o usuário clique em "ZZ" no menu de estados
+    FOR  ${INDEX}    IN RANGE    4    5
+        ${TEXT}    Get Text    ${MESSAGES_LIST}[${INDEX}]
+        ${TEXT}    Strip String    ${TEXT}
+        ${TEXT}    Remove String    ${TEXT}    \s+    ""
+        Should Be Equal    ${TEXT}    Certo, ${NOME_COMPLETO}! Sobre o que gostaria de conversar? 🥰
+    END
+
+    @{CONTEUDOS_ESPERADOS_ITENS}    Set Variable    Imóveis Residenciais    Seja um parceiro imobiliário    Outros
     ${MENU_ITENS}    Get WebElements    ${MENU_ITENS_XPATH}
-    Clique no item do menu    ZZ
-    Sleep    2s
-Dado que o usuário clique em "Imóveis Residenciais" no menu
-    Clique no item do menu    Imóveis Residenciais
+    
+    FOR  ${INDEX}  IN RANGE    3
+        ${CONTEUDO_ITEM}    Get Text    ${MENU_ITENS}[${INDEX}]
+        Should Be Equal    ${CONTEUDOS_ESPERADOS_ITENS}[${INDEX}]    ${CONTEUDO_ITEM}
+    END
+    
 Então o bot deve mostrar as mensagens de encerramento
     Sleep    5s
     Wait Until Element Is Visible    ${MESSAGES_XPATH}    10s
