@@ -221,6 +221,11 @@ Então o bot identifique o lead novo
 Dado que o usuário informe seu email
     Enviar mensagem    ${EMAIL}
 
+Dado que o usuário informe seu número incorreto
+    Enviar mensagem    (99) 99999-88888
+
+Dado que o usuário informe um email inválido com @@
+    Enviar mensagem    Teste@@gmail.com
 
 Dado que o usuário informe um email inválido sem @
     Enviar mensagem    Testegmail.com
@@ -230,6 +235,9 @@ Dado que o usuário informe um email inválido sem .
 
 Dado que o usuário informe um email inválido sem .com
     Enviar mensagem    Teste@gmail.
+
+Dado que o usuário informe um email inválido sem o final .com
+    Enviar mensagem    Teste@gmail
 
 Dado que o usuário informe um email inválido sem UserName
     Enviar mensagem    @gmail.com
@@ -250,4 +258,60 @@ Então o bot deverá exibir a mensagem de confusão
 Enviar mensagem
     [Arguments]    ${MENSAGEM}
     Input Text    ${CHAT_INPUT}    ${MENSAGEM} 
+    Press Keys    ${CHAT_INPUT}    ENTER
+
+Dado que, o usuário selecione nos próximos 12 meses
+    Sleep    10
+    ${BOTOES_PERIODO}    Get WebElements    ${BOTOES_XPATH}
+    ${LENGTH}    Get Length    ${BOTOES_PERIODO}
+    Click Element    ${BOTOES_PERIODO}[-2]
+
+Dado que, o usuário selecione Investir
+    ${BOTOES_PERIODO}    Get WebElements    ${BOTOES_XPATH}
+    ${LENGTH}    Get Length    ${BOTOES_PERIODO}
+    Click Element    ${BOTOES_PERIODO}[-1]
+
+Dado que, o usuário concorde que trabalha
+    ${BOTOES_PERIODO}    Get WebElements    ${BOTOES_XPATH}
+    ${LENGTH}    Get Length    ${BOTOES_PERIODO}
+    Click Element    ${BOTOES_PERIODO}[-2]
+
+Dado que, o usuário selecione CLT
+    ${BOTOES_PERIODO}    Get WebElements    ${BOTOES_XPATH}
+    ${LENGTH}    Get Length    ${BOTOES_PERIODO}
+    Click Element    ${BOTOES_PERIODO}[-2]
+
+Dado que, o usuário selecione renda mensal de Até R$2.000
+    ${BOTOES_PERIODO}    Get WebElements    ${BOTOES_XPATH}
+    ${LENGTH}    Get Length    ${BOTOES_PERIODO}
+    Click Element    ${BOTOES_PERIODO}[-4]
+
+Dado que, o usuário não queira Financiamento com o FGTS
+    ${BOTOES_PERIODO}    Get WebElements    ${BOTOES_XPATH}
+    ${LENGTH}    Get Length    ${BOTOES_PERIODO}
+    Click Element    ${BOTOES_PERIODO}[-2]
+
+Dado que, o usuário não tenha Restrição de Crédito
+    ${BOTOES_PERIODO}    Get WebElements    ${BOTOES_XPATH}
+    ${LENGTH}    Get Length    ${BOTOES_PERIODO}
+    Click Element    ${BOTOES_PERIODO}[-2]
+
+Dado que, o usuário queira Receber Contato
+    ${BOTOES_PERIODO}    Get WebElements    ${BOTOES_XPATH}
+    ${LENGTH}    Get Length    ${BOTOES_PERIODO}
+    Click Element    ${BOTOES_PERIODO}[-1]
+
+Dado que o usuário escolha "Hell Raiser" no menu
+    Clique no item do menu    Hell Raiser
+
+Logar na tela de lead
+    ${BASE_URL_LEAD}=    Set Variable    
+    Open Browser  ${BASE_URL_LEAD}
+    Sleep  3s
+    Preencher campos
+    Sleep  15s
+
+Então é exibido a mensagem de usuário já cadastrado
+    Validar ultimas mensagens    ${PRIMEIRO_NOME}, vi que você falou com a gente recentemente.
+
     Press Keys    ${CHAT_INPUT}    ENTER
