@@ -6,7 +6,7 @@ Test Teardown    Close Browser
 
 *** Test Cases ***
 CT01: Aceite de privacidade -> Validando solicitação de nome
-    Definir nome como João Pedro
+    Definir nome como João Pedro Santos
     Dado que o usuário clique no ícone de chat
     Então o bot apresenta as mensagens de boas vindas e política de privacidade
     Quando o usuário clica no botão Concordo

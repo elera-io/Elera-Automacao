@@ -1,6 +1,6 @@
 *** Settings ***
 Library    SeleniumLibrary
-Resource    ../locator/locator.robot
+Resource    ../../locator/locator.robot
 Library    String
 Resource    ../variables/common_variables.robot
 Resource    ../variables/Marco_Zero/variables.robot
@@ -106,6 +106,25 @@ Clique no item do menu
     Run Keyword If    '${BOTAO_EXISTE}' == 'False'    Fail    Item ${BOTAO} não foi encontrado
     Sleep    3s
 
+Clique no botão
+    Sleep    5s
+    [Arguments]    ${BOTAO}
+    ${BOTOES}    Get WebElements    ${BOTOES_XPATH}
+    ${BOTOES_LENGTH}    Get Length    ${BOTOES}
+    ${BOTAO_EXISTE}    Set Variable    False
+    FOR  ${INDEX}  IN RANGE    0    ${BOTOES_LENGTH}
+        ${BOTAO_CONTENT}    Get Text    ${BOTOES}[${INDEX}]
+
+        IF    '${BOTAO_CONTENT}' == '${BOTAO}'
+            Click Element    ${BOTOES}[${INDEX}]
+            ${BOTAO_EXISTE}    Set Variable    True
+            BREAK
+        END
+
+    END
+
+    Run Keyword If    '${BOTAO_EXISTE}' == 'False'    Fail    Botão "${BOTAO}" não foi encontrado
+    Sleep    3s
 
 Validar itens no menu
     Sleep    5s
@@ -179,6 +198,7 @@ Marco Zero | Ramificação ainda não é cliente
     Então o bot solicita o primeiro nome    
     Dado que o usuário preencha o seu primeiro nome
     Então o bot solicita o sobrenome
+    Dado que o usuário preencha o seu sobrenome
     Então o bot deve perguntar se o usuário já é um cliente
     E exibir os botões "Sim, sou" e "Ainda não"
     Dado que o usuário clique no botão "Ainda não"

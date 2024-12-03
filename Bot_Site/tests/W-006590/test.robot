@@ -17,6 +17,11 @@ CT01: Validando a exibição correta das cidades
     Então o bot deve perguntar se o usuário já é um cliente
     Dado que o usuário clique no botão "Ainda não"
     Então o bot deve apresentar uma mensagem e exibir o menu
+    Dado que o usuário clique em "Imóveis Residenciais" no menu
+    Então o bot deve apresentar uma mensagem e exibir o menu de estados
+    Dado que o usuário clique em "ZZ" no menu de estados
+    Então o bot deve apresentar uma mensagem e exibir o menu de cidades
+    Validar Exibição das Cidades   ${MENU_ITENS_XPATH}      @{CIDADES_ESPERADAS}
 
 
 CT02: Validando a atualização das cidades
