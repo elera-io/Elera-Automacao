@@ -14,3 +14,4 @@ ${MUNICIPIO}    Taubaté
 ${STATUS_COMBOBOX_XPATH}    xpath=//button[contains(@class,'slds-combobox__input') and contains(@class, 'slds-input_faux')]
 ${NOME_EMPREENDIMENTO}   Gojira  
 ${NOME_UNIDADE}    Teste Elera Unidade
+${BASE_URL_UNIDAES}   https://pacaembuconstrutorasa--uat.sandbox.lightning.force.com/lightning/o/cbns__Unidade__c/list?filterName
