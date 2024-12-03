@@ -5,6 +5,95 @@ Library    Collections
 
 *** Keywords ***
 
+Apagar unidade de teste
+   
+    Logar na tela de unidade
+    Pesquisar unidade
+    Sleep    4s
+    Apagar unidade
+    Sleep    5s
+    Close Browser
+
+Apagar unidade
+    ${ABRIR_UNIDADE}   Set Variable  xpath=//a[contains(@title,'Teste Elera Unidade') and contains(text(),'Teste Elera Unidade')]
+    ${BOTAO_APAGAR}    Set Variable  xpath=//button[contains(@class,'slds-button slds-button_neutral') and contains(@name,'Delete')]
+
+   Sleep    3s
+   Click Element    ${ABRIR_UNIDADE}
+   Sleep    5s
+   Click Button    ${BOTAO_APAGAR}
+    Sleep    5s
+    Confirmar Deleção
+    Sleep    5s
+Confirmar Deleção
+    ${CONFIRMAR_DELEÇÃO}    Set Variable    xpath=//button[contains(@class,'slds-button slds-button_neutral uiButton--default uiButton--brand uiButton forceActionButton')and contains(@title,'Delete')]
+    Click Button    ${CONFIRMAR_DELEÇÃO}
+Pesquisar unidade 
+    
+    Input Text   ${BARRA_DE_PESQUISA}    ${NOME_UNIDADE}
+    Sleep    3s
+    Press Keys    ${BARRA_DE_PESQUISA}    RETURN
+
+Logar na tela de unidade 
+
+    Open Browser  ${BASE_URL_UNIDAES}
+    Sleep  3s
+    Preencher campos
+    Sleep  15s
+   
+
+Criar Nova Unidade
+    [Documentation]    Abre o modal inicial e o formulário para a criação de uma unidade.
+
+    ${BOTAO_NEW_UNIDADE}  Set Variable    xpath=//a[contains(@class,'forceActionLink') and contains(@title,'New')] 
+    ${BOTAO_NEXT_UNIDADE}  Set Variable  xpath=/html/body/div[4]/div[2]/div/div[2]/div/div[2]/div/div/div[2]/div/button[2]
+    Sleep  5s
+    Click Element      ${BOTAO_NEW_UNIDADE}
+    Sleep              5s
+    Click Button       ${BOTAO_NEXT_UNIDADE}
+    Sleep              4s
+    Preencher formulario para criação de unidade
+    Sleep              5s
+    Close Browser
+
+Preencher formulario para criação de unidade 
+
+    ${PESQUISA_EMPREENDIMENTO}  Set Variable  xpath=//lightning-grouped-combobox//lightning-base-combobox-item[1]
+    ${OPÇAO_TESTE_ELERA_BOT}  Set Variable  xpath=//table/tbody/tr/td[1]/a[contains(@title, 'Gojira') and contains(text(), 'Gojira')]
+    ${INPUT_NOME_EMPREENDIMENTO}    Set Variable    xpath=//input[contains(@class,'slds-combobox__input') and contains(@placeholder,'Search Empreendimentos...')]
+    ${INPUT_NOME_STATUS}   Set Variable  xpath=/html/body/div[4]/div[2]/div[2]/div[2]/div/div[2]/div/div/div/records-modal-lwc-detail-panel-wrapper/records-record-layout-event-broker/slot/records-lwc-detail-panel/records-base-record-form/div/div[2]/div/div/records-lwc-record-layout/forcegenerated-detailpanel_cbns__unidade__c___0125f000000ijcqaam___full___create___recordlayout2/records-record-layout-block/slot/records-record-layout-section[1]/div/div/dl/slot/records-record-layout-row[2]/slot/records-record-layout-item[2]/div/span/slot/records-record-picklist/records-form-picklist/lightning-picklist/lightning-combobox/div/div[1]/lightning-base-combobox/div/div/div[1]/button
+    ${INPUT_NOME_UNIDADE}    Set Variable    xpath=//input[contains(@class,'slds-input')and contains(@name,'Name')]
+   
+    Input Text   ${INPUT_NOME_UNIDADE}    ${NOME_UNIDADE}
+    Sleep  3s
+    Input Text   ${INPUT_NOME_EMPREENDIMENTO}    ${NOME_EMPREENDIMENTO}
+    Sleep   3s
+    Click Element  ${PESQUISA_EMPREENDIMENTO}  
+    Sleep  5s
+    [Documentation]   clicando no empreendimento 
+    Click Element   ${OPÇAO_TESTE_ELERA_BOT}
+    Sleep   5s 
+    Abrir comboBox
+   
+    Sleep  5s
+
+ Abrir comboBox
+    ${STATUS_COMBOBOX}    Get WebElements    ${STATUS_COMBOBOX_XPATH}
+    Click Element    ${STATUS_COMBOBOX}[0]
+    Sleep    2s
+    FOR   ${i}  IN RANGE   7 
+        Press Keys    None    ARROW_DOWN
+    
+    Sleep    1s
+    END
+    Press Keys    None    ENTER
+    Sleep    4s
+
+    ${BOTAO_SALVAR}  Set Variable    xpath=/html/body/div[4]/div[2]/div/div[2]/div/div[2]/div/div/div[1]/records-modal-lwc-detail-panel-wrapper/records-record-layout-event-broker/slot/records-lwc-detail-panel/records-base-record-form/div/div[2]/div/records-form-footer/div/div/div/runtime_platform_actions-actions-ribbon/ul/li[3]/runtime_platform_actions-action-renderer/runtime_platform_actions-executor-lwc-headless/slot[1]/slot/lightning-button/button
+
+    Click Button  ${BOTAO_SALVAR}
+        Sleep  3s
+
 Dado que o usuário escolha "Imóveis Residenciais" no menu
     Clique no item do menu    Imóveis Residenciais
 
@@ -40,9 +129,23 @@ Então o bot deve mostrar o menu de estados em ordem alfabetica
     Should Be Equal As Strings    ${ITENS_CONTENT}    ${UFS}
     Should Be Equal    ${ULTIMO_ITEM}    Voltar
 
+E exibir uma lista com os empreendimentos com Unidades disponíveis exibindo 'Gojira'
+
+     ${LISTA_EMPREENDIMENTOS}    Set Variable    xpath=//ul[contains(@class,'rich-menu-items')and contains(@data-aura-rendered-by,'2566:0')]
+
+    ${EMPREENDIMENTOS}    Get Webelements    ${LISTA_EMPREENDIMENTOS}
+    FOR    ${EMPREENDIMENTO}    IN    @{EMPREENDIMENTOS}
+        ${texto}    Get Text    ${EMPREENDIMENTO}
+        Run Keyword If    '${texto}' == 'Gojira'    Click Element    ${EMPREENDIMENTO}
+    END
+
+
 
 Dado que o usuário escolha "SP" no menu
     Clique no item do menu    SP
+    
+Dado que o usuário escolha "ZZ" no menu
+    Clique no item do menu    ZZ
 
 Então o bot deve exibir a mensagem "Agora escolha a cidade"
     Sleep    2
@@ -52,6 +155,9 @@ Então o bot deve exibir a mensagem "Agora escolha a cidade"
 
 Dado que o usuário escolha "Taubaté" no menu
     Clique no item do menu    Taubaté
+
+Dado que o usuário escolha "Goiânia" no menu
+    Clique no item do menu    Goiânia
 
 Então o bot deverá responder com a mensagem de imóveis disponíveis
     Sleep    5
@@ -69,6 +175,8 @@ Então o bot deverá responder com a mensagem de imóveis disponíveis
     END
 
     Should Be Equal As Strings    ${ULTIMAS_TRES_MENSAGENS}    ${MENSAGEM_ESPERADA_IMOVEIS}
+
+
 
 Dado que o usuário escolha um imóvel no menu
     Clique no item do menu    Mirante das Flores
@@ -218,9 +326,6 @@ Dado que, o usuário queira Receber Contato
     ${LENGTH}    Get Length    ${BOTOES_PERIODO}
     Click Element    ${BOTOES_PERIODO}[-1]
 
-Dado que o usuário escolha "zz" no menu
-    Clique no item do menu    ZZ
-
 Dado que o usuário escolha "Hell Raiser" no menu
     Clique no item do menu    Hell Raiser
 
@@ -233,3 +338,5 @@ Logar na tela de lead
 
 Então é exibido a mensagem de usuário já cadastrado
     Validar ultimas mensagens    ${PRIMEIRO_NOME}, vi que você falou com a gente recentemente.
+
+    Press Keys    ${CHAT_INPUT}    ENTER

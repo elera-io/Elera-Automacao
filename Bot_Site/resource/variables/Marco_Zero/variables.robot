@@ -2,6 +2,7 @@
 Resource    ../../../resource/keywords/common_keywords.robot
 
 *** Variables ***
+
 ${BOTOES_XPATH}    xpath=//span[contains(@class,'bBody') and contains(@class,'label')]
 ${MESSAGES_XPATH}    xpath=//div[contains(@class,'agent') and contains(@class,'chatMessage')]
 ${PRIMEIRO_NOME}    Teste

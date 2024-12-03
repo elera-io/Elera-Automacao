@@ -100,6 +100,24 @@ Clique no item do menu
     Run Keyword If    '${BOTAO_EXISTE}' == 'False'    Fail    Item ${BOTAO} não foi encontrado
     Sleep    3s
 
+Clique no botão
+    Sleep    5s
+    [Arguments]    ${BOTAO}
+    ${BOTOES}    Get WebElements    ${BOTOES_XPATH}
+    ${BOTOES_LENGTH}    Get Length    ${BOTOES}
+    ${BOTAO_EXISTE}    Set Variable    False
+    FOR  ${INDEX}  IN RANGE    0    ${BOTOES_LENGTH}
+        ${BOTAO_CONTENT}    Get Text    ${BOTOES}[${INDEX}]
+
+        IF    '${BOTAO_CONTENT}' == '${BOTAO}'
+            Click Element    ${BOTOES}[${INDEX}]
+            ${BOTAO_EXISTE}    Set Variable    True
+        END
+
+    END
+
+    Run Keyword If    '${BOTAO_EXISTE}' == 'False'    Fail    Botão "${BOTAO}" não foi encontrado
+    Sleep    3s
 
 Validar itens no menu
     Sleep    5s
