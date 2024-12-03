@@ -45,7 +45,7 @@ Dado que o usuário preencha o seu primeiro nome
 
 Então o bot solicita o sobrenome
     Sleep    3s
-    Validar ultimas mensagens    E sobrenome?
+    Validar ultimas mensagens    E sobrenome, por favor?
 
 Dado que o usuário preencha o seu sobrenome
     Sleep    3s
@@ -79,23 +79,10 @@ Dado que o usuário clique no botão "Sim, sou"
 
 Então o bot deve apresentar uma mensagem e exibir o menu
     Sleep    10s
-    Wait Until Element Is Visible    ${MESSAGES_XPATH}    15s
-    ${MESSAGES_LIST}    Get WebElements    ${MESSAGES_XPATH}
+    Validar ultimas mensagens    Certo, ${PRIMEIRO_NOME}! Sobre o que gostaria de conversar? 🥰
 
-    FOR  ${INDEX}    IN RANGE    4    5
-        ${TEXT}    Get Text    ${MESSAGES_LIST}[${INDEX}]
-        ${TEXT}    Strip String    ${TEXT}
-        ${TEXT}    Remove String    ${TEXT}    \s+    ""
-        Should Be Equal    ${TEXT}    Certo, ${NOME_COMPLETO}! Sobre o que gostaria de conversar? 🥰
-    END
-
-    @{CONTEUDOS_ESPERADOS_ITENS}    Set Variable    Imóveis Residenciais    Seja um parceiro imobiliário    Outros
-    ${MENU_ITENS}    Get WebElements    ${MENU_ITENS_XPATH}
-    
-    FOR  ${INDEX}  IN RANGE    3
-        ${CONTEUDO_ITEM}    Get Text    ${MENU_ITENS}[${INDEX}]
-        Should Be Equal    ${CONTEUDOS_ESPERADOS_ITENS}[${INDEX}]    ${CONTEUDO_ITEM}
-    END
+    @{CONTEUDO_ESPERADO_ITENS}    Set Variable    Imóveis Residenciais    Seja um parceiro imobiliário    Outros
+    Validar itens no menu    @{CONTEUDO_ESPERADO_ITENS}
     
 Então o bot deve mostrar as mensagens de encerramento
     Sleep    5s
