@@ -3,7 +3,6 @@ Resource    ../../resource/keywords/common_keywords.robot
 Resource    ../../resource/keywords/Marco_Zero/keywords.robot
 Resource    ../../resource/keywords/Imoveis_Residenciais/keywords.robot
 
-
 Test Setup    Efetuar login
 Test Teardown    Close Browser
 
@@ -24,7 +23,7 @@ Marco Zero | Ramificação ainda não é cliente | Imóveis Residenciais
     Então o bot deve mostrar o menu de estados em ordem alfabetica
     Dado que o usuário escolha "SP" no menu
     Então o bot deve exibir a mensagem "Agora escolha a cidade"
-    Dado que o usuário escolha "Taubaté" no menu
+    Dado que o usuário escolha o municipio
     Então o bot deverá responder com a mensagem de imóveis disponíveis
     Dado que o usuário escolha um imóvel no menu
     Então o bot deverá responder com uma mensagem e solicitar o número de celular
@@ -33,43 +32,25 @@ Marco Zero | Ramificação ainda não é cliente | Imóveis Residenciais
     Dado que o usuário informe seu email
 
 *** Test Cases ***
-TC01: lead novo
+TC01:Validação de identificação de imóvel escolhido anteriormente
     Definir nome como João Pedro Silva
     Marco Zero | Ramificação ainda não é cliente | Imóveis Residenciais
-    Dado que, o usuário escolhe horário da tarde
-    Dado que, o usuário não valide a presença
-    Então o bot encerra a conversa
+    Então o bot identifique o imóvel
 
-TC02: lead criado dentro de 3 meses e com status Novo
+TC02:Validação de identificação de um caso aberto no omnichannel
     Definir nome como João Pedro Silva
     Marco Zero | Ramificação ainda não é cliente | Imóveis Residenciais
-    Dado que, o usuário escolhe horário da tarde
-    Dado que, o usuário não valide a presença
-    Então o bot encerra a conversa
-
-TC03: lead criado dentro de 3 meses e com status trabalhando
+    Então o bot identifique o imóvel
+  
+TC03: Validar caso aberto no omnichannel e escolha do mesmo imóvel vinculado.
     Definir nome como João Pedro Silva
     Marco Zero | Ramificação ainda não é cliente | Imóveis Residenciais
-    Dado que, o usuário escolhe horário da tarde
-    Dado que, o usuário não valide a presença
-    Então o bot encerra a conversa
-
-TC04: lead criado dentro de 3 meses e com status cultivando
+    Então o bot identifique o imóvel
+  
+TC04: Validar lead escolhendo imóvel diferente sem caso aberto no omnichannel.
     Definir nome como João Pedro Silva
+    Redefinir Imóvel    Mirante das Flores
+    Redefinir celular padrão    (11) 99999-8888
+    Redefinir email padrão    Teste@gmail.com
     Marco Zero | Ramificação ainda não é cliente | Imóveis Residenciais
-    Dado que, o usuário escolhe horário da tarde
-    Dado que, o usuário não valide a presença
-    Então o bot encerra a conversa
-
-TC05: lead criado dentro de 3 meses e com status Convertido
-    Definir nome como João Pedro Silva
-    Marco Zero | Ramificação ainda não é cliente | Imóveis Residenciais
-    Dado que, o usuário escolhe horário da tarde
-    Dado que, o usuário não valide a presença
-    Então o bot encerra a conversa
-
-TC06: lead criado a mais de 3 meses e com status Reavaliação
-    Redefinir celular padrão    (11) 98765-4123
-    Redefinir email padrão    teste_lead@gmail.com
-    Marco Zero | Ramificação ainda não é cliente | Imóveis Residenciais
-    Sleep    20
+    Então o bot não identifique o imóvel

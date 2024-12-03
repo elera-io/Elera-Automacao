@@ -7,6 +7,7 @@ Resource    ../variables/Marco_Zero/variables.robot
 Resource    ../keywords/Imoveis_Residenciais/keywords.robot
 Resource    ../keywords/Marco_Zero/keywords.robot
 Library    Collections
+Library    remove.py
 
 *** Keywords ***
 Abrir navegador
@@ -34,10 +35,8 @@ Preencher campos
 Validar mensagem resposta não reconhecidas
     Sleep    7
     ${MESSAGES_LIST}    Get WebElements    ${MESSAGES_XPATH}
-    ${EXPECTED_MESSAGES}    Set Variable    Poxa! Ainda não consegui te entender. 😩 Vamos retornar para onde estávamos? OBS: Digite apenas quando pedirmos algum dado pessoal, por favor. Os campos apresentados são para seleção.
-    ${EXPECTED_MESSAGES}    Strip String    ${EXPECTED_MESSAGES}
-    ${EXPECTED_MESSAGES}    Replace String    ${EXPECTED_MESSAGES}    ${SPACE}    ${EMPTY}
-    ${EXPECTED_MESSAGES}    Replace String    ${EXPECTED_MESSAGES}    ${\n}    ${EMPTY}
+    ${EXPECTED_MESSAGES}    Set Variable    Poxa! Ainda não consegui te entender. 😩${\n}Vamos retornar para onde estávamos?${\n}${\n}OBS: Digite apenas quando pedirmos algum dado pessoal, por favor. Os campos apresentados são para seleção.
+    ${REPR_EXPECTED}    Evaluate    repr("""${EXPECTED_MESSAGES}""")
 
     ${LENGTH}    Get Length    ${MESSAGES_LIST}
     ${MENSAGEM_RETORNO_INDEX}    Evaluate    ${LENGTH} - 3
@@ -46,31 +45,38 @@ Validar mensagem resposta não reconhecidas
     FOR  ${INDEX}    IN RANGE    ${MENSAGEM_RETORNO_INDEX}+1    ${LENGTH}-1
         ${TEXT}    Get Text    ${MESSAGES_LIST}[${INDEX}]
         ${TEXT}    Strip String    ${TEXT}
-        ${TEXT}    Replace String    ${TEXT}    ${SPACE}    ${EMPTY}
-        ${TEXT}    Replace String    ${TEXT}    \n    ${EMPTY}
-
-        Log To Console    ESPERADO=${EXPECTED_MESSAGES}
-        Log To Console    RESULTADO=${TEXT}
+    ${REPR_ULTIMA}    Evaluate    repr("""${TEXT}""")
         
-        Should Be Equal    ${TEXT}    ${EXPECTED_MESSAGES}
+        Should Be Equal    ${REPR_ULTIMA}    ${REPR_EXPECTED}
     END
     Sleep    2
-    ${LAST_MESSAGE_INDEX}    Evaluate    ${LENGTH} - 1
-    ${LAST_MESSAGE}    Get Text    ${MESSAGES_LIST}[${LAST_MESSAGE_INDEX}]
+    ${LAST_MESSAGE}    Get Text    ${MESSAGES_LIST}[-1]
     Log To Console    ESPERADO=${MENSAGEM_RETORNO}
     Log To Console    RESULTADO=${LAST_MESSAGE}
     Should Be Equal    ${MENSAGEM_RETORNO}    ${LAST_MESSAGE}
 
 Dado que, o usuário fique inativo por 5 minutos
-    Sleep    310
-    ${MESSAGES_LIST}    Get WebElements    ${MESSAGES_XPATH}
-    ${LENGTH}    Get Length    ${MESSAGES_LIST}
-    ${LENGTH}    Evaluate    ${LENGTH} - 1
-    ${MESSAGE}    Get Text    ${MESSAGES_LIST}[${LENGTH}]
-    Log To Console    ${MESSAGE}
-    Sleep    5
+    Sleep    305
+    ${INATIVITY_ELEMENT}    Get WebElement    ${INATIVITY_TEXT}
+    ${TEXT_INATIVITY}    Get Text    ${INATIVITY_ELEMENT}
+    ${EXPECTED}    Set Variable    Você ainda está aí? Envie uma mensagem dentro de${SPACE} minutos e${SPACE} segundos ou este chat atingirá o tempo limite
 
-    Should Be Equal    ${MESSAGE}    Oi! 👋 Notei que não nos falamos há algum tempo. Sua sessão será encerrada automaticamente em 24 horas. Pra não voltarmos nossa conversa do início, continue conversando comigo, por favor. 🥰
+    ${TEXT_INATIVITY_WITHOUT_NUMBERS}    Remove Numbers    ${TEXT_INATIVITY}
+
+    Should Be Equal    ${TEXT_INATIVITY_WITHOUT_NUMBERS}    ${EXPECTED}
+
+Dado que, o usuário fique inativo por 24 horas
+    Sleep    305
+    ${INATIVITY_ELEMENT}    Get WebElement    ${INATIVITY_TEXT}
+    ${TEXT_INATIVITY}    Get Text    ${INATIVITY_ELEMENT}
+    ${EXPECTED}    Set Variable    Você ainda está aí? Envie uma mensagem dentro de${SPACE} minutos e${SPACE} segundos ou este chat atingirá o tempo limite
+
+    ${TEXT_INATIVITY_WITHOUT_NUMBERS}    Remove Numbers    ${TEXT_INATIVITY}
+
+    Log To Console    FORMATADO ===${\n}${TEXT_INATIVITY_WITHOUT_NUMBERS}${\n}
+    Log To Console    ESPERADO ===${\n}${EXPECTED}
+
+    Should Be Equal    ${TEXT_INATIVITY_WITHOUT_NUMBERS}    ${EXPECTED}
 
 Dado que, o usuário continue a conversa
     [Arguments]    ${MESSAGE}

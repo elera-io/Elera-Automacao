@@ -51,9 +51,11 @@ Então o bot solicita o sobrenome
     ${TEXT}    Get Text    ${MESSAGES_LIST}[-1]
     ${TEXT}    Strip String    ${TEXT}
     ${TEXT}    Remove String    ${TEXT}    \s+    ""
-    Log To Console    ESPERADO: E sobrenome?
+
+    Log To Console    ESPERADO: E sobrenome, por favor?
     Log To Console    RESULTADO: ${TEXT}
-    Should Be Equal    ${TEXT}    E sobrenome?
+    
+    Should Be Equal    ${TEXT}    E sobrenome, por favor?
 
 Dado que o usuário preencha o seu sobrenome
     Sleep    3s
@@ -202,8 +204,8 @@ Definir nome como icaro Bezerra
 Redefinir nome Para Teste Elera
     Redefinir nome padrão    Teste     Elera
 
-Redefinir telefone padrão
-    [Documentation]    Aqui o nome é redefinido para utilizar o telefone necessario no teste
+Redefinir celular padrão
+    [Documentation]    Aqui o nome é redefinido para utilizar o celular necessario no teste
     [Arguments]    ${NOVO_CELULAR}
     Set Global Variable    ${CELULAR}    ${NOVO_CELULAR}
 
