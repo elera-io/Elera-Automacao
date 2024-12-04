@@ -91,7 +91,7 @@ Então o bot deve apresentar uma mensagem e exibir o menu
     Sleep    10s
     Validar ultimas mensagens    Certo, ${PRIMEIRO_NOME}! Sobre o que gostaria de conversar? 🥰
 
-    @{CONTEUDO_ESPERADO_ITENS}    Set Variable    Imóveis Residenciais    Seja um parceiro imobiliário    Outros
+    @{CONTEUDO_ESPERADO_ITENS}    Set Variable    Outros    Seja um parceiro imobiliário    Imóveis Residenciais
     Validar itens no menu    @{CONTEUDO_ESPERADO_ITENS}
     
 Então o bot deve mostrar as mensagens de encerramento

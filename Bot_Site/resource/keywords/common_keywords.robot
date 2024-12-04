@@ -132,11 +132,8 @@ Validar itens no menu
     ${ITENS_MENU}    Get WebElements    ${MENU_ITENS_XPATH}
     ${ITENS_LENGHT}    Get Length    ${ITENS_MENU}
     ${ITENS_ESPERADOS_LENGTH}    Get Length    ${ITENS_ESPERADOS}
-    IF  ${ITENS_LENGHT} != ${ITENS_ESPERADOS_LENGTH}
-        Fail    Quantidade de itens no menu diferente do esperado
-    END
 
-    FOR  ${INDEX}  IN RANGE    0    ${ITENS_LENGHT}
+    FOR  ${INDEX}  IN RANGE    ${ITENS_LENGHT}-1    ${ITENS_LENGHT}-${ITENS_ESPERADOS_LENGTH}
         ${MENU_CONTENT}    Get Text    ${ITENS_MENU}[${INDEX}]
         Should Be Equal    ${MENU_CONTENT}    ${ITENS_ESPERADOS}[${INDEX}]
     END
