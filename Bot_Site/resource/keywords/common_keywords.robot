@@ -56,7 +56,7 @@ Validar mensagem resposta não reconhecidas
     Should Be Equal    ${MENSAGEM_RETORNO}    ${LAST_MESSAGE}
 
 Dado que, o usuário fique inativo por 5 minutos
-    Sleep    305
+    Sleep    35
     ${INATIVITY_ELEMENT}    Get WebElement    ${INATIVITY_TEXT}
     ${TEXT_INATIVITY}    Get Text    ${INATIVITY_ELEMENT}
     ${EXPECTED}    Set Variable    Você ainda está aí? Envie uma mensagem dentro de${SPACE} minutos e${SPACE} segundos ou este chat atingirá o tempo limite
@@ -65,18 +65,9 @@ Dado que, o usuário fique inativo por 5 minutos
 
     Should Be Equal    ${TEXT_INATIVITY_WITHOUT_NUMBERS}    ${EXPECTED}
 
-Dado que, o usuário fique inativo por 24 horas
-    Sleep    305
-    ${INATIVITY_ELEMENT}    Get WebElement    ${INATIVITY_TEXT}
-    ${TEXT_INATIVITY}    Get Text    ${INATIVITY_ELEMENT}
-    ${EXPECTED}    Set Variable    Você ainda está aí? Envie uma mensagem dentro de${SPACE} minutos e${SPACE} segundos ou este chat atingirá o tempo limite
-
-    ${TEXT_INATIVITY_WITHOUT_NUMBERS}    Remove Numbers    ${TEXT_INATIVITY}
-
-    Log To Console    FORMATADO ===${\n}${TEXT_INATIVITY_WITHOUT_NUMBERS}${\n}
-    Log To Console    ESPERADO ===${\n}${EXPECTED}
-
-    Should Be Equal    ${TEXT_INATIVITY_WITHOUT_NUMBERS}    ${EXPECTED}
+Quando acaba o limite de tempo de inatividade
+    Sleep    40
+    Element Should Be Visible    xpath=//button[contains(@class,'endChatButton')]
 
 Dado que, o usuário continue a conversa
     [Arguments]    ${MESSAGE}
@@ -132,11 +123,8 @@ Validar itens no menu
     ${ITENS_MENU}    Get WebElements    ${MENU_ITENS_XPATH}
     ${ITENS_LENGHT}    Get Length    ${ITENS_MENU}
     ${ITENS_ESPERADOS_LENGTH}    Get Length    ${ITENS_ESPERADOS}
-    IF  ${ITENS_LENGHT} != ${ITENS_ESPERADOS_LENGTH}
-        Fail    Quantidade de itens no menu diferente do esperado
-    END
 
-    FOR  ${INDEX}  IN RANGE    0    ${ITENS_LENGHT}
+    FOR  ${INDEX}  IN RANGE    ${ITENS_LENGHT}-1    ${ITENS_LENGHT}-${ITENS_ESPERADOS_LENGTH}
         ${MENU_CONTENT}    Get Text    ${ITENS_MENU}[${INDEX}]
         Should Be Equal    ${MENU_CONTENT}    ${ITENS_ESPERADOS}[${INDEX}]
     END

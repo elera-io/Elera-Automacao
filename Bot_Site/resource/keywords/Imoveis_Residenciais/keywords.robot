@@ -97,10 +97,14 @@ Preencher formulario para criação de unidade
 Dado que o usuário escolha "Imóveis Residenciais" no menu
     Clique no item do menu    Imóveis Residenciais
 
-Dado que, o usuário escolhe horário da tarde
+Dado que, o usuário escolha horário da manhã
     Sleep    20
     ${BOTOES_PERIODO}    Get WebElements    ${BOTOES_XPATH}
-    ${LENGTH}    Get Length    ${BOTOES_PERIODO}
+    Click Element    ${BOTOES_PERIODO}[-4]
+
+Dado que, o usuário escolha horário da tarde
+    Sleep    20
+    ${BOTOES_PERIODO}    Get WebElements    ${BOTOES_XPATH}
     Click Element    ${BOTOES_PERIODO}[-3]
     
 Então o bot deve mostrar o menu de estados em ordem alfabetica
@@ -204,10 +208,9 @@ Então o bot deverá responder com uma mensagem e solicitar o número de celular
 
     Should Be Equal As Strings    ${ULTIMAS_DUAS_MENSAGENS}    ${MENSAGEM_IMOVEL}
 
-Dado que, o usuário não valide a presença
+Dado que, o usuário não queira falar mais sobre outros assuntos
     Sleep    10
     ${BOTOES_PERIODO}    Get WebElements    ${BOTOES_XPATH}
-    ${LENGTH}    Get Length    ${BOTOES_PERIODO}
     Click Element    ${BOTOES_PERIODO}[-1]
 
 Então o bot encerra a conversa
@@ -234,22 +237,22 @@ Então o bot deverá solicitar seu email
     Should Be Equal    ${ULTIMA_MENSAGEM}    Insira seu e-mail:
 
 Então o bot identifique o imóvel
-    Sleep    20
+    Sleep    25
     ${MENSAGENS}    Get WebElements    ${MESSAGES_XPATH}
     ${MENSAGENS_LENGTH}    Get Length    ${MENSAGENS}
-    ${MENSAGENS_LENGTH}    Evaluate    ${MENSAGENS_LENGTH} - 1
     ${ULTIMAS_TRES_MENSAGENS_INDEX}    Evaluate    ${MENSAGENS_LENGTH} - 3
     ${ULTIMAS_TRES_MENSAGENS}    Create List
-    
+
     @{EXPECTED}    Create List    Vou pedir para que o corretor que te acompanhou siga com o seu atendimento, tá bem?    ${PRIMEIRO_NOME}, preciso apenas de mais uma informação, por favor. 🥰    Em qual horário você prefere que a gente retorne? É só selecionar uma opção abaixo.
 
-    FOR    ${ELEMENTO}    IN RANGE    ${len(${EXPECTED})}
+    ${LENGTH_EXPECTED}    Get Length    ${EXPECTED}
+    FOR    ${ELEMENTO}    IN RANGE    ${LENGTH_EXPECTED}
         ${NOVO_VALOR}    Evaluate    repr("""${EXPECTED[${ELEMENTO}]}""")
         Log To Console    ESPERADO${\n}${NOVO_VALOR}${\n}
         Set List Value    ${EXPECTED}    ${ELEMENTO}    ${NOVO_VALOR}
     END
 
-    FOR    ${INDEX}    IN RANGE    ${MENSAGENS_LENGTH}    ${ULTIMAS_TRES_MENSAGENS_INDEX}    -1
+    FOR    ${INDEX}    IN RANGE    ${ULTIMAS_TRES_MENSAGENS_INDEX}    ${MENSAGENS_LENGTH}
         ${TEXT}    Get Text    ${MENSAGENS}[${INDEX}]
 
         ${REPR_ULTIMA}    Evaluate    repr("""${TEXT}""")
@@ -264,19 +267,19 @@ Então o bot não identifique o imóvel
     Sleep    20
     ${MENSAGENS}    Get WebElements    ${MESSAGES_XPATH}
     ${MENSAGENS_LENGTH}    Get Length    ${MENSAGENS}
-    ${MENSAGENS_LENGTH}    Evaluate    ${MENSAGENS_LENGTH} - 1
     ${ULTIMAS_TRES_MENSAGENS_INDEX}    Evaluate    ${MENSAGENS_LENGTH} - 3
     ${ULTIMAS_TRES_MENSAGENS}    Create List
     
-    @{EXPECTED}    Create List    Vou pedir para que o corretor que te acompanhou siga com o seu atendimento, tá bem?    ${PRIMEIRO_NOME}, preciso apenas de mais uma informação, por favor. 🥰    Em qual horário você prefere que a gente retorne? É só selecionar uma opção abaixo.
+    @{EXPECTED}    Create List    Como você selecionou um imóvel diferente do primeiro contato, vou te encaminhar a um novo corretor, tá bem?    Para seguirmos, preciso de alguns dados adicionais. ✅    ${PRIMEIRO_NOME}, quando você pretende comprar sua casa?
 
-    FOR    ${ELEMENTO}    IN RANGE    ${len(${EXPECTED})}
+    ${LENGTH_EXPECTED}    Get Length    ${EXPECTED}
+    FOR    ${ELEMENTO}    IN RANGE    ${LENGTH_EXPECTED}
         ${NOVO_VALOR}    Evaluate    repr("""${EXPECTED[${ELEMENTO}]}""")
         Log To Console    ESPERADO${\n}${NOVO_VALOR}${\n}
         Set List Value    ${EXPECTED}    ${ELEMENTO}    ${NOVO_VALOR}
     END
 
-    FOR    ${INDEX}    IN RANGE    ${MENSAGENS_LENGTH}    ${ULTIMAS_TRES_MENSAGENS_INDEX}    -1
+    FOR    ${INDEX}    IN RANGE    ${ULTIMAS_TRES_MENSAGENS_INDEX}    ${MENSAGENS_LENGTH}
         ${TEXT}    Get Text    ${MENSAGENS}[${INDEX}]
 
         ${REPR_ULTIMA}    Evaluate    repr("""${TEXT}""")
@@ -324,51 +327,114 @@ Então o bot deverá exibir a mensagem de confusão
     ${PENULTIMA_MENSAGEM}    Remove String    ${PENULTIMA_MENSAGEM}    \n    ''
     Should Be Equal    ${PENULTIMA_MENSAGEM}    Poxa! Ainda não consegui te entender. 😩Vamos retornar para onde estávamos?OBS: Digite apenas quando pedirmos algum dado pessoal, por favor. Os campos apresentados são para seleção.
 
+Então o bot deverá exibir a mensagem se deseja morar ou investir
+    Sleep    5s
+    ${MENSAGENS}    Get WebElements    ${MESSAGES_XPATH}
+    ${PENULTIMA_MENSAGEM}    Get Text    ${MENSAGENS}[-1]
+    ${EXPECTED}    Set Variable    Legal! E você vai comprar para morar ou investir?
+
+    ${REPR_EXPECTED}    Evaluate    repr("""${EXPECTED}""")
+    ${RESULT_MESSAGE_REPR}    Evaluate    repr("""${PENULTIMA_MENSAGEM}""")
+
+    Should Be Equal    ${RESULT_MESSAGE_REPR}    ${REPR_EXPECTED}
+
+Então o bot deverá exibir a mensagem se está trabalhando no momento
+    Sleep    5s
+    ${MENSAGENS}    Get WebElements    ${MESSAGES_XPATH}
+    ${PENULTIMA_MENSAGEM}    Get Text    ${MENSAGENS}[-1]
+    ${EXPECTED}    Set Variable    Você está trabalhando no momento?
+
+    ${REPR_EXPECTED}    Evaluate    repr("""${EXPECTED}""")
+    ${RESULT_MESSAGE_REPR}    Evaluate    repr("""${PENULTIMA_MENSAGEM}""")
+
+    Should Be Equal    ${RESULT_MESSAGE_REPR}    ${REPR_EXPECTED}
+
+Então o bot deverá exibir a mensagem qual regime de trabalho
+    Sleep    5s
+    ${MENSAGENS}    Get WebElements    ${MESSAGES_XPATH}
+    ${PENULTIMA_MENSAGEM}    Get Text    ${MENSAGENS}[-1]
+    ${EXPECTED}    Set Variable    Certo! Qual seria o tipo de regime de trabalho, ${PRIMEIRO_NOME}?
+
+    ${REPR_EXPECTED}    Evaluate    repr("""${EXPECTED}""")
+    ${RESULT_MESSAGE_REPR}    Evaluate    repr("""${PENULTIMA_MENSAGEM}""")
+
+    Should Be Equal    ${RESULT_MESSAGE_REPR}    ${REPR_EXPECTED}
+
+Então o bot deverá exibir a mensagem qual a renda familiar
+    Sleep    5s
+    ${MENSAGENS}    Get WebElements    ${MESSAGES_XPATH}
+    ${PENULTIMA_MENSAGEM}    Get Text    ${MENSAGENS}[-1]
+    ${EXPECTED}    Set Variable    Entendi! Qual é a sua faixa de renda familiar (soma da renda das pessoas que irão morar com você)?
+
+    ${REPR_EXPECTED}    Evaluate    repr("""${EXPECTED}""")
+    ${RESULT_MESSAGE_REPR}    Evaluate    repr("""${PENULTIMA_MENSAGEM}""")
+
+    Should Be Equal    ${RESULT_MESSAGE_REPR}    ${REPR_EXPECTED}
+
+Então o bot deverá exibir a mensagem se possui FGTS
+    Sleep    5s
+    ${MENSAGENS}    Get WebElements    ${MESSAGES_XPATH}
+    ${PENULTIMA_MENSAGEM}    Get Text    ${MENSAGENS}[-1]
+    ${EXPECTED}    Set Variable    Estamos quase lá, ${PRIMEIRO_NOME}... Você ou a pessoa que desejaria compor o financiamento tem FGTS? Caso não tenha FGTS, mas possua alguma reserva pode clicar em "Sim" também.
+
+    ${REPR_EXPECTED}    Evaluate    repr("""${EXPECTED}""")
+    ${RESULT_MESSAGE_REPR}    Evaluate    repr("""${PENULTIMA_MENSAGEM}""")
+
+    Should Be Equal    ${RESULT_MESSAGE_REPR}    ${REPR_EXPECTED}
+
+Então o bot deverá exibir a mensagem se possui restrição de crédito
+    Sleep    5s
+    ${MENSAGENS}    Get WebElements    ${MESSAGES_XPATH}
+    ${PENULTIMA_MENSAGEM}    Get Text    ${MENSAGENS}[-1]
+    ${EXPECTED}    Set Variable    Você tem alguma restrição de crédito? Caso não se sinta à vontade em informar por aqui, tudo bem. 😊
+
+    ${REPR_EXPECTED}    Evaluate    repr("""${EXPECTED}""")
+    ${RESULT_MESSAGE_REPR}    Evaluate    repr("""${PENULTIMA_MENSAGEM}""")
+
+    Should Be Equal    ${RESULT_MESSAGE_REPR}    ${REPR_EXPECTED}
+
 Enviar mensagem
     [Arguments]    ${MENSAGEM}
     Input Text    ${CHAT_INPUT}    ${MENSAGEM} 
     Press Keys    ${CHAT_INPUT}    ENTER
 
 Dado que, o usuário selecione nos próximos 12 meses
-    Sleep    10
-    ${BOTOES_PERIODO}    Get WebElements    ${BOTOES_XPATH}
-    ${LENGTH}    Get Length    ${BOTOES_PERIODO}
-    Click Element    ${BOTOES_PERIODO}[-2]
+    Sleep    5
+    Clique no item do menu    Nos próximos 12 meses
 
 Dado que, o usuário selecione Investir
-    ${BOTOES_PERIODO}    Get WebElements    ${BOTOES_XPATH}
-    ${LENGTH}    Get Length    ${BOTOES_PERIODO}
-    Click Element    ${BOTOES_PERIODO}[-1]
+    Sleep    5
+    ${BOTOES}    Get WebElements    ${BOTOES_XPATH}
+    Click Element    ${BOTOES}[-1]
 
 Dado que, o usuário concorde que trabalha
-    ${BOTOES_PERIODO}    Get WebElements    ${BOTOES_XPATH}
-    ${LENGTH}    Get Length    ${BOTOES_PERIODO}
-    Click Element    ${BOTOES_PERIODO}[-2]
+    Sleep    5
+    ${BOTOES}    Get WebElements    ${BOTOES_XPATH}
+    Click Element    ${BOTOES}[-2]
 
 Dado que, o usuário selecione CLT
-    ${BOTOES_PERIODO}    Get WebElements    ${BOTOES_XPATH}
-    ${LENGTH}    Get Length    ${BOTOES_PERIODO}
-    Click Element    ${BOTOES_PERIODO}[-2]
+    Sleep    5
+    ${BOTOES}    Get WebElements    ${BOTOES_XPATH}
+    Click Element    ${BOTOES}[-3]
 
 Dado que, o usuário selecione renda mensal de Até R$2.000
-    ${BOTOES_PERIODO}    Get WebElements    ${BOTOES_XPATH}
-    ${LENGTH}    Get Length    ${BOTOES_PERIODO}
-    Click Element    ${BOTOES_PERIODO}[-4]
+    Sleep    5
+    ${BOTOES}    Get WebElements    ${BOTOES_XPATH}
+    Click Element    ${BOTOES}[-4]
 
 Dado que, o usuário não queira Financiamento com o FGTS
-    ${BOTOES_PERIODO}    Get WebElements    ${BOTOES_XPATH}
-    ${LENGTH}    Get Length    ${BOTOES_PERIODO}
-    Click Element    ${BOTOES_PERIODO}[-2]
+    Sleep    5
+    ${BOTOES}    Get WebElements    ${BOTOES_XPATH}
+    Click Element    ${BOTOES}[-1]
 
 Dado que, o usuário não tenha Restrição de Crédito
-    ${BOTOES_PERIODO}    Get WebElements    ${BOTOES_XPATH}
-    ${LENGTH}    Get Length    ${BOTOES_PERIODO}
-    Click Element    ${BOTOES_PERIODO}[-2]
+    Sleep    5
+    ${BOTOES}    Get WebElements    ${BOTOES_XPATH}
+    Click Element    ${BOTOES}[-3]
 
 Dado que, o usuário queira Receber Contato
-    ${BOTOES_PERIODO}    Get WebElements    ${BOTOES_XPATH}
-    ${LENGTH}    Get Length    ${BOTOES_PERIODO}
-    Click Element    ${BOTOES_PERIODO}[-1]
+    Sleep    5
+    Clique no item do menu    Receber contato
 
 Dado que o usuário escolha "Hell Raiser" no menu
     Clique no item do menu    Hell Raiser

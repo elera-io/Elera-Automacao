@@ -11,13 +11,6 @@ Validar mensagem de erro
     Então o bot apresenta as mensagens de boas vindas e política de privacidade
     Enviar mensagem    C
     Validar mensagem resposta não reconhecidas
-    # Quando o usuário clica no botão Concordo
-    # Então o bot solicita o nome completo
-    # Dado que o usuário preencha o seu nome completo
-    # Então o bot deve perguntar se o usuário já é um cliente
-    # E exibir os botões "Sim, sou" e "Ainda não"
-    # Dado que o usuário clique no botão "Ainda não"
-    # Então o bot deve apresentar uma mensagem e exibir o menu
 
 *** Test Cases ***
 CT01: Resposta a informações não reconhecidas pelo chatbot
@@ -48,4 +41,4 @@ CT05: Encerramento da Janela de Atendimento Após 24 horas de Inatividade
     Dado que o usuário clique no ícone de chat
     Então o bot apresenta as mensagens de boas vindas e política de privacidade
     Dado que, o usuário fique inativo por 5 minutos
-    Quando o usuário clica no botão Concordo
+    Quando acaba o limite de tempo de inatividade

@@ -48,9 +48,9 @@ TC03: Validar caso aberto no omnichannel e escolha do mesmo imóvel vinculado.
     Então o bot identifique o imóvel
   
 TC04: Validar lead escolhendo imóvel diferente sem caso aberto no omnichannel.
-    Definir nome como João Pedro Silva
+    Redefinir nome padrão    Silva    Kevin
     Redefinir Imóvel    Mirante das Flores
-    Redefinir celular padrão    (11) 99999-8888
-    Redefinir email padrão    Teste@gmail.com
+    Redefinir celular padrão    (11) 93335-7637
+    Redefinir email padrão    kevin.silva@sptech.school
     Marco Zero | Ramificação ainda não é cliente | Imóveis Residenciais
     Então o bot não identifique o imóvel
