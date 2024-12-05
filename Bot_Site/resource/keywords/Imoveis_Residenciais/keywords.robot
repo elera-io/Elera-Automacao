@@ -293,9 +293,6 @@ Então o bot não identifique o imóvel
 Dado que o usuário informe seu email
     Enviar mensagem    ${EMAIL}
 
-Dado que o usuário informe seu número incorreto
-    Enviar mensagem    (99) 99999-88888
-
 Dado que o usuário informe um email inválido com @@
     Enviar mensagem    Teste@@gmail.com
 
@@ -320,6 +317,11 @@ Dado que o usuário informe um número com letras
 Dado que o usuário informe um número faltando digitos
     Enviar mensagem    (11) 9951-301
 
+Dado que o usuário informe seu número incorreto
+    Enviar mensagem    (99) 99999-88888
+
+Dado que o usuário informe seu número inválido
+    Enviar mensagem    11-99513-01
 Então o bot deverá exibir a mensagem de confusão
     Sleep    6s
     ${MENSAGENS}    Get WebElements    ${MESSAGES_XPATH}
