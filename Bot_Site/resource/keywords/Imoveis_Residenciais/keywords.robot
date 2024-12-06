@@ -531,3 +531,8 @@ Dado que o usuário escolha um empreendimento sem fotos
     Set Global Variable    ${NOME_IMOVEL}    VIDA NOVA BOULEVARD
     Sleep    5s
 
+Então o bot apresenta as informações do empreendimento
+    ${MENSAGENS}    Get WebElements    ${MESSAGES_XPATH}
+    ${TEXTO}    Get Text    ${MENSAGENS}[-3]
+    Should Contain    ${TEXTO}    Imagem não disponível no momento
+    
