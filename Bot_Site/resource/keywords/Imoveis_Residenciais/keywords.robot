@@ -475,3 +475,17 @@ E então clique no em "Developer Console"
     Switch Window    Developer Console
     Press Keys    None    ESC
 
+E crie um empreedimento
+    ${SCRIPT_EMPREENDIMENTO}    Get File    path=scripts\\empreendimento.apex
+    Copy To Clipboard    ${SCRIPT_EMPREENDIMENTO}
+    Press Keys    None    CTRL+e
+    Sleep    4s
+    Press Keys    ${DEVELOPER_CONSOLE}    CTRL+a    DELETE 
+    Press Keys    ${DEVELOPER_CONSOLE}    CTRL+v
+    Click Element    ${EXECUTE_BUTTON}
+    Sleep    2s
+    ${ERROR}    Run Keyword And Return Status    Element Should Be Visible    ${ERROR_XPATH}
+    IF  ${ERROR}
+        ${STACK_TRACE}    Get Text    xpath=//div[contains(text(), 'Line')]
+        Fail    O script falhou em sua execução: ${STACK_TRACE}    
+    END
