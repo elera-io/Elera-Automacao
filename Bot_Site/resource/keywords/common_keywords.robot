@@ -191,3 +191,9 @@ Marco Zero | Ramificação ainda não é cliente
     E exibir os botões "Sim, sou" e "Ainda não"
     Dado que o usuário clique no botão "Ainda não"
     Então o bot deve apresentar uma mensagem e exibir o menu
+
+Efetuar Login no Console
+    ${options}=    Evaluate    sys.modules['selenium.webdriver'].ChromeOptions()    sys, selenium.webdriver
+    Call Method    ${options}    add_argument    --disable-notifications
+    Open Browser    https://pacaembuconstrutorasa--uat.sandbox.lightning.force.com/    ${BROWSER}    options=${options}
+    Preencher campos
