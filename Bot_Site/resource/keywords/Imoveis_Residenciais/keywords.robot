@@ -536,3 +536,8 @@ Então o bot apresenta as informações do empreendimento
     ${TEXTO}    Get Text    ${MENSAGENS}[-3]
     Should Contain    ${TEXTO}    Imagem não disponível no momento
     
+Então o bot apresenta as imagens da unidade
+    Element Should Be Visible    //span[contains(text(), 'Dormitorios')]//img
+    ${IMAGENS}    Get WebElements    //span[contains(text(), 'Dormitorios')]//img
+    ${QTD_IMAGENS}    Get Length    ${IMAGENS}
+    Should Be Equal As Integers    ${QTD_IMAGENS}    3
