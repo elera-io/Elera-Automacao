@@ -489,3 +489,31 @@ E crie um empreedimento
         ${STACK_TRACE}    Get Text    xpath=//div[contains(text(), 'Line')]
         Fail    O script falhou em sua execução: ${STACK_TRACE}    
     END
+
+Então o bot deverá exibir o novo empreendimento cadastrado
+    Efetuar Login
+    Marco Zero | Ramificação ainda não é cliente
+    Dado que o usuário escolha "Imóveis Residenciais" no menu
+    Dado que, o usuário clique em "ELERA" no menu de estados
+    Sleep    2s
+    Clique no item do menu    Teste Atualização
+    Sleep    5s
+    ${ITENS_MENU}    Get WebElements    ${MENU_ITENS_XPATH}
+    ${ITENS_LENGHT}    Get Length    ${ITENS_MENU}
+    ${ULTIMO_ITEM}    Get Text    ${ITENS_MENU}[-1]
+    Should Be Equal    ${ULTIMO_ITEM}    Voltar
+    ${PENULTIMO_INDICE}    Evaluate    ${ITENS_LENGHT} - 2
+    ${QTD_EMPREENDIMENTOS}    Set Variable    0
+    ${ITEM_EXISTE}    Set Variable    False
+    FOR  ${INDEX}  IN RANGE    ${PENULTIMO_INDICE}    0    -1   
+        ${MENU_CONTENT}    Get Text    ${ITENS_MENU}[${INDEX}]
+        IF  '${MENU_CONTENT}' == 'Voltar'
+            ${INDICE_VOLTAR}    Set Variable    ${INDEX}
+            ${ITEM_EXISTE}    Set Variable    True
+            BREAK
+        END
+        ${QTD_EMPREENDIMENTOS}    Evaluate    ${QTD_EMPREENDIMENTOS} + 1
+    END
+    Run Keyword If    '${ITEM_EXISTE}' == 'False'    Fail    Opção de voltar não foi encontrado
+    Should Be Equal As Integers    ${QTD_EMPREENDIMENTOS}    2
+    Sleep    10s
