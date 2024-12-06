@@ -517,3 +517,17 @@ Então o bot deverá exibir o novo empreendimento cadastrado
     Run Keyword If    '${ITEM_EXISTE}' == 'False'    Fail    Opção de voltar não foi encontrado
     Should Be Equal As Integers    ${QTD_EMPREENDIMENTOS}    2
     Sleep    10s
+
+Dado que o usuário escolha a cidade "Lins" no menu
+    Clique no item do menu    Lins
+
+Dado que o usuário escolha um empreendimento com fotos
+    Clique no item do menu    VIDA NOVA LINENSE
+    Set Global Variable    ${NOME_IMOVEL}    VIDA NOVA LINENSE
+    Sleep    5s
+
+Dado que o usuário escolha um empreendimento sem fotos
+    Clique no item do menu    VIDA NOVA BOULEVARD
+    Set Global Variable    ${NOME_IMOVEL}    VIDA NOVA BOULEVARD
+    Sleep    5s
+
