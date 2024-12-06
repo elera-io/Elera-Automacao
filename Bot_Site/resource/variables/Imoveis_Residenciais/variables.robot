@@ -4,7 +4,7 @@ Resource    ../Marco_Zero/variables.robot
 *** Variables ***
 ${LAST_MODIFY_LEAD}    xpath= /html/body/div[4]/div[1]/section/div[1]/div[2]/div[1]/div/div/div/div/div/div/div/div[2]/div/div[1]/div[2]/div[2]/div[1]/div/div/table/thead/tr/th[4]/div/a/span[2]
 ${LEAD_NAME}    xpath=/html/body/div[4]/div[1]/section/div[1]/div[2]/div[1]/div/div/div/div/div/div/div/div[2]/div/div[1]/div[2]/div[2]/div[1]/div/div/table/tbody/tr[1]/td[4]/span/a
-@{UFS}    BA   MG    MT    PR    SP    ZZ
+@{UFS}    BA   MG    MT    PR    SP
 @{MENSAGEM_ESPERADA_IMOVEIS}    Selecione qual deles deseja conhecer, por favor.    Na cidade que selecionou temos esse (s) imóvel (is) aqui, icaro. 👇   A Pacaembu está presente em mais de 50 cidades, mas cada uma delas é única pra gente!
 ${NOME_IMOVEL}    Gojira
 ${CELULAR}    (11) 99999-8888
@@ -15,3 +15,5 @@ ${STATUS_COMBOBOX_XPATH}    xpath=//button[contains(@class,'slds-combobox__input
 ${NOME_EMPREENDIMENTO}   Gojira  
 ${NOME_UNIDADE}    Teste Elera Unidade
 ${BASE_URL_UNIDAES}   https://pacaembuconstrutorasa--uat.sandbox.lightning.force.com/lightning/o/cbns__Unidade__c/list?filterName
+${SETUP_XPATH}    //a[contains(@class, 'slds-global-actions__setup')]
+${DEV_CONSOLE_XPATH}    //li[contains(@id, 'developer')]

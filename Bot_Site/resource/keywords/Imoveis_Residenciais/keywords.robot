@@ -2,6 +2,8 @@
 Resource    ../common_keywords.robot
 Resource    ../../variables/Imoveis_Residenciais/variables.robot
 Library    Collections
+Library    OperatingSystem
+Library    ../../../libs/ctrl_c.py
 
 *** Keywords ***
 
@@ -450,5 +452,26 @@ Logar na tela de lead
 
 Então é exibido a mensagem de usuário já cadastrado
     Validar ultimas mensagens    ${PRIMEIRO_NOME}, vi que você falou com a gente recentemente.
-
     Press Keys    ${CHAT_INPUT}    ENTER
+
+Dado que, o usuário clique em "ELERA" no menu de estados
+    Sleep    2s
+    Clique no item do menu    ELERA
+
+Dado que, o usuário escolha a cidade de "Teste Atualização" no menu de cidades
+    Sleep    2s
+    Clique no item do menu    Teste Atualização
+
+Dado que, o usuário clique no icone de setup
+    Sleep    2s
+    Wait Until Element Is Visible    ${SETUP_XPATH}    10s
+    Click Element    ${SETUP_XPATH}
+    Sleep    2s
+
+E então clique no em "Developer Console"
+    Wait Until Element Is Visible    ${DEV_CONSOLE_XPATH}    10s
+    Click Element    ${DEV_CONSOLE_XPATH}
+    Sleep    5s
+    Switch Window    Developer Console
+    Press Keys    None    ESC
+
