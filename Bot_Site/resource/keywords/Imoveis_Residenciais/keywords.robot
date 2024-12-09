@@ -4,6 +4,7 @@ Resource    ../../variables/Imoveis_Residenciais/variables.robot
 Library    Collections
 Library    OperatingSystem
 Library    ../../../libs/ctrl_c.py
+Library    FakerLibrary    locale=pt_BR
 
 *** Keywords ***
 
@@ -541,3 +542,11 @@ Então o bot apresenta as imagens da unidade
     ${IMAGENS}    Get WebElements    //span[contains(text(), 'Dormitorios')]//img
     ${QTD_IMAGENS}    Get Length    ${IMAGENS}
     Should Be Equal As Integers    ${QTD_IMAGENS}    3
+
+Dado que o usuário informe um número aleartório
+    ${NUMERO}    FakerLibrary.Phone Number
+    Enviar mensagem    ${NUMERO}
+
+Dado que o usuário informe um email aleartório
+    ${EMAIL}    FakerLibrary.Email
+    Enviar mensagem    ${EMAIL}
