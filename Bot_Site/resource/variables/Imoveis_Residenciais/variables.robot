@@ -6,7 +6,7 @@ ${LAST_MODIFY_LEAD}    xpath= /html/body/div[4]/div[1]/section/div[1]/div[2]/div
 ${LEAD_NAME}    xpath=/html/body/div[4]/div[1]/section/div[1]/div[2]/div[1]/div/div/div/div/div/div/div/div[2]/div/div[1]/div[2]/div[2]/div[1]/div/div/table/tbody/tr[1]/td[4]/span/a
 @{UFS}    BA   MG    MT    PR    SP
 @{MENSAGEM_ESPERADA_IMOVEIS}    Selecione qual deles deseja conhecer, por favor.    Na cidade que selecionou temos esse (s) imóvel (is) aqui, icaro. 👇   A Pacaembu está presente em mais de 50 cidades, mas cada uma delas é única pra gente!
-${NOME_IMOVEL}    Gojira
+${NOME_IMOVEL}    Mirante da Serra
 ${CELULAR}    (11) 99999-8888
 ${EMAIL}    Teste@gmail.com
 ${ESTADO}    SP

@@ -443,13 +443,24 @@ Dado que, o usuário queira Receber Contato
 Dado que o usuário escolha "Hell Raiser" no menu
     Clique no item do menu    Hell Raiser
 
-Logar na tela de lead
-    ${BASE_URL_LEAD}=    Set Variable    
+Logar na tela de lead  
     Open Browser  ${BASE_URL_LEAD}
     Sleep  3s
     Preencher campos
     Sleep  15s
 
+Procurar lead criado
+    ${BARRA_DE_PESQUISA}    Set Variable    xpath=//div[contains(@class, 'slds-form-element')]/input[contains(@class, 'slds-input')]
+    Click Element    ${BARRA_DE_PESQUISA}
+    Input Text    ${BARRA_DE_PESQUISA}    ${PRIMEIRO_NOME} ${SOBRENOME}
+    Sleep    3s
+    Press Keys    ${BARRA_DE_PESQUISA}    ENTER
+    Sleep    5s
+
+Clicar no Lead
+    ${LEAD_NAME}    Set Variable    xpath=//table/tbody/tr[1]/td[4]/span/a
+    Click Element    ${LEAD_NAME}
+    Sleep    5s
 Então é exibido a mensagem de usuário já cadastrado
     Validar ultimas mensagens    ${PRIMEIRO_NOME}, vi que você falou com a gente recentemente.
     Press Keys    ${CHAT_INPUT}    ENTER

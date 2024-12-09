@@ -19,7 +19,7 @@ Efetuar Login
 
 Clicar no chat
     Sleep    10s
-    Sleep    5s
+    Sleep    10s
     Wait Until Element Is Visible    ${CHAT}    5s
     Click Element    ${CHAT}
     Sleep    15s
