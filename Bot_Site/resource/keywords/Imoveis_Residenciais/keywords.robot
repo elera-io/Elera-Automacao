@@ -2,6 +2,8 @@
 Resource    ../common_keywords.robot
 Resource    ../../variables/Imoveis_Residenciais/variables.robot
 Library    Collections
+Library    OperatingSystem
+Library    ../../../libs/ctrl_c.py
 
 *** Keywords ***
 
@@ -507,14 +509,112 @@ Dado que, o usuário queira Receber Contato
 Dado que o usuário escolha "Hell Raiser" no menu
     Clique no item do menu    Hell Raiser
 
-Logar na tela de lead
-    ${BASE_URL_LEAD}=    Set Variable    
+Logar na tela de lead  
     Open Browser  ${BASE_URL_LEAD}
     Sleep  3s
     Preencher campos
     Sleep  15s
 
+Procurar lead criado
+    ${BARRA_DE_PESQUISA}    Set Variable    xpath=//div[contains(@class, 'slds-form-element')]/input[contains(@class, 'slds-input')]
+    Click Element    ${BARRA_DE_PESQUISA}
+    Input Text    ${BARRA_DE_PESQUISA}    ${PRIMEIRO_NOME} ${SOBRENOME}
+    Sleep    3s
+    Press Keys    ${BARRA_DE_PESQUISA}    ENTER
+    Sleep    5s
+
+Clicar no Lead
+    ${LEAD_NAME}    Set Variable    xpath=//table/tbody/tr[1]/td[4]/span/a
+    Click Element    ${LEAD_NAME}
+    Sleep    5s
 Então é exibido a mensagem de usuário já cadastrado
     Validar ultimas mensagens    ${PRIMEIRO_NOME}, vi que você falou com a gente recentemente.
-
     Press Keys    ${CHAT_INPUT}    ENTER
+
+Dado que, o usuário clique em "ELERA" no menu de estados
+    Sleep    2s
+    Clique no item do menu    ELERA
+
+Dado que, o usuário escolha a cidade de "Teste Atualização" no menu de cidades
+    Sleep    2s
+    Clique no item do menu    Teste Atualização
+
+Dado que, o usuário clique no icone de setup
+    Sleep    2s
+    Wait Until Element Is Visible    ${SETUP_XPATH}    10s
+    Click Element    ${SETUP_XPATH}
+    Sleep    2s
+
+E então clique no em "Developer Console"
+    Wait Until Element Is Visible    ${DEV_CONSOLE_XPATH}    10s
+    Click Element    ${DEV_CONSOLE_XPATH}
+    Sleep    5s
+    Switch Window    Developer Console
+    Press Keys    None    ESC
+
+E crie um empreedimento
+    ${SCRIPT_EMPREENDIMENTO}    Get File    path=scripts\\empreendimento.apex
+    Copy To Clipboard    ${SCRIPT_EMPREENDIMENTO}
+    Press Keys    None    CTRL+e
+    Sleep    4s
+    Press Keys    ${DEVELOPER_CONSOLE}    CTRL+a    DELETE 
+    Press Keys    ${DEVELOPER_CONSOLE}    CTRL+v
+    Click Element    ${EXECUTE_BUTTON}
+    Sleep    2s
+    ${ERROR}    Run Keyword And Return Status    Element Should Be Visible    ${ERROR_XPATH}
+    IF  ${ERROR}
+        ${STACK_TRACE}    Get Text    xpath=//div[contains(text(), 'Line')]
+        Fail    O script falhou em sua execução: ${STACK_TRACE}    
+    END
+
+Então o bot deverá exibir o novo empreendimento cadastrado
+    Efetuar Login
+    Marco Zero | Ramificação ainda não é cliente
+    Dado que o usuário escolha "Imóveis Residenciais" no menu
+    Dado que, o usuário clique em "ELERA" no menu de estados
+    Sleep    2s
+    Clique no item do menu    Teste Atualização
+    Sleep    5s
+    ${ITENS_MENU}    Get WebElements    ${MENU_ITENS_XPATH}
+    ${ITENS_LENGHT}    Get Length    ${ITENS_MENU}
+    ${ULTIMO_ITEM}    Get Text    ${ITENS_MENU}[-1]
+    Should Be Equal    ${ULTIMO_ITEM}    Voltar
+    ${PENULTIMO_INDICE}    Evaluate    ${ITENS_LENGHT} - 2
+    ${QTD_EMPREENDIMENTOS}    Set Variable    0
+    ${ITEM_EXISTE}    Set Variable    False
+    FOR  ${INDEX}  IN RANGE    ${PENULTIMO_INDICE}    0    -1   
+        ${MENU_CONTENT}    Get Text    ${ITENS_MENU}[${INDEX}]
+        IF  '${MENU_CONTENT}' == 'Voltar'
+            ${INDICE_VOLTAR}    Set Variable    ${INDEX}
+            ${ITEM_EXISTE}    Set Variable    True
+            BREAK
+        END
+        ${QTD_EMPREENDIMENTOS}    Evaluate    ${QTD_EMPREENDIMENTOS} + 1
+    END
+    Run Keyword If    '${ITEM_EXISTE}' == 'False'    Fail    Opção de voltar não foi encontrado
+    Should Be Equal As Integers    ${QTD_EMPREENDIMENTOS}    2
+    Sleep    10s
+
+Dado que o usuário escolha a cidade "Lins" no menu
+    Clique no item do menu    Lins
+
+Dado que o usuário escolha um empreendimento com fotos
+    Clique no item do menu    VIDA NOVA LINENSE
+    Set Global Variable    ${NOME_IMOVEL}    VIDA NOVA LINENSE
+    Sleep    5s
+
+Dado que o usuário escolha um empreendimento sem fotos
+    Clique no item do menu    VIDA NOVA BOULEVARD
+    Set Global Variable    ${NOME_IMOVEL}    VIDA NOVA BOULEVARD
+    Sleep    5s
+
+Então o bot apresenta as informações do empreendimento
+    ${MENSAGENS}    Get WebElements    ${MESSAGES_XPATH}
+    ${TEXTO}    Get Text    ${MENSAGENS}[-3]
+    Should Contain    ${TEXTO}    Imagem não disponível no momento
+    
+Então o bot apresenta as imagens da unidade
+    Element Should Be Visible    //span[contains(text(), 'Dormitorios')]//img
+    ${IMAGENS}    Get WebElements    //span[contains(text(), 'Dormitorios')]//img
+    ${QTD_IMAGENS}    Get Length    ${IMAGENS}
+    Should Be Equal As Integers    ${QTD_IMAGENS}    3

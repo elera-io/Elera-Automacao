@@ -19,7 +19,7 @@ Efetuar Login
 
 Clicar no chat
     Sleep    10s
-    Sleep    5s
+    Sleep    10s
     Wait Until Element Is Visible    ${CHAT}    5s
     Click Element    ${CHAT}
     Sleep    15s
@@ -191,3 +191,9 @@ Marco Zero | Ramificação ainda não é cliente
     E exibir os botões "Sim, sou" e "Ainda não"
     Dado que o usuário clique no botão "Ainda não"
     Então o bot deve apresentar uma mensagem e exibir o menu
+
+Efetuar Login no Console
+    ${options}=    Evaluate    sys.modules['selenium.webdriver'].ChromeOptions()    sys, selenium.webdriver
+    Call Method    ${options}    add_argument    --disable-notifications
+    Open Browser    https://pacaembuconstrutorasa--uat.sandbox.lightning.force.com/    ${BROWSER}    options=${options}
+    Preencher campos

@@ -28,9 +28,9 @@ CT01:Pesquisa de imóveis por cidade vários imóveis| telefone e email válidos
     Marco Zero | Ramificação ainda não é cliente
     Dado que o usuário escolha "Imóveis Residenciais" no menu
     Então o bot deve mostrar o menu de estados em ordem alfabetica
-    Dado que o usuário escolha "ZZ" no menu
+    Dado que o usuário escolha "SP" no menu
     Então o bot deve exibir a mensagem "Agora escolha a cidade"
-    Dado que o usuário escolha "Goiânia" no menu
+    Dado que o usuário escolha "Taubaté" no menu
     Então o bot deverá responder com a mensagem de imóveis disponíveis
     Dado que o usuário escolha um imóvel no menu
     Então o bot deverá responder com uma mensagem e solicitar o número de celular
@@ -42,9 +42,9 @@ CT02:Pesquisa de imóveis por cidade vários imóveis| email invalido sem @
     Marco Zero | Ramificação ainda não é cliente
     Dado que o usuário escolha "Imóveis Residenciais" no menu
     Então o bot deve mostrar o menu de estados em ordem alfabetica
-    Dado que o usuário escolha "ZZ" no menu
+    Dado que o usuário escolha "SP" no menu
     Então o bot deve exibir a mensagem "Agora escolha a cidade"
-    Dado que o usuário escolha "Goiânia" no menu
+    Dado que o usuário escolha "Taubaté" no menu
     Então o bot deverá responder com a mensagem de imóveis disponíveis
     Dado que o usuário escolha um imóvel no menu
     Então o bot deverá responder com uma mensagem e solicitar o número de celular
@@ -57,9 +57,9 @@ CT03:Pesquisa de imóveis por cidade vários imóveis| email invalido sem .
     Marco Zero | Ramificação ainda não é cliente
     Dado que o usuário escolha "Imóveis Residenciais" no menu
     Então o bot deve mostrar o menu de estados em ordem alfabetica
-    Dado que o usuário escolha "ZZ" no menu
+    Dado que o usuário escolha "SP" no menu
     Então o bot deve exibir a mensagem "Agora escolha a cidade"
-    Dado que o usuário escolha "Goiânia" no menu
+    Dado que o usuário escolha "Taubaté" no menu
     Então o bot deverá responder com a mensagem de imóveis disponíveis
     Dado que o usuário escolha um imóvel no menu
     Então o bot deverá responder com uma mensagem e solicitar o número de celular
@@ -72,9 +72,9 @@ CT04:Pesquisa de imóveis por cidade vários imóveis| email invalido sem .com
     Marco Zero | Ramificação ainda não é cliente
     Dado que o usuário escolha "Imóveis Residenciais" no menu
     Então o bot deve mostrar o menu de estados em ordem alfabetica
-    Dado que o usuário escolha "ZZ" no menu
+    Dado que o usuário escolha "SP" no menu
     Então o bot deve exibir a mensagem "Agora escolha a cidade"
-    Dado que o usuário escolha "Goiânia" no menu
+    Dado que o usuário escolha "Taubaté" no menu
     Então o bot deverá responder com a mensagem de imóveis disponíveis
     Dado que o usuário escolha um imóvel no menu
     Então o bot deverá responder com uma mensagem e solicitar o número de celular
@@ -87,9 +87,9 @@ CT05:Pesquisa de imóveis por cidade vários imóveis| email invalido sem com
     Marco Zero | Ramificação ainda não é cliente
     Dado que o usuário escolha "Imóveis Residenciais" no menu
     Então o bot deve mostrar o menu de estados em ordem alfabetica
-    Dado que o usuário escolha "ZZ" no menu
+    Dado que o usuário escolha "SP" no menu
     Então o bot deve exibir a mensagem "Agora escolha a cidade"
-    Dado que o usuário escolha "Goiânia" no menu
+    Dado que o usuário escolha "Taubaté" no menu
     Então o bot deverá responder com a mensagem de imóveis disponíveis
     Dado que o usuário escolha um imóvel no menu
     Então o bot deverá responder com uma mensagem e solicitar o número de celular
@@ -102,9 +102,9 @@ CT05:Pesquisa de imóveis por cidade vários imóveis| email invalido sem UserNa
     Marco Zero | Ramificação ainda não é cliente
     Dado que o usuário escolha "Imóveis Residenciais" no menu
     Então o bot deve mostrar o menu de estados em ordem alfabetica
-    Dado que o usuário escolha "ZZ" no menu
+    Dado que o usuário escolha "SP" no menu
     Então o bot deve exibir a mensagem "Agora escolha a cidade"
-    Dado que o usuário escolha "Goiânia" no menu
+    Dado que o usuário escolha "Taubaté" no menu
     Então o bot deverá responder com a mensagem de imóveis disponíveis
     Dado que o usuário escolha um imóvel no menu
     Então o bot deverá responder com uma mensagem e solicitar o número de celular
@@ -117,9 +117,9 @@ CT07:Pesquisa de imóveis por cidade vários imóveis| telefone faltando número
     Marco Zero | Ramificação ainda não é cliente
     Dado que o usuário escolha "Imóveis Residenciais" no menu
     Então o bot deve mostrar o menu de estados em ordem alfabetica
-    Dado que o usuário escolha "ZZ" no menu
+    Dado que o usuário escolha "SP" no menu
     Então o bot deve exibir a mensagem "Agora escolha a cidade"
-    Dado que o usuário escolha "Goiânia" no menu
+    Dado que o usuário escolha "Taubaté" no menu
     Então o bot deverá responder com a mensagem de imóveis disponíveis
     Dado que o usuário escolha um imóvel no menu
     Então o bot deverá responder com uma mensagem e solicitar o número de celular
@@ -130,9 +130,9 @@ CT08:Pesquisa de imóveis por cidade vários imóveis| telefone faltando número
     Marco Zero | Ramificação ainda não é cliente
     Dado que o usuário escolha "Imóveis Residenciais" no menu
     Então o bot deve mostrar o menu de estados em ordem alfabetica
-    Dado que o usuário escolha "ZZ" no menu
+    Dado que o usuário escolha "SP" no menu
     Então o bot deve exibir a mensagem "Agora escolha a cidade"
-    Dado que o usuário escolha "Goiânia" no menu
+    Dado que o usuário escolha "Taubaté" no menu
     Então o bot deverá responder com a mensagem de imóveis disponíveis
     Dado que o usuário escolha um imóvel no menu
     Então o bot deverá responder com uma mensagem e solicitar o número de celular
@@ -143,9 +143,9 @@ CT09:Pesquisa de imóveis por cidade vários imóveis| telefone faltando número
     Marco Zero | Ramificação ainda não é cliente
     Dado que o usuário escolha "Imóveis Residenciais" no menu
     Então o bot deve mostrar o menu de estados em ordem alfabetica
-    Dado que o usuário escolha "ZZ" no menu
+    Dado que o usuário escolha "SP" no menu
     Então o bot deve exibir a mensagem "Agora escolha a cidade"
-    Dado que o usuário escolha "Goiânia" no menu
+    Dado que o usuário escolha "Taubaté" no menu
     Então o bot deverá responder com a mensagem de imóveis disponíveis
     Dado que o usuário escolha um imóvel no menu
     Então o bot deverá responder com uma mensagem e solicitar o número de celular
@@ -156,9 +156,9 @@ CT10:Pesquisa de imóveis por cidade vários imóveis| telefone valido
         Marco Zero | Ramificação ainda não é cliente
     Dado que o usuário escolha "Imóveis Residenciais" no menu
     Então o bot deve mostrar o menu de estados em ordem alfabetica
-    Dado que o usuário escolha "ZZ" no menu
+    Dado que o usuário escolha "SP" no menu
     Então o bot deve exibir a mensagem "Agora escolha a cidade"
-    Dado que o usuário escolha "Goiânia" no menu
+    Dado que o usuário escolha "Taubaté" no menu
     Então o bot deverá responder com a mensagem de imóveis disponíveis
     Dado que o usuário escolha um imóvel no menu
     Então o bot deverá responder com uma mensagem e solicitar o número de celular

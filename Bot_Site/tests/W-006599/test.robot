@@ -22,9 +22,11 @@ TC01:Validando a criação dos leads
 
     Dado que o usuário escolha "Imóveis Residenciais" no menu
     Então o bot deve mostrar o menu de estados em ordem alfabetica
-    Dado que o usuário escolha "zz" no menu
+    Dado que o usuário escolha "SP" no menu
     Então o bot deve exibir a mensagem "Agora escolha a cidade"
-    Dado que o usuário escolha "Hell Raiser" no menu
+    Dado que o usuário escolha "Taubaté" no menu
+    Então o bot deverá responder com a mensagem de imóveis disponíveis
+    Dado que o usuário escolha um imóvel no menu
     Então o bot deverá responder com uma mensagem e solicitar o número de celular
     Dado que o usuário informe seu número
     Então o bot deverá solicitar seu email
@@ -45,9 +47,11 @@ TC02:Validando a identificação de numero de celular incorreto (11) 99999-8b88
 
     Dado que o usuário escolha "Imóveis Residenciais" no menu
     Então o bot deve mostrar o menu de estados em ordem alfabetica
-    Dado que o usuário escolha "zz" no menu
+    Dado que o usuário escolha "SP" no menu
     Então o bot deve exibir a mensagem "Agora escolha a cidade"
-    Dado que o usuário escolha "Hell Raiser" no menu
+    Dado que o usuário escolha "Taubaté" no menu
+    Então o bot deverá responder com a mensagem de imóveis disponíveis
+    Dado que o usuário escolha um imóvel no menu
     Então o bot deverá responder com uma mensagem e solicitar o número de celular
     Dado que o usuário informe um número com letras
     Então o bot deverá exibir a mensagem de confusão
@@ -68,9 +72,11 @@ TC03:Validando a identificação dos leads criados a menos de três meses
 
     Dado que o usuário escolha "Imóveis Residenciais" no menu
     Então o bot deve mostrar o menu de estados em ordem alfabetica
-    Dado que o usuário escolha "zz" no menu
+    Dado que o usuário escolha "SP" no menu
     Então o bot deve exibir a mensagem "Agora escolha a cidade"
-    Dado que o usuário escolha "Hell Raiser" no menu
+    Dado que o usuário escolha "Taubaté" no menu
+    Então o bot deverá responder com a mensagem de imóveis disponíveis
+    Dado que o usuário escolha um imóvel no menu
     Então o bot deverá responder com uma mensagem e solicitar o número de celular
     Dado que o usuário informe seu número
     Então o bot deverá solicitar seu email
@@ -91,9 +97,11 @@ TC03:Validando a identificação dos leads criados a menos de três meses
 
     Dado que o usuário escolha "Imóveis Residenciais" no menu
     Então o bot deve mostrar o menu de estados em ordem alfabetica
-    Dado que o usuário escolha "zz" no menu
+    Dado que o usuário escolha "SP" no menu
     Então o bot deve exibir a mensagem "Agora escolha a cidade"
-    Dado que o usuário escolha "Hell Raiser" no menu
+    Dado que o usuário escolha "Taubaté" no menu
+    Então o bot deverá responder com a mensagem de imóveis disponíveis
+    Dado que o usuário escolha um imóvel no menu
     Então o bot deverá responder com uma mensagem e solicitar o número de celular
     Dado que o usuário informe seu número
     Então o bot deverá solicitar seu email
@@ -115,9 +123,11 @@ TC04:Validando a identificação de numero de celular incorreto (11) 99999-88
 
     Dado que o usuário escolha "Imóveis Residenciais" no menu
     Então o bot deve mostrar o menu de estados em ordem alfabetica
-    Dado que o usuário escolha "zz" no menu
+    Dado que o usuário escolha "SP" no menu
     Então o bot deve exibir a mensagem "Agora escolha a cidade"
-    Dado que o usuário escolha "Hell Raiser" no menu
+    Dado que o usuário escolha "Taubaté" no menu
+    Então o bot deverá responder com a mensagem de imóveis disponíveis
+    Dado que o usuário escolha um imóvel no menu
     Então o bot deverá responder com uma mensagem e solicitar o número de celular
     Dado que o usuário informe um número faltando digitos
     Então o bot deverá exibir a mensagem de confusão
@@ -137,9 +147,11 @@ TC05:Validando a identificação dos leads com mais de três meses
 
     Dado que o usuário escolha "Imóveis Residenciais" no menu
     Então o bot deve mostrar o menu de estados em ordem alfabetica
-    Dado que o usuário escolha "zz" no menu
+    Dado que o usuário escolha "SP" no menu
     Então o bot deve exibir a mensagem "Agora escolha a cidade"
-    Dado que o usuário escolha "Hell Raiser" no menu
+    Dado que o usuário escolha "Taubaté" no menu
+    Então o bot deverá responder com a mensagem de imóveis disponíveis
+    Dado que o usuário escolha um imóvel no menu
     Então o bot deverá responder com uma mensagem e solicitar o número de celular
     Dado que o usuário informe seu número
     Então o bot deverá solicitar seu email
@@ -161,9 +173,11 @@ TC06:Validando a identificação de numero de celular incorreto (99) 99999-88888
 
     Dado que o usuário escolha "Imóveis Residenciais" no menu
     Então o bot deve mostrar o menu de estados em ordem alfabetica
-    Dado que o usuário escolha "zz" no menu
+    Dado que o usuário escolha "SP" no menu
     Então o bot deve exibir a mensagem "Agora escolha a cidade"
-    Dado que o usuário escolha "Hell Raiser" no menu
+    Dado que o usuário escolha "Taubaté" no menu
+    Então o bot deverá responder com a mensagem de imóveis disponíveis
+    Dado que o usuário escolha um imóvel no menu
     Então o bot deverá responder com uma mensagem e solicitar o número de celular
     Dado que o usuário informe seu número incorreto
     Então o bot deverá exibir a mensagem de confusão
@@ -183,9 +197,11 @@ TC08:Validando a identificação de E-mails inválidos Teste@@gmail.com
 
     Dado que o usuário escolha "Imóveis Residenciais" no menu
     Então o bot deve mostrar o menu de estados em ordem alfabetica
-    Dado que o usuário escolha "zz" no menu
+    Dado que o usuário escolha "SP" no menu
     Então o bot deve exibir a mensagem "Agora escolha a cidade"
-    Dado que o usuário escolha "Hell Raiser" no menu
+    Dado que o usuário escolha "Taubaté" no menu
+    Então o bot deverá responder com a mensagem de imóveis disponíveis
+    Dado que o usuário escolha um imóvel no menu
     Então o bot deverá responder com uma mensagem e solicitar o número de celular
     Dado que o usuário informe seu número
     Então o bot deverá solicitar seu email
@@ -207,9 +223,11 @@ TC09:Validando a identificação de números validos 11999998888
 
     Dado que o usuário escolha "Imóveis Residenciais" no menu
     Então o bot deve mostrar o menu de estados em ordem alfabetica
-    Dado que o usuário escolha "zz" no menu
+    Dado que o usuário escolha "SP" no menu
     Então o bot deve exibir a mensagem "Agora escolha a cidade"
-    Dado que o usuário escolha "Hell Raiser" no menu
+    Dado que o usuário escolha "Taubaté" no menu
+    Então o bot deverá responder com a mensagem de imóveis disponíveis
+    Dado que o usuário escolha um imóvel no menu
     Então o bot deverá responder com uma mensagem e solicitar o número de celular
     Dado que o usuário informe seu número
     Então o bot deverá solicitar seu email
@@ -229,9 +247,11 @@ TC11:Validando a identificação de E-mail inválidos @gmail.com
 
     Dado que o usuário escolha "Imóveis Residenciais" no menu
     Então o bot deve mostrar o menu de estados em ordem alfabetica
-    Dado que o usuário escolha "zz" no menu
+    Dado que o usuário escolha "SP" no menu
     Então o bot deve exibir a mensagem "Agora escolha a cidade"
-    Dado que o usuário escolha "Hell Raiser" no menu
+    Dado que o usuário escolha "Taubaté" no menu
+    Então o bot deverá responder com a mensagem de imóveis disponíveis
+    Dado que o usuário escolha um imóvel no menu
     Então o bot deverá responder com uma mensagem e solicitar o número de celular
     Dado que o usuário informe seu número
     Então o bot deverá solicitar seu email
@@ -253,9 +273,11 @@ TC12:Validando a identificação de E-mail inválidos Teste@gmailcom
 
     Dado que o usuário escolha "Imóveis Residenciais" no menu
     Então o bot deve mostrar o menu de estados em ordem alfabetica
-    Dado que o usuário escolha "zz" no menu
+    Dado que o usuário escolha "SP" no menu
     Então o bot deve exibir a mensagem "Agora escolha a cidade"
-    Dado que o usuário escolha "Hell Raiser" no menu
+    Dado que o usuário escolha "Taubaté" no menu
+    Então o bot deverá responder com a mensagem de imóveis disponíveis
+    Dado que o usuário escolha um imóvel no menu
     Então o bot deverá responder com uma mensagem e solicitar o número de celular
     Dado que o usuário informe seu número
     Então o bot deverá solicitar seu email
@@ -277,9 +299,11 @@ TC13:Validando a identificação de E-mail inválidos Teste@gmail.
 
     Dado que o usuário escolha "Imóveis Residenciais" no menu
     Então o bot deve mostrar o menu de estados em ordem alfabetica
-    Dado que o usuário escolha "zz" no menu
+    Dado que o usuário escolha "SP" no menu
     Então o bot deve exibir a mensagem "Agora escolha a cidade"
-    Dado que o usuário escolha "Hell Raiser" no menu
+    Dado que o usuário escolha "Taubaté" no menu
+    Então o bot deverá responder com a mensagem de imóveis disponíveis
+    Dado que o usuário escolha um imóvel no menu
     Então o bot deverá responder com uma mensagem e solicitar o número de celular
     Dado que o usuário informe seu número
     Então o bot deverá solicitar seu email
@@ -301,9 +325,11 @@ TC13:Validando a identificação de E-mail inválidos Teste@gmail
 
     Dado que o usuário escolha "Imóveis Residenciais" no menu
     Então o bot deve mostrar o menu de estados em ordem alfabetica
-    Dado que o usuário escolha "zz" no menu
+    Dado que o usuário escolha "SP" no menu
     Então o bot deve exibir a mensagem "Agora escolha a cidade"
-    Dado que o usuário escolha "Hell Raiser" no menu
+    Dado que o usuário escolha "Taubaté" no menu
+    Então o bot deverá responder com a mensagem de imóveis disponíveis
+    Dado que o usuário escolha um imóvel no menu
     Então o bot deverá responder com uma mensagem e solicitar o número de celular
     Dado que o usuário informe seu número
     Então o bot deverá solicitar seu email
