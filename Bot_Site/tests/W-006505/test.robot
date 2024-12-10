@@ -1,5 +1,5 @@
 *** Settings ***
-Resource    ../../resource/keywords/common_keywords.robot
+Resource    ../../resource/keywords/Imoveis_Residenciais/keywords.robot
 
 Test Setup    Efetuar login
 Test Teardown    Close Browser

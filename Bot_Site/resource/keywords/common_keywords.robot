@@ -6,6 +6,7 @@ Resource    ../variables/common_variables.robot
 Resource    ../variables/Marco_Zero/variables.robot
 Resource    ../keywords/Imoveis_Residenciais/keywords.robot
 Resource    ../keywords/Marco_Zero/keywords.robot
+Resource    ../keywords/Outros/keyword.robot
 Library    Collections
 Library    remove.py
 
