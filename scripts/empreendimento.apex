@@ -51,7 +51,7 @@ final List<String> TIPOS_CONDICAO_COMISSIONAMENTO = new List<String>{
 String USUARIO;
 /** @param CONSTRUTORA ::: Obrigatório, mude para uma account do tipo Pessoa Jurídica
  */
-final String CONSTRUTORA = '001HZ00000PU9HWYA1';
+final Account CONSTRUTORA = [SELECT Id FROM Account WHERE Name like '%ELERA%' LIMIT 1];
 /** @param PROGRAMA_HABITACIONAL = "Sim"  ou "Não" */
 final String PROGRAMA_HABITACIONAL = 'Não';
 final Date DATA_ENTREGA_OBRA = Date.newInstance(2026, 01, 01);
@@ -71,7 +71,7 @@ cbns__Empreendimento__c empreendimento =
     new cbns__Empreendimento__c(
         Name = NOME,
         CodigoSienge__c = codigoSienge,
-        cbns__Construtora__c = CONSTRUTORA,
+        cbns__Construtora__c = CONSTRUTORA.Id,
         cbns__CoordenadorGerenteComercial__c = USUARIO ?? UserInfo.getUserId(),
         Gerente_Executivo__c = USUARIO ?? UserInfo.getUserId(),
         cbns__GerenteProduto__c = USUARIO ?? UserInfo.getUserId(),
