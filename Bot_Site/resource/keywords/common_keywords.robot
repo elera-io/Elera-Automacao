@@ -201,7 +201,8 @@ Efetuar Login no Console
     Preencher campos
 
 Gerar evidência
+    [Arguments]    ${DIRECTORY}
     ${SEGUNDOS}    Get Time    format=sec
     ${TESTE_FORMATADO}    Replace String    ${TEST_NAME}    ${SPACE}    -
     ${TESTE_FORMATADO}    Replace String    ${TESTE_FORMATADO}    :    ${EMPTY}
-    Start Video Recording    name=W-006421/${TESTE_FORMATADO}_${SEGUNDOS}
+    Start Video Recording    name=${DIRECTORY}/${TESTE_FORMATADO}_${SEGUNDOS}

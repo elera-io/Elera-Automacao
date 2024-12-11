@@ -64,17 +64,20 @@ TC06:Outros | Venda sua Área com outros assuntos
     Redefinir nome padrão    Teste    Asd
     Redefinir celular padrão    (11) 97643-9764
     Redefinir email padrão    testezinho@gmail.com
+    Gerar evidência
     Marco Zero | Ramificação ainda não é cliente | Outros
     Então o bot deve exibir a lista de outros assuntos
     Dado que o usuário escolha "Venda sua área" no menu
     Então o bot informa sobre Vender sua Área
     Dado que, o usuário queira falar mais sobre outros assuntos
     Então o bot deve apresentar uma mensagem e exibir o menu
+    Stop Video Recording
   
 TC07:Outros | Trabalhe conosco sem outro assunto
     Redefinir nome padrão    Teste    Asd
     Redefinir celular padrão    (11) 97643-9764
     Redefinir email padrão    testezinho@gmail.com
+    
     Marco Zero | Ramificação ainda não é cliente | Outros
     Então o bot deve exibir a lista de outros assuntos
     Dado que o usuário escolha "Trabalhe conosco" no menu

@@ -7,7 +7,7 @@ Test Teardown    Close Browser
 
 *** Test Cases ***
 CT01: Resposta a informações não reconhecidas pelo chatbot
-    Gerar evidência
+    Gerar evidência    W-006421
     Dado que o usuário clique no ícone de chat
     Então o bot apresenta as mensagens de boas vindas e política de privacidade
     Enviar mensagem    C
@@ -15,7 +15,7 @@ CT01: Resposta a informações não reconhecidas pelo chatbot
     Stop Video Recording
 
 CT02: Continuação da Conversa Após Interação Não Reconhecida
-    Gerar evidência
+    Gerar evidência    W-006421
     Dado que o usuário clique no ícone de chat
     Então o bot apresenta as mensagens de boas vindas e política de privacidade
     Enviar mensagem    C
@@ -23,14 +23,14 @@ CT02: Continuação da Conversa Após Interação Não Reconhecida
     Stop Video Recording
 
 CT03: Mensagem de Inatividade Após 5 Minutos
-    Gerar evidência
+    Gerar evidência    W-006421
     Dado que o usuário clique no ícone de chat
     Então o bot apresenta as mensagens de boas vindas e política de privacidade
     Dado que, o usuário fique inativo por 30 segundos
     Stop Video Recording
 
 CT04: Continuação da Conversa dentro dos 5 Minutos
-    Gerar evidência
+    Gerar evidência    W-006421
     Dado que o usuário clique no ícone de chat
     Então o bot apresenta as mensagens de boas vindas e política de privacidade
     Dado que, o usuário fique inativo por 30 segundos
@@ -39,7 +39,7 @@ CT04: Continuação da Conversa dentro dos 5 Minutos
     Stop Video Recording
 
 CT05: Encerramento da Janela de Atendimento Após 24 horas de Inatividade
-    Gerar evidência
+    Gerar evidência    W-006421
     Dado que o usuário clique no ícone de chat
     Então o bot apresenta as mensagens de boas vindas e política de privacidade
     Dado que, o usuário fique inativo por 30 segundos
