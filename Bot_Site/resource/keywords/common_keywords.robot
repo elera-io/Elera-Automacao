@@ -9,10 +9,11 @@ Resource    ../keywords/Marco_Zero/keywords.robot
 Resource    ../keywords/Outros/keyword.robot
 Library    Collections
 Library    remove.py
+Library    ScreenCapLibrary
 
 *** Keywords ***
 Abrir navegador
-    Open Browser    ${BASE_URL}    ${BROWSER}
+    Open Browser    ${BASE_URL}    ${BROWSER}    
 
 Efetuar Login
     Abrir navegador
@@ -56,7 +57,7 @@ Validar mensagem resposta não reconhecidas
     Log To Console    RESULTADO=${LAST_MESSAGE}
     Should Be Equal    ${MENSAGEM_RETORNO}    ${LAST_MESSAGE}
 
-Dado que, o usuário fique inativo por 5 minutos
+Dado que, o usuário fique inativo por 30 segundos
     Sleep    35
     ${INATIVITY_ELEMENT}    Get WebElement    ${INATIVITY_TEXT}
     ${TEXT_INATIVITY}    Get Text    ${INATIVITY_ELEMENT}
@@ -67,7 +68,7 @@ Dado que, o usuário fique inativo por 5 minutos
     Should Be Equal    ${TEXT_INATIVITY_WITHOUT_NUMBERS}    ${EXPECTED}
 
 Quando acaba o limite de tempo de inatividade
-    Sleep    40
+    Sleep    280
     Element Should Be Visible    xpath=//button[contains(@class,'endChatButton')]
 
 Dado que, o usuário continue a conversa
@@ -198,3 +199,9 @@ Efetuar Login no Console
     Call Method    ${options}    add_argument    --disable-notifications
     Open Browser    https://pacaembuconstrutorasa--uat.sandbox.lightning.force.com/    ${BROWSER}    options=${options}
     Preencher campos
+
+Gerar evidência
+    ${SEGUNDOS}    Get Time    format=sec
+    ${TESTE_FORMATADO}    Replace String    ${TEST_NAME}    ${SPACE}    -
+    ${TESTE_FORMATADO}    Replace String    ${TESTE_FORMATADO}    :    ${EMPTY}
+    Start Video Recording    name=W-006421/${TESTE_FORMATADO}_${SEGUNDOS}
