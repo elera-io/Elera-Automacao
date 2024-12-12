@@ -8,7 +8,7 @@ Resource    ../keywords/Imoveis_Residenciais/keywords.robot
 Resource    ../keywords/Marco_Zero/keywords.robot
 Resource    ../keywords/Outros/keyword.robot
 Library    Collections
-Library    remove.py
+Library    ../../libs/remove.py
 Library    ScreenCapLibrary
 
 *** Keywords ***
