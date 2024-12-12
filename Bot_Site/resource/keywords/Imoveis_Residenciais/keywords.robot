@@ -102,15 +102,25 @@ Dado que o usuário escolha "Imóveis Residenciais" no menu
     Clique no item do menu    Imóveis Residenciais
 
 Dado que, o usuário escolha horário da manhã
-    Sleep    20
+    Sleep    15
     ${BOTOES_PERIODO}    Get WebElements    ${BOTOES_XPATH}
     Click Element    ${BOTOES_PERIODO}[-4]
 
 Dado que, o usuário escolha horário da tarde
-    Sleep    20
+    Sleep    15
     ${BOTOES_PERIODO}    Get WebElements    ${BOTOES_XPATH}
     Click Element    ${BOTOES_PERIODO}[-3]
-    
+
+Dado que, o usuário escolha horário da noite
+    Sleep    15
+    ${BOTOES_PERIODO}    Get WebElements    ${BOTOES_XPATH}
+    Click Element    ${BOTOES_PERIODO}[-2]
+
+Dado que, o usuário escolha qualquer horário
+    Sleep    20
+    ${BOTOES_PERIODO}    Get WebElements    ${BOTOES_XPATH}
+    Click Element    ${BOTOES_PERIODO}[-1]
+
 Então o bot deve mostrar o menu de estados em ordem alfabetica
     ${MENSAGEM_ESPERADA}    Set Variable    
     ...    Legal! De qual estado gostaria de conhecer nossos imóveis, por favor? 😊
@@ -216,6 +226,11 @@ Dado que, o usuário não queira falar mais sobre outros assuntos
     Sleep    10
     ${BOTOES_PERIODO}    Get WebElements    ${BOTOES_XPATH}
     Click Element    ${BOTOES_PERIODO}[-1]
+
+Dado que, o usuário queira falar mais sobre outros assuntos
+    Sleep    10
+    ${BOTOES_PERIODO}    Get WebElements    ${BOTOES_XPATH}
+    Click Element    ${BOTOES_PERIODO}[-2]
 
 Então o bot encerra a conversa
     Sleep    6s
@@ -326,12 +341,24 @@ Dado que o usuário informe seu número incorreto
 
 Dado que o usuário informe seu número inválido
     Enviar mensagem    11-99513-01
+
 Então o bot deverá exibir a mensagem de confusão
     Sleep    6s
     ${MENSAGENS}    Get WebElements    ${MESSAGES_XPATH}
     ${PENULTIMA_MENSAGEM}    Get Text    ${MENSAGENS}[-2]
     ${PENULTIMA_MENSAGEM}    Remove String    ${PENULTIMA_MENSAGEM}    \n    ''
     Should Be Equal    ${PENULTIMA_MENSAGEM}    Poxa! Ainda não consegui te entender. 😩Vamos retornar para onde estávamos?OBS: Digite apenas quando pedirmos algum dado pessoal, por favor. Os campos apresentados são para seleção.
+
+Então o bot deverá exibir a mensagem quando o usuário deseja comprar
+    Sleep    5
+    ${MENSAGENS}    Get WebElements    ${MESSAGES_XPATH}
+    ${PENULTIMA_MENSAGEM}    Get Text    ${MENSAGENS}[-1]
+    ${EXPECTED}    Set Variable    ${PRIMEIRO_NOME}, quando você pretende comprar sua casa?
+
+    ${REPR_EXPECTED}    Evaluate    repr("""${EXPECTED}""")
+    ${RESULT_MESSAGE_REPR}    Evaluate    repr("""${PENULTIMA_MENSAGEM}""")
+
+    Should Be Equal    ${RESULT_MESSAGE_REPR}    ${REPR_EXPECTED}
 
 Então o bot deverá exibir a mensagem se deseja morar ou investir
     Sleep    5s
@@ -399,6 +426,44 @@ Então o bot deverá exibir a mensagem se possui restrição de crédito
 
     Should Be Equal    ${RESULT_MESSAGE_REPR}    ${REPR_EXPECTED}
 
+Então o bot deverá exibir a mensagem de qual maneira quer receber contato
+    Sleep    8
+    ${MENSAGENS}    Get WebElements    ${MESSAGES_XPATH}
+    ${MENSAGENS_LENGTH}    Get Length    ${MENSAGENS}
+    ${ULTIMAS_DUAS_MENSAGENS_INDEX}    Evaluate    ${MENSAGENS_LENGTH} - 2
+    ${ULTIMAS_DUAS_MENSAGENS}    Create List
+    
+    @{EXPECTED}    Create List    Já temos todas as informações necessárias para seguir com o seu atendimento e fazer sua simulação!    Agora você pode conversar com um de nossos corretores por aqui ou, se preferir, receber o contato por WhatsApp. Como prefere seguir?
+
+    ${LENGTH_EXPECTED}    Get Length    ${EXPECTED}
+    FOR    ${ELEMENTO}    IN RANGE    ${LENGTH_EXPECTED}
+        ${NOVO_VALOR}    Evaluate    repr("""${EXPECTED[${ELEMENTO}]}""")
+        Log To Console    ESPERADO${\n}${NOVO_VALOR}${\n}
+        Set List Value    ${EXPECTED}    ${ELEMENTO}    ${NOVO_VALOR}
+    END
+
+    FOR    ${INDEX}    IN RANGE    ${ULTIMAS_DUAS_MENSAGENS_INDEX}    ${MENSAGENS_LENGTH}
+        ${TEXT}    Get Text    ${MENSAGENS}[${INDEX}]
+
+        ${REPR_ULTIMA}    Evaluate    repr("""${TEXT}""")
+        Log To Console    RESULTADO${\n}${REPR_ULTIMA}${\n}
+
+        Append To List    ${ULTIMAS_DUAS_MENSAGENS}    ${REPR_ULTIMA}
+    END
+
+    Should Be Equal As Strings    ${ULTIMAS_DUAS_MENSAGENS}    ${EXPECTED}
+
+Então o bot deverá exibir a mensagem de qual horário para entrar em contato
+    Sleep    5s
+    ${MENSAGENS}    Get WebElements    ${MESSAGES_XPATH}
+    ${PENULTIMA_MENSAGEM}    Get Text    ${MENSAGENS}[-1]
+    ${EXPECTED}    Set Variable    Estamos quase lá... 🤩 Qual é o melhor horário para entrarmos em contato?
+
+    ${REPR_EXPECTED}    Evaluate    repr("""${EXPECTED}""")
+    ${RESULT_MESSAGE_REPR}    Evaluate    repr("""${PENULTIMA_MENSAGEM}""")
+
+    Should Be Equal    ${RESULT_MESSAGE_REPR}    ${REPR_EXPECTED}
+
 Enviar mensagem
     [Arguments]    ${MENSAGEM}
     Input Text    ${CHAT_INPUT}    ${MENSAGEM} 
@@ -440,18 +505,30 @@ Dado que, o usuário não tenha Restrição de Crédito
 
 Dado que, o usuário queira Receber Contato
     Sleep    5
-    Clique no item do menu    Receber contato
+    ${BOTOES}    Get WebElements    ${BOTOES_XPATH}
+    Click Element    ${BOTOES}[-1]
 
 Dado que o usuário escolha "Hell Raiser" no menu
     Clique no item do menu    Hell Raiser
 
-Logar na tela de lead
-    ${BASE_URL_LEAD}=    Set Variable    
+Logar na tela de lead  
     Open Browser  ${BASE_URL_LEAD}
     Sleep  3s
     Preencher campos
     Sleep  15s
 
+Procurar lead criado
+    ${BARRA_DE_PESQUISA}    Set Variable    xpath=//div[contains(@class, 'slds-form-element')]/input[contains(@class, 'slds-input')]
+    Click Element    ${BARRA_DE_PESQUISA}
+    Input Text    ${BARRA_DE_PESQUISA}    ${PRIMEIRO_NOME} ${SOBRENOME}
+    Sleep    3s
+    Press Keys    ${BARRA_DE_PESQUISA}    ENTER
+    Sleep    5s
+
+Clicar no Lead
+    ${LEAD_NAME}    Set Variable    xpath=//table/tbody/tr[1]/td[4]/span/a
+    Click Element    ${LEAD_NAME}
+    Sleep    5s
 Então é exibido a mensagem de usuário já cadastrado
     Validar ultimas mensagens    ${PRIMEIRO_NOME}, vi que você falou com a gente recentemente.
     Press Keys    ${CHAT_INPUT}    ENTER
