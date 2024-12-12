@@ -633,3 +633,96 @@ Dado que o usuário clique no botão "De R$2.640,01 a R$4.400"
 
 Dado que o usuário clique no botão "Acima de R$4.400,01"
     Clique no botão    Acima de R$4.400,01
+
+Então o bot deverá perguntar se o usuário ou algum envolvido na compra possui FGTS
+    Sleep    3s
+    Validar ultimas mensagens    Estamos quase lá, ${PRIMEIRO_NOME}... Você ou a pessoa que desejaria compor o financiamento tem FGTS? Caso não tenha FGTS, mas possua alguma reserva pode clicar em "Sim" também.
+
+E oferecer as opções de resposta "Sim" e "Não"
+    Valide os botões    Sim    Não
+
+Dado que, o usuário clique em "Não"
+    Clique no botão    Não
+
+Então o bot deverá perguntar se o usuário possui alguma restrição de crédito
+    Sleep    3s
+    Validar ultimas mensagens    Você tem alguma restrição de crédito? Caso não se sinta à vontade em informar por aqui, tudo bem. 😊
+
+Então o bot deverá perguntar se o usuário quer entrar em contato com um corretor
+    Sleep    7s
+    Validar ultimas mensagens    
+    ...    Agora você pode conversar com um de nossos corretores por aqui ou, se preferir, receber o contato por WhatsApp. Como prefere seguir?
+    ...    Já temos todas as informações necessárias para seguir com o seu atendimento e fazer sua simulação!
+
+E oferecer as opções de resposta "Sim", "Não" e "Prefiro não informar"
+    Valide os botões    Não    Prefiro não informar    Sim
+
+E oferecer as opções de resposta "Falar com corretor agora" e "Receber contato"
+    Valide os botões    Falar com corretor agora    Receber contato
+
+Dado que, o usuário no botão "Receber contato"
+    Clique no botão    Receber contato
+
+Dado que, o usuário no botão "Falar com corretor agora"
+    Clique no botão    Falar com corretor agora
+
+Então o bot devera apresentar a mensagem de encaminhamento
+    Sleep    2s
+    Validar ultimas mensagens    Vai ser um prazer te atender! 🤩Estou te encaminhando a um dos nossos corretores, tá bem?Um minuto, por favor.
+
+Então o bot deverá perguntar o melhor horário para entrar em contato
+    Sleep    3s
+    Validar ultimas mensagens    Estamos quase lá... 🤩 Qual é o melhor horário para entrarmos em contato?
+
+Dado que, o usuário clique no botão "Manhã"
+    Clique no botão    Manhã
+
+Dado que, o usuário clique no botão "Tarde"
+    Clique no botão    Tarde
+
+Dado que, o usuário clique no botão "Noite"
+    Clique no botão    Noite
+
+Dado que, o usuário clique no botão "Qualquer horário"
+    Clique no botão    Qualquer horário
+
+Então o bot deverá perguntar se pode ajudar o usuário com outro assunto
+    Sleep    3s
+    Validar ultimas mensagens
+    ...    Posso te ajudar em outro assunto, ${PRIMEIRO_NOME}?
+    ...    Certo, ${PRIMEIRO_NOME}. Muito obrigada pela confirmação!Em breve, um de nossos corretores entrará em contato com mais detalhes sobre o imóvel que deseja conhecer, combinado? 😊
+
+Dado que, o usuário clique no botão "Não"
+    Clique no botão    Não
+
+Dado que, o usuário clique no botão "R$1 a R$500"
+    Clique no botão    R$1 a R$500
+
+Dado que, o usuário clique no botão "R$500,1 a R$1.000"
+    Clique no botão    R$500,01 a R$1.000
+
+Dado que, o usuário clique no botão "Acima de R$1.000,01"
+    Clique no botão    Acima de R$1.000,01
+
+Dado que o usuário clique no botão "Prefiro não informar"
+    Clique no botão    Prefiro não informar
+
+Então o bot deverá responder com "Não tem problema."
+    Sleep    3s
+    Validar ultimas mensagens  
+    ...    Agora você pode conversar com um de nossos corretores por aqui ou, se preferir, receber o contato por WhatsApp. Como prefere seguir?
+    ...    Já temos todas as informações necessárias para seguir com o seu atendimento e fazer sua simulação!    
+    ...    Não tem problema.
+
+Então o bot deverá apresentar a mensagem de encerramento 
+    Sleep    3s
+    Validar ultimas mensagens     Obrigada por entrar em contato com a gente. Estamos por aqui sempre que precisar!Quero te convidar também a nos acompanhar pelo Instagram. Um abraço da Pam ❤️
+
+Então o bot deverá perguntar o valor da restrição de crédito
+    Validar ultimas mensagens    Certo! Poderia nos informar a faixa de valor, por favor?
+
+E oferecer as opções de resposta "R$1 a R$500", "R$500,01 a R$1.000" e "Acima de R$1.000,01"
+    Validar itens no menu    R$1 a R$500    R$500,01 a R$1.000    Acima de R$1.000,01
+
+Então o bot deverá apresentar a mensagem "Sobre o que gostaria de conversar?"
+    Validar ultimas mensagens    Certo, ${PRIMEIRO_NOME}! Sobre o que gostaria de conversar? 🥰
