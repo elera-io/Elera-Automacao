@@ -583,3 +583,53 @@ Dado que, o usuário clique no botão "Morar"
 
 Dado que, o usuário clique no botão "Investir"
     Clique no botão    Investir
+
+Então o bot deverá perguntar se o usuário está trabalhando no momento
+    Sleep    5s
+    Validar ultimas mensagens    Você está trabalhando no momento?
+    
+E oferecer as opções de resposta "Estou aposentado(a)", "Sim" e "Não"
+    Valide os botões    Estou aposentado (a)    Sim    Não
+
+Então o bot deverá perguntar se o usuário pretende fazer composição de renda
+    Sleep    5s
+    Validar ultimas mensagens    Certo! E você pretende fazer a composição de renda com outras pessoas que estão trabalhando, ${PRIMEIRO_NOME}?
+    
+    
+Dado que o usuário clique no botão "Sim"
+    Clique no botão    Sim
+
+Então o bot deverá perguntar o regime de trabalho do usuário
+    Sleep    7s
+    Validar ultimas mensagens    Certo! Qual seria o tipo de regime de trabalho, ${PRIMEIRO_NOME}?
+
+E oferecer as opções de resposta "CLT", "PJ" e "Autônomo"
+    Valide os botões    CLT    PJ    Autônomo
+
+Dado que, o usuário clique no botão "CLT"
+    Clique no botão    CLT
+
+Dado que, o usuário clique no botão "PJ"
+    Clique no botão    PJ
+
+Dado que, o usuário clique no botão "Autônomo"
+    Clique no botão    Autônomo
+
+Então o bot deverá perguntar a faixa de renda familiar do usuário
+    Sleep    5s
+    Validar ultimas mensagens    Entendi! Qual é a sua faixa de renda familiar (soma da renda das pessoas que irão morar com você)?
+
+E oferecer as opções de resposta "Até R$2.000", "De R$2.000,01 a R$2.640", "De R$2.640,01 a R$4.400" e "Acima de R$4.400,01"
+    Valide os botões        Até R$2.000    De R$2.000,01 a R$2.640    De R$2.640,01 a R$4.400    Acima de R$4.400,01
+
+Dado que o usuário clique no botão "Até R$2.000"
+    Clique no botão    Até R$2.000
+
+Dado que o usuário clique no botão "De R$2.000,01 a R$2.640"
+    Clique no botão    De R$2.000,01 a R$2.640
+
+Dado que o usuário clique no botão "De R$2.640,01 a R$4.400"
+    Clique no botão    De R$2.640,01 a R$4.400
+
+Dado que o usuário clique no botão "Acima de R$4.400,01"
+    Clique no botão    Acima de R$4.400,01
