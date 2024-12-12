@@ -552,3 +552,21 @@ Dado que o usuário informe um email aleartório
     ${EMAIL}    FakerLibrary.Email
     Enviar mensagem    ${EMAIL}
 
+Então o bot deverá perguntar quando pretende comprar a casa
+    Sleep    10s
+    Validar ultimas mensagens    ${PRIMEIRO_NOME}, quando você pretende comprar sua casa?
+
+E mostrar as opções de meses no menu
+    Validar itens no menu    Não tenho previsão    Nos próximos 12 meses    Nos próximos 6 meses    Nos próximos 3 meses
+
+Dado que, o usuário clique em "Nos próximos 3 meses"
+    Clique no item do menu    Nos próximos 3 meses
+
+Dado que, o usuário clique em "Nos próximos 6 meses"
+    Clique no item do menu    Nos próximos 6 meses
+
+Dado que, o usuário clique em "Nos próximos 12 meses"
+    Clique no item do menu    Nos próximos 12 meses
+
+Dado que, o usuário clique em "Não tenho previsão"
+    Clique no item do menu    Não tenho previsão
