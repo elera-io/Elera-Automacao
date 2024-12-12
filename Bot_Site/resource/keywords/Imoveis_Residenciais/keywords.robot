@@ -726,3 +726,146 @@ E oferecer as opções de resposta "R$1 a R$500", "R$500,01 a R$1.000" e "Acima 
 
 Então o bot deverá apresentar a mensagem "Sobre o que gostaria de conversar?"
     Validar ultimas mensagens    Certo, ${PRIMEIRO_NOME}! Sobre o que gostaria de conversar? 🥰
+
+Imóveis residênciais | Comprar imóvel
+    Dado que o usuário escolha "Imóveis Residenciais" no menu
+    Então o bot deve mostrar o menu de estados em ordem alfabetica
+    Dado que o usuário escolha "SP" no menu
+    Então o bot deve exibir a mensagem "Agora escolha a cidade"
+    Dado que o usuário escolha a cidade "Lins" no menu
+    Então o bot deverá responder com a mensagem de imóveis disponíveis
+    Dado que o usuário escolha um empreendimento sem fotos
+    Então o bot apresenta as informações do empreendimento
+    Então o bot deverá responder com uma mensagem e solicitar o número de celular
+    Dado que o usuário informe um número aleartório
+    Então o bot deverá solicitar seu email
+    Dado que o usuário informe um email aleartório
+    
+Imóveis residênciais | Compra nos próximos 3 meses
+    Então o bot deverá perguntar quando pretende comprar a casa
+    E mostrar as opções de meses no menu
+    Dado que, o usuário clique em "Nos próximos 3 meses"
+
+Imóveis residênciais | Compra nos próximos 6 meses
+    Então o bot deverá perguntar quando pretende comprar a casa
+    E mostrar as opções de meses no menu
+    Dado que, o usuário clique em "Nos próximos 6 meses"
+
+Imóveis residênciais | Compra nos próximos 12 meses
+    Então o bot deverá perguntar quando pretende comprar a casa
+    E mostrar as opções de meses no menu
+    Dado que, o usuário clique em "Nos próximos 12 meses"
+
+Imóveis residênciais | Sem previsão
+    Então o bot deverá perguntar quando pretende comprar a casa
+    E mostrar as opções de meses no menu
+    Dado que, o usuário clique em "Não tenho previsão"
+
+Imóveis residênciais | Morar
+    Então o bot deverá perguntar se pretende morar ou investir
+    E oferecer as opções de resposta "Morar" e "Investir"
+    Dado que, o usuário clique no botão "Morar"
+
+Imóveis residênciais | Investir
+    Então o bot deverá perguntar se pretende morar ou investir
+    E oferecer as opções de resposta "Morar" e "Investir"
+    Dado que, o usuário clique no botão "Investir"
+
+Imóveis residênciais | Renda até R$ 2.000
+    Então o bot deverá perguntar a faixa de renda familiar do usuário
+    E oferecer as opções de resposta "Até R$2.000", "De R$2.000,01 a R$2.640", "De R$2.640,01 a R$4.400" e "Acima de R$4.400,01"
+    Dado que o usuário clique no botão "Até R$2.000"
+
+Imóveis residênciais | Renda menor que R$2.640
+    Então o bot deverá perguntar a faixa de renda familiar do usuário
+    E oferecer as opções de resposta "Até R$2.000", "De R$2.000,01 a R$2.640", "De R$2.640,01 a R$4.400" e "Acima de R$4.400,01"
+    Dado que o usuário clique no botão "De R$2.000,01 a R$2.640"
+
+Imóveis residênciais | Renda menor que R$4.400,0
+    Então o bot deverá perguntar a faixa de renda familiar do usuário
+    E oferecer as opções de resposta "Até R$2.000", "De R$2.000,01 a R$2.640", "De R$2.640,01 a R$4.400" e "Acima de R$4.400,01"
+    Dado que o usuário clique no botão "De R$2.640,01 a R$4.400"
+
+Imóveis residênciais | Renda maior que R$4.400,0
+    Então o bot deverá perguntar a faixa de renda familiar do usuário
+    E oferecer as opções de resposta "Até R$2.000", "De R$2.000,01 a R$2.640", "De R$2.640,01 a R$4.400" e "Acima de R$4.400,01"
+    Dado que o usuário clique no botão "Acima de R$4.400,01"
+    
+Imóveis residênciais | Lead empregado
+    Então o bot deverá perguntar se o usuário está trabalhando no momento
+    E oferecer as opções de resposta "Estou aposentado(a)", "Sim" e "Não"
+    Dado que o usuário clique no botão "Sim"
+
+Imóveis residênciais | Lead desempregado
+    Então o bot deverá perguntar se o usuário está trabalhando no momento
+    E oferecer as opções de resposta "Estou aposentado(a)", "Sim" e "Não"
+    Dado que, o usuário clique no botão "Não"
+
+Imóveis residênciais | Com composição de renda
+    Então o bot deverá perguntar se o usuário pretende fazer composição de renda
+    E oferecer as opções de resposta "Sim" e "Não"
+    Dado que o usuário clique no botão "Sim"
+
+Imóveis residênciais | Regime de trabalho CLT
+    Então o bot deverá perguntar o regime de trabalho do usuário
+    E oferecer as opções de resposta "CLT", "PJ" e "Autônomo"
+    Dado que, o usuário clique no botão "CLT"
+
+Imóveis residênciais | Regime de trabalho PJ
+    Então o bot deverá perguntar o regime de trabalho do usuário
+    E oferecer as opções de resposta "CLT", "PJ" e "Autônomo"
+    Dado que, o usuário clique no botão "PJ"
+
+Imóveis residênciais | Regime de trabalho Autônomo
+    Então o bot deverá perguntar o regime de trabalho do usuário
+    E oferecer as opções de resposta "CLT", "PJ" e "Autônomo"
+    Dado que, o usuário clique no botão "Autônomo"
+
+Imóveis residênciais | Sem FGTS
+    Então o bot deverá perguntar se o usuário ou algum envolvido na compra possui FGTS
+    E oferecer as opções de resposta "Sim" e "Não"
+    Dado que, o usuário clique em "Não"
+
+Imóveis residênciais | Com FGTS ou reserva
+    Então o bot deverá perguntar se o usuário ou algum envolvido na compra possui FGTS
+    E oferecer as opções de resposta "Sim" e "Não"
+    Dado que o usuário clique no botão "Sim"
+
+Imóveis residênciais | Sem restrição de crédito
+    Então o bot deverá perguntar se o usuário possui alguma restrição de crédito
+    E oferecer as opções de resposta "Sim", "Não" e "Prefiro não informar"
+    Dado que, o usuário clique em "Não"
+
+Imóveis residênciais | Com restrição de crédito
+    Então o bot deverá perguntar se o usuário possui alguma restrição de crédito
+    E oferecer as opções de resposta "Sim", "Não" e "Prefiro não informar"
+    Dado que o usuário clique no botão "Sim"
+
+Imóveis residênciais | Prefere não informar a restrição
+    Então o bot deverá perguntar se o usuário possui alguma restrição de crédito
+    E oferecer as opções de resposta "Sim", "Não" e "Prefiro não informar"
+    Dado que o usuário clique no botão "Prefiro não informar"
+    Então o bot deverá responder com "Não tem problema."
+
+Imóveis residênciais | Restrição de R$1 a R$500
+    E oferecer as opções de resposta "R$1 a R$500", "R$500,01 a R$1.000" e "Acima de R$1.000,01"
+    Dado que, o usuário clique no botão "R$1 a R$500"
+
+Imóveis residênciais | Restrição de R$500,1 a R$ 1.000
+    E oferecer as opções de resposta "R$1 a R$500", "R$500,01 a R$1.000" e "Acima de R$1.000,01"
+    Dado que, o usuário clique no botão "R$500,1 a R$ 1.000"
+
+Imóveis residênciais | Restrição acima de R$ 1.000
+    E oferecer as opções de resposta "R$1 a R$500", "R$500,01 a R$1.000" e "Acima de R$1.000,01"
+    Dado que, o usuário clique no botão "Acima de R$1.000,01"
+
+Imóveis residênciais | Receber contato do corretor
+    Então o bot deverá perguntar se o usuário quer entrar em contato com um corretor
+    E oferecer as opções de resposta "Falar com corretor agora" e "Receber contato"
+    Dado que, o usuário no botão "Receber contato"
+
+Imóveis residênciais | Falar com o corretor agora
+    Então o bot deverá perguntar se o usuário quer entrar em contato com um corretor
+    E oferecer as opções de resposta "Falar com corretor agora" e "Receber contato"
+    Dado que, o usuário no botão "Falar com corretor agora"
+    Então o bot devera apresentar a mensagem de encaminhamento
