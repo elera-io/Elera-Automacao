@@ -570,3 +570,16 @@ Dado que, o usuário clique em "Nos próximos 12 meses"
 
 Dado que, o usuário clique em "Não tenho previsão"
     Clique no item do menu    Não tenho previsão
+
+Então o bot deverá perguntar se pretende morar ou investir
+    Sleep    3s
+    Validar ultimas mensagens    Legal! E você vai comprar para morar ou investir?
+
+E oferecer as opções de resposta "Morar" e "Investir"
+    Valide os botões    Morar    Investir
+    
+Dado que, o usuário clique no botão "Morar"
+    Clique no botão    Morar
+
+Dado que, o usuário clique no botão "Investir"
+    Clique no botão    Investir
