@@ -4,6 +4,8 @@ Resource    ../../variables/Imoveis_Residenciais/variables.robot
 Library    Collections
 Library    OperatingSystem
 Library    ../../../libs/ctrl_c.py
+Library    ../../../libs/gerar_numero.py
+Library    FakerLibrary    locale=pt_BR
 
 *** Keywords ***
 
@@ -618,3 +620,329 @@ Então o bot apresenta as imagens da unidade
     ${IMAGENS}    Get WebElements    //span[contains(text(), 'Dormitorios')]//img
     ${QTD_IMAGENS}    Get Length    ${IMAGENS}
     Should Be Equal As Integers    ${QTD_IMAGENS}    3
+
+Dado que o usuário informe um número aleartório
+    ${NUMERO}    Gerar Numero Aleatório
+    Enviar mensagem    ${NUMERO}
+
+Dado que o usuário informe um email aleartório
+    ${EMAIL}    FakerLibrary.Email
+    Enviar mensagem    ${EMAIL}
+
+Então o bot deverá perguntar quando pretende comprar a casa
+    Sleep    10s
+    Validar ultimas mensagens    ${PRIMEIRO_NOME}, quando você pretende comprar sua casa?
+
+E mostrar as opções de meses no menu
+    Validar itens no menu    Não tenho previsão    Nos próximos 12 meses    Nos próximos 6 meses    Nos próximos 3 meses
+
+Dado que, o usuário clique em "Nos próximos 3 meses"
+    Clique no item do menu    Nos próximos 3 meses
+
+Dado que, o usuário clique em "Nos próximos 6 meses"
+    Clique no item do menu    Nos próximos 6 meses
+
+Dado que, o usuário clique em "Nos próximos 12 meses"
+    Clique no item do menu    Nos próximos 12 meses
+
+Dado que, o usuário clique em "Não tenho previsão"
+    Clique no item do menu    Não tenho previsão
+
+Então o bot deverá perguntar se pretende morar ou investir
+    Sleep    3s
+    Validar ultimas mensagens    Legal! E você vai comprar para morar ou investir?
+
+E oferecer as opções de resposta "Morar" e "Investir"
+    Valide os botões    Morar    Investir
+    
+Dado que, o usuário clique no botão "Morar"
+    Clique no botão    Morar
+
+Dado que, o usuário clique no botão "Investir"
+    Clique no botão    Investir
+
+Então o bot deverá perguntar se o usuário está trabalhando no momento
+    Sleep    5s
+    Validar ultimas mensagens    Você está trabalhando no momento?
+    
+E oferecer as opções de resposta "Estou aposentado(a)", "Sim" e "Não"
+    Valide os botões    Estou aposentado (a)    Sim    Não
+
+Então o bot deverá perguntar se o usuário pretende fazer composição de renda
+    Sleep    5s
+    Validar ultimas mensagens    Certo! E você pretende fazer a composição de renda com outras pessoas que estão trabalhando, ${PRIMEIRO_NOME}?
+    
+    
+Dado que o usuário clique no botão "Sim"
+    Clique no botão    Sim
+
+Então o bot deverá perguntar o regime de trabalho do usuário
+    Sleep    7s
+    Validar ultimas mensagens    Certo! Qual seria o tipo de regime de trabalho, ${PRIMEIRO_NOME}?
+
+E oferecer as opções de resposta "CLT", "PJ" e "Autônomo"
+    Valide os botões    CLT    PJ    Autônomo
+
+Dado que, o usuário clique no botão "CLT"
+    Clique no botão    CLT
+
+Dado que, o usuário clique no botão "PJ"
+    Clique no botão    PJ
+
+Dado que, o usuário clique no botão "Autônomo"
+    Clique no botão    Autônomo
+
+Então o bot deverá perguntar a faixa de renda familiar do usuário
+    Sleep    5s
+    Validar ultimas mensagens    Entendi! Qual é a sua faixa de renda familiar (soma da renda das pessoas que irão morar com você)?
+
+E oferecer as opções de resposta "Até R$2.000", "De R$2.000,01 a R$2.640", "De R$2.640,01 a R$4.400" e "Acima de R$4.400,01"
+    Valide os botões        Até R$2.000    De R$2.000,01 a R$2.640    De R$2.640,01 a R$4.400    Acima de R$4.400,01
+
+Dado que o usuário clique no botão "Até R$2.000"
+    Clique no botão    Até R$2.000
+
+Dado que o usuário clique no botão "De R$2.000,01 a R$2.640"
+    Clique no botão    De R$2.000,01 a R$2.640
+
+Dado que o usuário clique no botão "De R$2.640,01 a R$4.400"
+    Clique no botão    De R$2.640,01 a R$4.400
+
+Dado que o usuário clique no botão "Acima de R$4.400,01"
+    Clique no botão    Acima de R$4.400,01
+
+Então o bot deverá perguntar se o usuário ou algum envolvido na compra possui FGTS
+    Sleep    3s
+    Validar ultimas mensagens    Estamos quase lá, ${PRIMEIRO_NOME}... Você ou a pessoa que desejaria compor o financiamento tem FGTS? Caso não tenha FGTS, mas possua alguma reserva pode clicar em "Sim" também.
+
+E oferecer as opções de resposta "Sim" e "Não"
+    Valide os botões    Sim    Não
+
+Dado que, o usuário clique em "Não"
+    Clique no botão    Não
+
+Então o bot deverá perguntar se o usuário possui alguma restrição de crédito
+    Sleep    3s
+    Validar ultimas mensagens    Você tem alguma restrição de crédito? Caso não se sinta à vontade em informar por aqui, tudo bem. 😊
+
+Então o bot deverá perguntar se o usuário quer entrar em contato com um corretor
+    Sleep    7s
+    Validar ultimas mensagens    
+    ...    Agora você pode conversar com um de nossos corretores por aqui ou, se preferir, receber o contato por WhatsApp. Como prefere seguir?
+    ...    Já temos todas as informações necessárias para seguir com o seu atendimento e fazer sua simulação!
+
+E oferecer as opções de resposta "Sim", "Não" e "Prefiro não informar"
+    Valide os botões    Não    Prefiro não informar    Sim
+
+E oferecer as opções de resposta "Falar com corretor agora" e "Receber contato"
+    Valide os botões    Falar com corretor agora    Receber contato
+
+Dado que, o usuário no botão "Receber contato"
+    Clique no botão    Receber contato
+
+Dado que, o usuário no botão "Falar com corretor agora"
+    Clique no botão    Falar com corretor agora
+
+Então o bot devera apresentar a mensagem de encaminhamento
+    Sleep    2s
+    Validar ultimas mensagens    Vai ser um prazer te atender! 🤩Estou te encaminhando a um dos nossos corretores, tá bem?Um minuto, por favor.
+
+Então o bot deverá perguntar o melhor horário para entrar em contato
+    Sleep    3s
+    Validar ultimas mensagens    Estamos quase lá... 🤩 Qual é o melhor horário para entrarmos em contato?
+
+Dado que, o usuário clique no botão "Manhã"
+    Clique no botão    Manhã
+
+Dado que, o usuário clique no botão "Tarde"
+    Clique no botão    Tarde
+
+Dado que, o usuário clique no botão "Noite"
+    Clique no botão    Noite
+
+Dado que, o usuário clique no botão "Qualquer horário"
+    Clique no botão    Qualquer horário
+
+Então o bot deverá perguntar se pode ajudar o usuário com outro assunto
+    Sleep    3s
+    Validar ultimas mensagens
+    ...    Posso te ajudar em outro assunto, ${PRIMEIRO_NOME}?
+    ...    Certo, ${PRIMEIRO_NOME}. Muito obrigada pela confirmação!Em breve, um de nossos corretores entrará em contato com mais detalhes sobre o imóvel que deseja conhecer, combinado? 😊
+
+Dado que, o usuário clique no botão "Não"
+    Clique no botão    Não
+
+Dado que, o usuário clique no botão "R$1 a R$500"
+    Clique no botão    R$1 a R$500
+
+Dado que, o usuário clique no botão "R$500,1 a R$1.000"
+    Clique no botão    R$500,01 a R$1.000
+
+Dado que, o usuário clique no botão "Acima de R$1.000,01"
+    Clique no botão    Acima de R$1.000,01
+
+Dado que o usuário clique no botão "Prefiro não informar"
+    Clique no botão    Prefiro não informar
+
+Então o bot deverá responder com "Não tem problema."
+    Sleep    3s
+    Validar ultimas mensagens  
+    ...    Agora você pode conversar com um de nossos corretores por aqui ou, se preferir, receber o contato por WhatsApp. Como prefere seguir?
+    ...    Já temos todas as informações necessárias para seguir com o seu atendimento e fazer sua simulação!    
+    ...    Não tem problema.
+
+Então o bot deverá apresentar a mensagem de encerramento 
+    Sleep    3s
+    Validar ultimas mensagens     Obrigada por entrar em contato com a gente. Estamos por aqui sempre que precisar!Quero te convidar também a nos acompanhar pelo Instagram. Um abraço da Pam ❤️
+
+Então o bot deverá perguntar o valor da restrição de crédito
+    Validar ultimas mensagens    Certo! Poderia nos informar a faixa de valor, por favor?
+
+E oferecer as opções de resposta "R$1 a R$500", "R$500,01 a R$1.000" e "Acima de R$1.000,01"
+    Validar itens no menu    R$1 a R$500    R$500,01 a R$1.000    Acima de R$1.000,01
+
+Então o bot deverá apresentar a mensagem "Sobre o que gostaria de conversar?"
+    Validar ultimas mensagens    Certo, ${PRIMEIRO_NOME}! Sobre o que gostaria de conversar? 🥰
+
+Imóveis residênciais | Comprar imóvel
+    Dado que o usuário escolha "Imóveis Residenciais" no menu
+    Então o bot deve mostrar o menu de estados em ordem alfabetica
+    Dado que o usuário escolha "SP" no menu
+    Então o bot deve exibir a mensagem "Agora escolha a cidade"
+    Dado que o usuário escolha a cidade "Lins" no menu
+    Então o bot deverá responder com a mensagem de imóveis disponíveis
+    Dado que o usuário escolha um empreendimento sem fotos
+    Então o bot apresenta as informações do empreendimento
+    Então o bot deverá responder com uma mensagem e solicitar o número de celular
+    Dado que o usuário informe um número aleartório
+    Então o bot deverá solicitar seu email
+    Dado que o usuário informe um email aleartório
+    
+Imóveis residênciais | Compra nos próximos 3 meses
+    Então o bot deverá perguntar quando pretende comprar a casa
+    E mostrar as opções de meses no menu
+    Dado que, o usuário clique em "Nos próximos 3 meses"
+
+Imóveis residênciais | Compra nos próximos 6 meses
+    Então o bot deverá perguntar quando pretende comprar a casa
+    E mostrar as opções de meses no menu
+    Dado que, o usuário clique em "Nos próximos 6 meses"
+
+Imóveis residênciais | Compra nos próximos 12 meses
+    Então o bot deverá perguntar quando pretende comprar a casa
+    E mostrar as opções de meses no menu
+    Dado que, o usuário clique em "Nos próximos 12 meses"
+
+Imóveis residênciais | Sem previsão
+    Então o bot deverá perguntar quando pretende comprar a casa
+    E mostrar as opções de meses no menu
+    Dado que, o usuário clique em "Não tenho previsão"
+
+Imóveis residênciais | Morar
+    Então o bot deverá perguntar se pretende morar ou investir
+    E oferecer as opções de resposta "Morar" e "Investir"
+    Dado que, o usuário clique no botão "Morar"
+
+Imóveis residênciais | Investir
+    Então o bot deverá perguntar se pretende morar ou investir
+    E oferecer as opções de resposta "Morar" e "Investir"
+    Dado que, o usuário clique no botão "Investir"
+
+Imóveis residênciais | Renda até R$ 2.000
+    Então o bot deverá perguntar a faixa de renda familiar do usuário
+    E oferecer as opções de resposta "Até R$2.000", "De R$2.000,01 a R$2.640", "De R$2.640,01 a R$4.400" e "Acima de R$4.400,01"
+    Dado que o usuário clique no botão "Até R$2.000"
+
+Imóveis residênciais | Renda menor que R$2.640
+    Então o bot deverá perguntar a faixa de renda familiar do usuário
+    E oferecer as opções de resposta "Até R$2.000", "De R$2.000,01 a R$2.640", "De R$2.640,01 a R$4.400" e "Acima de R$4.400,01"
+    Dado que o usuário clique no botão "De R$2.000,01 a R$2.640"
+
+Imóveis residênciais | Renda menor que R$4.400,0
+    Então o bot deverá perguntar a faixa de renda familiar do usuário
+    E oferecer as opções de resposta "Até R$2.000", "De R$2.000,01 a R$2.640", "De R$2.640,01 a R$4.400" e "Acima de R$4.400,01"
+    Dado que o usuário clique no botão "De R$2.640,01 a R$4.400"
+
+Imóveis residênciais | Renda maior que R$4.400,0
+    Então o bot deverá perguntar a faixa de renda familiar do usuário
+    E oferecer as opções de resposta "Até R$2.000", "De R$2.000,01 a R$2.640", "De R$2.640,01 a R$4.400" e "Acima de R$4.400,01"
+    Dado que o usuário clique no botão "Acima de R$4.400,01"
+    
+Imóveis residênciais | Lead empregado
+    Então o bot deverá perguntar se o usuário está trabalhando no momento
+    E oferecer as opções de resposta "Estou aposentado(a)", "Sim" e "Não"
+    Dado que o usuário clique no botão "Sim"
+
+Imóveis residênciais | Lead desempregado
+    Então o bot deverá perguntar se o usuário está trabalhando no momento
+    E oferecer as opções de resposta "Estou aposentado(a)", "Sim" e "Não"
+    Dado que, o usuário clique no botão "Não"
+
+Imóveis residênciais | Com composição de renda
+    Então o bot deverá perguntar se o usuário pretende fazer composição de renda
+    E oferecer as opções de resposta "Sim" e "Não"
+    Dado que o usuário clique no botão "Sim"
+
+Imóveis residênciais | Regime de trabalho CLT
+    Então o bot deverá perguntar o regime de trabalho do usuário
+    E oferecer as opções de resposta "CLT", "PJ" e "Autônomo"
+    Dado que, o usuário clique no botão "CLT"
+
+Imóveis residênciais | Regime de trabalho PJ
+    Então o bot deverá perguntar o regime de trabalho do usuário
+    E oferecer as opções de resposta "CLT", "PJ" e "Autônomo"
+    Dado que, o usuário clique no botão "PJ"
+
+Imóveis residênciais | Regime de trabalho Autônomo
+    Então o bot deverá perguntar o regime de trabalho do usuário
+    E oferecer as opções de resposta "CLT", "PJ" e "Autônomo"
+    Dado que, o usuário clique no botão "Autônomo"
+
+Imóveis residênciais | Sem FGTS
+    Então o bot deverá perguntar se o usuário ou algum envolvido na compra possui FGTS
+    E oferecer as opções de resposta "Sim" e "Não"
+    Dado que, o usuário clique em "Não"
+
+Imóveis residênciais | Com FGTS ou reserva
+    Então o bot deverá perguntar se o usuário ou algum envolvido na compra possui FGTS
+    E oferecer as opções de resposta "Sim" e "Não"
+    Dado que o usuário clique no botão "Sim"
+
+Imóveis residênciais | Sem restrição de crédito
+    Então o bot deverá perguntar se o usuário possui alguma restrição de crédito
+    E oferecer as opções de resposta "Sim", "Não" e "Prefiro não informar"
+    Dado que, o usuário clique em "Não"
+
+Imóveis residênciais | Com restrição de crédito
+    Então o bot deverá perguntar se o usuário possui alguma restrição de crédito
+    E oferecer as opções de resposta "Sim", "Não" e "Prefiro não informar"
+    Dado que o usuário clique no botão "Sim"
+
+Imóveis residênciais | Prefere não informar a restrição
+    Então o bot deverá perguntar se o usuário possui alguma restrição de crédito
+    E oferecer as opções de resposta "Sim", "Não" e "Prefiro não informar"
+    Dado que o usuário clique no botão "Prefiro não informar"
+    Então o bot deverá responder com "Não tem problema."
+
+Imóveis residênciais | Restrição de R$1 a R$500
+    E oferecer as opções de resposta "R$1 a R$500", "R$500,01 a R$1.000" e "Acima de R$1.000,01"
+    Dado que, o usuário clique no botão "R$1 a R$500"
+
+Imóveis residênciais | Restrição de R$500,1 a R$ 1.000
+    E oferecer as opções de resposta "R$1 a R$500", "R$500,01 a R$1.000" e "Acima de R$1.000,01"
+    Dado que, o usuário clique no botão "R$500,1 a R$ 1.000"
+
+Imóveis residênciais | Restrição acima de R$ 1.000
+    E oferecer as opções de resposta "R$1 a R$500", "R$500,01 a R$1.000" e "Acima de R$1.000,01"
+    Dado que, o usuário clique no botão "Acima de R$1.000,01"
+
+Imóveis residênciais | Receber contato do corretor
+    Então o bot deverá perguntar se o usuário quer entrar em contato com um corretor
+    E oferecer as opções de resposta "Falar com corretor agora" e "Receber contato"
+    Dado que, o usuário no botão "Receber contato"
+
+Imóveis residênciais | Falar com o corretor agora
+    Então o bot deverá perguntar se o usuário quer entrar em contato com um corretor
+    E oferecer as opções de resposta "Falar com corretor agora" e "Receber contato"
+    Dado que, o usuário no botão "Falar com corretor agora"
+    Então o bot devera apresentar a mensagem de encaminhamento
