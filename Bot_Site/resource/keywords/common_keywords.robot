@@ -205,4 +205,8 @@ Gerar evidência
     ${SEGUNDOS}    Get Time    format=sec
     ${TESTE_FORMATADO}    Replace String    ${TEST_NAME}    ${SPACE}    -
     ${TESTE_FORMATADO}    Replace String    ${TESTE_FORMATADO}    :    ${EMPTY}
+    ${TESTE_FORMATADO}    Replace String    ${TESTE_FORMATADO}    |    ${EMPTY}
+    ${TESTE_FORMATADO}    Replace String    ${TESTE_FORMATADO}    "    ${EMPTY}
+    ${TESTE_FORMATADO}    Replace String    ${TESTE_FORMATADO}    '    ${EMPTY}
+    Log To Console    name=${DIRECTORY}/${TESTE_FORMATADO}_${SEGUNDOS}
     Start Video Recording    name=${DIRECTORY}/${TESTE_FORMATADO}_${SEGUNDOS}

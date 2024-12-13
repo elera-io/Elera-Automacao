@@ -1,4 +1,6 @@
 *** Settings ***
+Resource    ../../resource/keywords/common_keywords.robot
+Resource    ../../resource/keywords/Marco_Zero/keywords.robot
 Resource    ../../resource/keywords/Imoveis_Residenciais/keywords.robot
 
 Test Setup    Efetuar login
@@ -32,6 +34,7 @@ Marco Zero | Ramificação ainda não é cliente | Imóveis Residenciais
   
 *** Test Cases ***
 CT01:Horario de preferencia "Manhã" sem mais duvidas
+    Gerar evidência    W-006505
     Redefinir nome padrão    Teste    Asd
     Redefinir celular padrão    (11) 97643-9764
     Redefinir email padrão    testezinho@gmail.com
@@ -42,6 +45,7 @@ CT01:Horario de preferencia "Manhã" sem mais duvidas
     Dado que, o usuário escolha horário da manhã
     Dado que, o usuário não queira falar mais sobre outros assuntos
     Então o bot encerra a conversa
+    Stop Video Recording
 
 CT02:Horario de preferencia "Tarde" sem mais duvidas
     Redefinir nome padrão    Teste    Asd
@@ -52,6 +56,7 @@ CT02:Horario de preferencia "Tarde" sem mais duvidas
     Dado que, o usuário escolha horário da tarde
     Dado que, o usuário não queira falar mais sobre outros assuntos
     Então o bot encerra a conversa
+    Stop Video Recording
 
 CT03:Horario de preferencia "Noite" sem mais duvidas
     Redefinir nome padrão    Teste    Asd
@@ -62,6 +67,7 @@ CT03:Horario de preferencia "Noite" sem mais duvidas
     Dado que, o usuário escolha horário da noite
     Dado que, o usuário não queira falar mais sobre outros assuntos
     Então o bot encerra a conversa
+    Stop Video Recording
 
 CT04:Horario de preferencia "Qualquer horário" sem mais duvidas
     Redefinir nome padrão    Teste    Asd
@@ -71,6 +77,7 @@ CT04:Horario de preferencia "Qualquer horário" sem mais duvidas
     Dado que, o usuário escolha qualquer horário
     Dado que, o usuário não queira falar mais sobre outros assuntos
     Então o bot encerra a conversa
+    Stop Video Recording
 
 CT05:Horario de preferencia "Noite" com duvida
     Redefinir nome padrão    Teste    Asd
@@ -81,6 +88,7 @@ CT05:Horario de preferencia "Noite" com duvida
     Dado que, o usuário escolha horário da noite
     Dado que, o usuário queira falar mais sobre outros assuntos
     Então o bot deve apresentar uma mensagem e exibir o menu
+    Stop Video Recording
 
 CT06:Horario de preferencia "Qualquer Horário" com duvida
     Redefinir nome padrão    Teste    Asd
@@ -90,6 +98,7 @@ CT06:Horario de preferencia "Qualquer Horário" com duvida
     Dado que, o usuário escolha qualquer horário
     Dado que, o usuário queira falar mais sobre outros assuntos
     Então o bot deve apresentar uma mensagem e exibir o menu
+    Stop Video Recording
 
 CT07:Horario de preferencia "Tarde" com duvida
     Redefinir nome padrão    Teste    Asd
@@ -100,6 +109,7 @@ CT07:Horario de preferencia "Tarde" com duvida
     Dado que, o usuário escolha horário da tarde
     Dado que, o usuário queira falar mais sobre outros assuntos
     Então o bot deve apresentar uma mensagem e exibir o menu
+    Stop Video Recording
 
 CT08:Horario de preferencia "Manhã" com duvida
     Redefinir nome padrão    Teste    Asd
@@ -110,3 +120,4 @@ CT08:Horario de preferencia "Manhã" com duvida
     Dado que, o usuário escolha horário da manhã
     Dado que, o usuário queira falar mais sobre outros assuntos
     Então o bot deve apresentar uma mensagem e exibir o menu
+    Stop Video Recording

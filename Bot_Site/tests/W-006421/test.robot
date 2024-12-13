@@ -7,7 +7,7 @@ Test Teardown    Close Browser
 
 *** Test Cases ***
 CT01: Resposta a informações não reconhecidas pelo chatbot
-    Gerar evidência    W-006421
+    Gerar evidência    W-006424
     Dado que o usuário clique no ícone de chat
     Então o bot apresenta as mensagens de boas vindas e política de privacidade
     Enviar mensagem    C

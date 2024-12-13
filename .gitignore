@@ -8,3 +8,4 @@ locator.robot
 node_modules/
 package*
 sfdx-project.json
+credentials.json
