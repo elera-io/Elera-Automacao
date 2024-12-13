@@ -8,13 +8,10 @@ from googleapiclient.errors import HttpError
 import os
 from googleapiclient.http import MediaFileUpload
 
-# If modifying these scopes, delete the file token.json.
 SCOPES = ["https://www.googleapis.com/auth/drive"]
 
 creds = None
-# The file token.json stores the user's access and refresh tokens, and is
-# created automatically when the authorization flow completes for the first
-# time.
+
 flow = InstalledAppFlow.from_client_secrets_file("credentials.json", SCOPES)
 creds = flow.run_local_server(port=0)
 
@@ -23,10 +20,13 @@ service = build("drive", "v3", credentials=creds)
 
 def uploadFiles(id_directory, name_directory, files, path):
     for file in files:
-        
+
         file_metadata = {"name": file, "parents": [id_directory]}
-        media = MediaFileUpload(path+'/'+name_directory+'/'+file, mimetype="video/webm")
+        media = MediaFileUpload(
+            path + "/" + name_directory + "/" + file, mimetype="video/webm"
+        )
         service.files().create(body=file_metadata, media_body=media).execute()
+
 
 def listar_arquivos_e_diretorios(caminho):
     evidencias = []
@@ -38,14 +38,10 @@ def listar_arquivos_e_diretorios(caminho):
         if files:
             evidencias.append(
                 {
-                    "diretorio": os.path.basename(root),  # Nome da pasta atual
-                    "files": files,  # Lista de arquivos dentro do diretório
+                    "diretorio": os.path.basename(root),
+                    "files": files,
                 }
             )
-        # print(f"Diretório: {root}")
-        # print("Subdiretórios:", dirs)
-        # print("Arquivos:", files)
-        # print("-" * 100)
     for evidencia in evidencias[1:]:
         file_metadata = {
             "name": evidencia["diretorio"],
@@ -54,9 +50,10 @@ def listar_arquivos_e_diretorios(caminho):
         }
 
         directory = service.files().create(body=file_metadata, fields="id").execute()
-        uploadFiles(directory.get("id"), evidencia["diretorio"], evidencia["files"], caminho)
+        uploadFiles(
+            directory.get("id"), evidencia["diretorio"], evidencia["files"], caminho
+        )
 
 
-# Substitua pelo caminho desejado
 caminho_inicial = "../../results"
 listar_arquivos_e_diretorios(caminho_inicial)
