@@ -31,7 +31,6 @@ def uploadFiles(id_directory, name_directory, files, path):
 def listar_arquivos_e_diretorios(caminho):
     evidencias = []
 
-    files = []
     folder_id = "1zPEV3jwmdjiIXlyQwT77lQ_ZXHDX-z2Y"
 
     for root, dirs, files in os.walk(caminho):

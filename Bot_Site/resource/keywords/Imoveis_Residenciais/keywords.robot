@@ -8,9 +8,11 @@ Library    ../../../libs/gerar_numero.py
 Library    FakerLibrary    locale=pt_BR
 
 *** Keywords ***
+Pesquisar lead
+    Input Text    ${INPUT_SEARCH}    ${PRIMEIRO_NOME} ${SOBRENOME}
+    Press Keys    ${INPUT_SEARCH}    ENTER
 
 Apagar unidade de teste
-   
     Logar na tela de unidade
     Pesquisar unidade
     Sleep    4s
@@ -21,25 +23,24 @@ Apagar unidade de teste
 Apagar unidade
     ${ABRIR_UNIDADE}   Set Variable  xpath=//a[contains(@title,'Teste Elera Unidade') and contains(text(),'Teste Elera Unidade')]
     ${BOTAO_APAGAR}    Set Variable  xpath=//button[contains(@class,'slds-button slds-button_neutral') and contains(@name,'Delete')]
-
-   Sleep    3s
-   Click Element    ${ABRIR_UNIDADE}
-   Sleep    5s
-   Click Button    ${BOTAO_APAGAR}
+    Sleep    3s
+    Click Element    ${ABRIR_UNIDADE}
+    Sleep    5s
+    Click Button    ${BOTAO_APAGAR}
     Sleep    5s
     Confirmar Deleção
     Sleep    5s
+    
 Confirmar Deleção
     ${CONFIRMAR_DELEÇÃO}    Set Variable    xpath=//button[contains(@class,'slds-button slds-button_neutral uiButton--default uiButton--brand uiButton forceActionButton')and contains(@title,'Delete')]
     Click Button    ${CONFIRMAR_DELEÇÃO}
+
 Pesquisar unidade 
-    
     Input Text   ${BARRA_DE_PESQUISA}    ${NOME_UNIDADE}
     Sleep    3s
     Press Keys    ${BARRA_DE_PESQUISA}    RETURN
 
 Logar na tela de unidade 
-
     Open Browser  ${BASE_URL_UNIDAES}
     Sleep  3s
     Preencher campos
@@ -61,7 +62,6 @@ Criar Nova Unidade
     Close Browser
 
 Preencher formulario para criação de unidade 
-
     ${PESQUISA_EMPREENDIMENTO}  Set Variable  xpath=//lightning-grouped-combobox//lightning-base-combobox-item[1]
     ${OPÇAO_TESTE_ELERA_BOT}  Set Variable  xpath=//table/tbody/tr/td[1]/a[contains(@title, 'Gojira') and contains(text(), 'Gojira')]
     ${INPUT_NOME_EMPREENDIMENTO}    Set Variable    xpath=//input[contains(@class,'slds-combobox__input') and contains(@placeholder,'Search Empreendimentos...')]
@@ -478,6 +478,11 @@ Dado que, o usuário selecione Investir
     ${BOTOES}    Get WebElements    ${BOTOES_XPATH}
     Click Element    ${BOTOES}[-1]
 
+Dado que, o usuário selecione Morar
+    Sleep    5
+    ${BOTOES}    Get WebElements    ${BOTOES_XPATH}
+    Click Element    ${BOTOES}[-2]
+
 Dado que, o usuário concorde que trabalha
     Sleep    5
     ${BOTOES}    Get WebElements    ${BOTOES_XPATH}
@@ -578,10 +583,10 @@ Então o bot deverá exibir o novo empreendimento cadastrado
     Clique no item do menu    Teste Atualização
     Sleep    5s
     ${ITENS_MENU}    Get WebElements    ${MENU_ITENS_XPATH}
-    ${ITENS_LENGHT}    Get Length    ${ITENS_MENU}
+    ${ITENS_LENGTH}    Get Length    ${ITENS_MENU}
     ${ULTIMO_ITEM}    Get Text    ${ITENS_MENU}[-1]
     Should Be Equal    ${ULTIMO_ITEM}    Voltar
-    ${PENULTIMO_INDICE}    Evaluate    ${ITENS_LENGHT} - 2
+    ${PENULTIMO_INDICE}    Evaluate    ${ITENS_LENGTH} - 2
     ${QTD_EMPREENDIMENTOS}    Set Variable    0
     ${ITEM_EXISTE}    Set Variable    False
     FOR  ${INDEX}  IN RANGE    ${PENULTIMO_INDICE}    0    -1   

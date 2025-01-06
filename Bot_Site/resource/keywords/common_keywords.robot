@@ -13,7 +13,11 @@ Library    ScreenCapLibrary
 
 *** Keywords ***
 Abrir navegador
-    Open Browser    ${BASE_URL}    ${BROWSER}    
+    Open Browser    ${BASE_URL}    ${BROWSER}  
+
+Abrir lista de leads no ambiente
+    Open Browser    ${BASE_LEADS_URL}    ${BROWSER}
+    Preencher campos
 
 Efetuar Login
     Abrir navegador
@@ -84,9 +88,9 @@ Clique no item do menu
     Sleep    5s
     [Arguments]    ${BOTAO}
     ${ITENS_MENU}    Get WebElements    ${MENU_ITENS_XPATH}
-    ${ITENS_LENGHT}    Get Length    ${ITENS_MENU}
+    ${ITENS_LENGTH}    Get Length    ${ITENS_MENU}
     ${BOTAO_EXISTE}    Set Variable    False
-    FOR  ${INDEX}  IN RANGE    0    ${ITENS_LENGHT}
+    FOR  ${INDEX}  IN RANGE    0    ${ITENS_LENGTH}
         ${MENU_CONTENT}    Get Text    ${ITENS_MENU}[${INDEX}]
 
         IF    '${MENU_CONTENT}' == '${BOTAO}'
@@ -123,10 +127,10 @@ Validar itens no menu
     Sleep    5s
     [Arguments]    @{ITENS_ESPERADOS}
     ${ITENS_MENU}    Get WebElements    ${MENU_ITENS_XPATH}
-    ${ITENS_LENGHT}    Get Length    ${ITENS_MENU}
+    ${ITENS_LENGTH}    Get Length    ${ITENS_MENU}
     ${ITENS_ESPERADOS_LENGTH}    Get Length    ${ITENS_ESPERADOS}
 
-    FOR  ${INDEX}  IN RANGE    ${ITENS_LENGHT}-1    ${ITENS_LENGHT}-${ITENS_ESPERADOS_LENGTH}
+    FOR  ${INDEX}  IN RANGE    ${ITENS_LENGTH}-1    ${ITENS_LENGTH}-${ITENS_ESPERADOS_LENGTH}
         ${MENU_CONTENT}    Get Text    ${ITENS_MENU}[${INDEX}]
         Should Be Equal    ${MENU_CONTENT}    ${ITENS_ESPERADOS}[${INDEX}]
     END
@@ -134,10 +138,10 @@ Validar itens no menu
 Valida presença do botão voltar no menu
     Sleep    5s
     ${ITENS_MENU}    Get WebElements    ${MENU_ITENS_XPATH}
-    ${ITENS_LENGHT}    Get Length    ${ITENS_MENU}
+    ${ITENS_LENGTH}    Get Length    ${ITENS_MENU}
     ${BOTAO_EXISTE}    Set Variable    False
 
-    FOR  ${INDEX}  IN RANGE    0    ${ITENS_LENGHT}
+    FOR  ${INDEX}  IN RANGE    0    ${ITENS_LENGTH}
         ${MENU_CONTENT}    Get Text    ${ITENS_MENU}[${INDEX}]
 
         IF    '${MENU_CONTENT}' == 'Voltar'
@@ -152,10 +156,10 @@ Valida presença do botão voltar no menu
 Valide os botões
     [Arguments]     @{CONTEUDO_ESPERADO_BOTOES}
     ${BOTOES}    Get WebElements    ${BOTOES_XPATH}
-    ${BOTOES_LENGHT}    Get Length    ${BOTOES}
+    ${BOTOES_LENGTH}    Get Length    ${BOTOES}
     ${BOTOES_CONTENT}    Create List
 
-    FOR  ${INDEX}    IN RANGE    ${BOTOES_LENGHT}
+    FOR  ${INDEX}    IN RANGE    ${BOTOES_LENGTH}
         ${TEXT}    Get Text    ${BOTOES}[${INDEX}]
         Append To List    ${BOTOES_CONTENT}    ${TEXT}
     END
@@ -208,5 +212,4 @@ Gerar evidência
     ${TESTE_FORMATADO}    Replace String    ${TESTE_FORMATADO}    |    ${EMPTY}
     ${TESTE_FORMATADO}    Replace String    ${TESTE_FORMATADO}    "    ${EMPTY}
     ${TESTE_FORMATADO}    Replace String    ${TESTE_FORMATADO}    '    ${EMPTY}
-    Log To Console    name=${DIRECTORY}/${TESTE_FORMATADO}_${SEGUNDOS}
     Start Video Recording    name=${DIRECTORY}/${TESTE_FORMATADO}_${SEGUNDOS}

@@ -19,3 +19,5 @@ ${SETUP_XPATH}    //a[contains(@class, 'slds-global-actions__setup')]
 ${DEV_CONSOLE_XPATH}    //li[contains(@id, 'developer')]
 ${DEVELOPER_CONSOLE}    class:CodeMirror-code
 ${EXECUTE_BUTTON}    id:button-1188
+${TIPO_MORADIA}
+${INPUT_SEARCH}    xpath=/html/body/div[4]/div[1]/section/div[1]/div/div[2]/div[2]/section[1]/div/div/section/div/div[2]/div/div/div/div/div[1]/div[2]/div[2]/force-list-view-manager-search-bar/div/lightning-input/lightning-primitive-input-simple/div[1]/div/input
