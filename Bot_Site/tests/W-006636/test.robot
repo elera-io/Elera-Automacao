@@ -86,7 +86,7 @@ TC06: lead criado a mais de 3 meses e com status Reavaliação
     Redefinir email padrão    teste_reavaliacao@gmail.com
     Marco Zero | Ramificação ainda não é cliente | Imóveis Residenciais
     Então o bot deverá exibir a mensagem quando o usuário deseja comprar
-    Dado que, o usuário selecione nos próximos 12 meses
+    Dado que, o usuário clique em "Nos próximos 12 meses"
     Então o bot deverá exibir a mensagem se deseja morar ou investir
     Dado que, o usuário selecione Investir
     Então o bot deverá exibir a mensagem se está trabalhando no momento
@@ -112,7 +112,7 @@ TC07: lead criado a mais de 3 meses e com status Cancelado
     Redefinir email padrão    teste_cancelado@gmail.com
     Marco Zero | Ramificação ainda não é cliente | Imóveis Residenciais
     Então o bot não identifique o imóvel
-    Dado que, o usuário selecione nos próximos 12 meses
+    Dado que, o usuário clique em "Nos próximos 12 meses"
     Então o bot deverá exibir a mensagem se deseja morar ou investir
     Dado que, o usuário selecione Investir
     Então o bot deverá exibir a mensagem se está trabalhando no momento
@@ -138,7 +138,7 @@ TC08:lead novo
     Redefinir email padrão    teste_novo@gmail.com
     Marco Zero | Ramificação ainda não é cliente | Imóveis Residenciais
     Então o bot não identifique o imóvel
-    Dado que, o usuário selecione nos próximos 12 meses
+    Dado que, o usuário clique em "Nos próximos 12 meses"
     Então o bot deverá exibir a mensagem se deseja morar ou investir
     Dado que, o usuário selecione Investir
     Então o bot deverá exibir a mensagem se está trabalhando no momento
@@ -164,7 +164,7 @@ TC09: lead criado a mais de 3 meses e com status Convertido
     Redefinir email padrão    teste_convertido@gmail.com
     Marco Zero | Ramificação ainda não é cliente | Imóveis Residenciais
     Então o bot não identifique o imóvel
-    Dado que, o usuário selecione nos próximos 12 meses
+    Dado que, o usuário clique em "Nos próximos 12 meses"
     Então o bot deverá exibir a mensagem se deseja morar ou investir
     Dado que, o usuário selecione Investir
     Então o bot deverá exibir a mensagem se está trabalhando no momento
@@ -190,7 +190,7 @@ TC10: lead criado a mais de 3 meses e com status Cultivando
     Redefinir email padrão    teste_cultivando@gmail.com
     Marco Zero | Ramificação ainda não é cliente | Imóveis Residenciais
     Então o bot não identifique o imóvel
-    Dado que, o usuário selecione nos próximos 12 meses
+    Dado que, o usuário clique em "Nos próximos 12 meses"
     Então o bot deverá exibir a mensagem se deseja morar ou investir
     Dado que, o usuário selecione Investir
     Então o bot deverá exibir a mensagem se está trabalhando no momento

@@ -205,19 +205,19 @@ Redefinir Imóvel
     Set Global Variable    ${NOME_IMOVEL}    ${NOVO_IMOVEL}
 
 Então o bot deverá responder com uma mensagem e solicitar o número de celular
-    Sleep    5
+    Sleep    8
     ${MENSAGENS}    Get WebElements    ${MESSAGES_XPATH}
     ${MENSAGENS_LENGTH}    Get Length    ${MENSAGENS}
     ${MENSAGENS_LENGTH}    Evaluate    ${MENSAGENS_LENGTH} - 1
     ${ULTIMAS_DUAS_MENSAGENS_INDEX}    Evaluate    ${MENSAGENS_LENGTH} - 2
     ${ULTIMAS_DUAS_MENSAGENS}    Create List
 
-    @{MENSAGEM_IMOVEL}    Create List    Insira seu telefone whatsapp:    Aqui na Pacaembu você tem condições exclusivas de entrada e parcelamento. 🎊😚Pra te passar mais detalhes sobre o imóvel ${NOME_IMOVEL}, vou pedir alguns dados adicionais, combinado?
+    @{MENSAGEM_IMOVEL}    Create List    Insira seu telefone WhatsApp:    Aqui na Pacaembu você tem condições exclusivas de entrada e parcelamento. 🎊😚Pra te passar mais detalhes sobre o imóvel ${NOME_IMOVEL}, vou pedir alguns dados adicionais, combinado?
 
     FOR    ${INDEX}    IN RANGE    ${MENSAGENS_LENGTH}    ${ULTIMAS_DUAS_MENSAGENS_INDEX}    -1
         ${TEXT}    Get Text    ${MENSAGENS}[${INDEX}]
-        ${TEXT}    Remove String    ${TEXT}    \n    ""
-        Append To List    ${ULTIMAS_DUAS_MENSAGENS}    ${TEXT}
+        ${TEXTO_SEM_QUEBRAS}    Remove String Using Regexp    ${TEXT}    \n    ${EMPTY}
+        Append To List    ${ULTIMAS_DUAS_MENSAGENS}    ${TEXTO_SEM_QUEBRAS}
     END
 
     Should Be Equal As Strings    ${ULTIMAS_DUAS_MENSAGENS}    ${MENSAGEM_IMOVEL}
@@ -469,10 +469,6 @@ Enviar mensagem
     Input Text    ${CHAT_INPUT}    ${MENSAGEM} 
     Press Keys    ${CHAT_INPUT}    ENTER
 
-Dado que, o usuário selecione nos próximos 12 meses
-    Sleep    5
-    Clique no item do menu    Nos próximos 12 meses
-
 Dado que, o usuário selecione Investir
     Sleep    5
     ${BOTOES}    Get WebElements    ${BOTOES_XPATH}
@@ -642,15 +638,19 @@ E mostrar as opções de meses no menu
     Validar itens no menu    Não tenho previsão    Nos próximos 12 meses    Nos próximos 6 meses    Nos próximos 3 meses
 
 Dado que, o usuário clique em "Nos próximos 3 meses"
+    Sleep    8
     Clique no item do menu    Nos próximos 3 meses
 
 Dado que, o usuário clique em "Nos próximos 6 meses"
+    Sleep    8
     Clique no item do menu    Nos próximos 6 meses
 
 Dado que, o usuário clique em "Nos próximos 12 meses"
+    Sleep    8
     Clique no item do menu    Nos próximos 12 meses
 
 Dado que, o usuário clique em "Não tenho previsão"
+    Sleep    8
     Clique no item do menu    Não tenho previsão
 
 Então o bot deverá perguntar se pretende morar ou investir

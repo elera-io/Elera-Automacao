@@ -28,95 +28,72 @@ Marco Zero | Ramificação ainda não é cliente | Imóveis Residenciais
     Então o bot deverá solicitar seu email
     Dado que o usuário informe seu email
 
-Verificar Tipo de Moradia do Lead
+Entrar no lead
     Abrir lista de leads no ambiente
-    Sleep    10
+    Sleep    5
     Pesquisar lead
-    Sleep    7
+    Sleep    5
     Click Link    xpath=//table/tbody/tr[1]/td[4]/span/a
-    Sleep    30
-    ${FIELDS}    Get WebElements    xpath=//div[contains(@class,'test-id__field-label')]
-    ${RESULT_TIPO_MORADIA}    Get WebElements    xpath=//div[contains(@class,'slds-form-element__control')]
-    ${ITENS_LENGTH}    Get Length    ${FIELDS}
-    ${LENGTH_RESULT}    Set Variable    -1
-    Log To Console    ${ITENS_LENGTH}
+    Sleep    20
 
-    FOR    ${INDEX}    IN RANGE    ${ITENS_LENGTH}
-        ${MENU_CONTENT}    Get Text    ${FIELDS}[${INDEX}]
-        Log To Console    ${MENU_CONTENT}
+Verificar Tipo de Moradia do Lead
+    [Arguments]    ${EXPECTED_RESULT}
+    Entrar no lead
 
-        IF    '${MENU_CONTENT}' == 'Tipo de Moradia'
-            ${LENGTH_RESULT}    Set Variable    ${INDEX}
-        END
-    END
+    ${FIELD}    Get WebElement    xpath=//lightning-formatted-text[(text()='Morar' or text()='Investir') and @data-output-element-id='output-field']
+    ${RESULT}    Get Text    ${FIELD}
 
-    Log To Console    ${LENGTH_RESULT}
-
-    ${TESTE}    Get Text    ${RESULT_TIPO_MORADIA}[${LENGTH_RESULT}]
-    Log To Console    ${TESTE}
-
-    # Run Keyword If    ${EXISTS_FIELD} == ${False}   Fail    Campo Tipo de moradia não existe não foi encontrado
+    Run Keyword If    '${RESULT}' != '${EXPECTED_RESULT}'   Fail    Valor do Tipo de Moradia diferente do resultado esperado
 
 Verificar existencia do Tipo de Moradia
-    Abrir lista de leads no ambiente
-    Sleep    10
-    Pesquisar lead
-    Sleep    7
-    Click Link    xpath=//table/tbody/tr[1]/td[4]/span/a
-    Sleep    30
-    ${FIELDS}    Get WebElements    xpath=//span[contains(@class,'test-id__field-label')]
-    Sleep    3
-    ${ITENS_LENGTH}    Get Length    ${FIELDS}
-    Log To Console    ${ITENS_LENGTH}
-
+    Entrar no lead
     ${EXISTS_FIELD}    Set Variable    ${False}
+    ${COUNT_FIELDS}    Get Element Count    xpath=//span[text()='Tipo de Moradia' and @class='test-id__field-label']
 
-    FOR    ${INDEX}    IN RANGE    ${ITENS_LENGTH}
-        ${MENU_CONTENT}    Get Text    ${FIELDS}[${INDEX}]
-        Log To Console    ${MENU_CONTENT}
-
-        IF    '${MENU_CONTENT}' == 'Tipo de Moradia'
-            Log To Console    ${INDEX}
-            ${EXISTS_FIELD}    Set Variable    ${True}
-        END
+    IF    ${COUNT_FIELDS} > 0
+        ${EXISTS_FIELD}    Set Variable    ${True}
     END
+        
+    Log To Console    ${COUNT_FIELDS}
 
-    Run Keyword If    ${EXISTS_FIELD} == ${False}   Fail    Campo Tipo de Moradia não existe não foi encontrado
+    Run Keyword If    ${EXISTS_FIELD} == ${False}    Fail    Campo Tipo de Moradia não existe não foi encontrado
 
 *** Test Cases ***
 TC01:Validando a atualização do campo Tipo de Moradia com Morar
-    # Gerar evidência    W-006691
+    Gerar evidência    W-006691
     Redefinir nome padrão    João     Pedro Silva
-    Redefinir email padrão    teste@gmail.com
+    Redefinir email padrão    Teste@gmail.com
     Redefinir celular padrão    11 99999-8888
-    # Marco Zero | Ramificação ainda não é cliente | Imóveis Residenciais
-    # Então o bot não identifique o imóvel
-    # Dado que, o usuário selecione nos próximos 12 meses
-    # Então o bot deverá exibir a mensagem se deseja morar ou investir
-    # Dado que, o usuário selecione Morar
-    # Então o bot deverá exibir a mensagem se está trabalhando no momento
-    # Dado que, o usuário concorde que trabalha
-    Verificar Tipo de Moradia do Lead
-    # Stop Video Recording
+    Marco Zero | Ramificação ainda não é cliente | Imóveis Residenciais
+    E mostrar as opções de meses no menu
+    Dado que, o usuário clique em "Nos próximos 12 meses"
+    Então o bot deverá exibir a mensagem se deseja morar ou investir
+    Dado que, o usuário selecione Morar
+    Então o bot deverá exibir a mensagem se está trabalhando no momento
+    Dado que, o usuário concorde que trabalha
+    Sleep    30
+    Verificar Tipo de Moradia do Lead    Morar
+    Stop Video Recording
 
 TC02:Validando a atualização do campo Tipo de Moradia com Investir
     # Gerar evidência    W-006691
-    Redefinir nome padrão    Teste    Asd Novo
-    Redefinir email padrão    testezinho_novo@gmail.com
-    Redefinir celular padrão    (11) 97643-9762
+    Redefinir nome padrão    João     Pedro Silva
+    Redefinir email padrão    Teste@gmail.com
+    Redefinir celular padrão    11 97643-9762
     Marco Zero | Ramificação ainda não é cliente | Imóveis Residenciais
-    Então o bot não identifique o imóvel
-    Dado que, o usuário selecione nos próximos 12 meses
+    E mostrar as opções de meses no menu
+    Dado que, o usuário clique em "Nos próximos 12 meses"
     Então o bot deverá exibir a mensagem se deseja morar ou investir
     Dado que, o usuário selecione Investir
     Então o bot deverá exibir a mensagem se está trabalhando no momento
     Dado que, o usuário concorde que trabalha
-    Sleep    10
+    Sleep    30
+    Verificar Tipo de Moradia do Lead    Investir
     # Stop Video Recording
 
 TC03:Validando a existência do campo Tipo de moradia dentro do lead
-    # Gerar evidência    W-006691
+    Gerar evidência    W-006691
     Redefinir nome padrão    João     Pedro Silva
     Verificar existencia do Tipo de Moradia
     Sleep    10
-    # Stop Video Recording
+    Stop Video Recording
