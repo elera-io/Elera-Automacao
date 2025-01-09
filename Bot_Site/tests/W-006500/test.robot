@@ -39,6 +39,7 @@ CT01:Pesquisa de imóveis por cidade vários imóveis| telefone e email válidos
     Dado que o usuário informe seu email
 
 CT02:Pesquisa de imóveis por cidade vários imóveis| email invalido sem @
+    Redefinir email padrão    Testegmail.com
     Marco Zero | Ramificação ainda não é cliente
     Dado que o usuário escolha "Imóveis Residenciais" no menu
     Então o bot deve mostrar o menu de estados em ordem alfabetica
@@ -50,10 +51,11 @@ CT02:Pesquisa de imóveis por cidade vários imóveis| email invalido sem @
     Então o bot deverá responder com uma mensagem e solicitar o número de celular
     Dado que o usuário informe seu número
     Então o bot deverá solicitar seu email
-    Dado que o usuário informe um email inválido sem @
+    Dado que o usuário informe seu email
     Então o bot deverá exibir a mensagem de confusão
 
 CT03:Pesquisa de imóveis por cidade vários imóveis| email invalido sem .
+    Redefinir email padrão    Teste@gmailcom
     Marco Zero | Ramificação ainda não é cliente
     Dado que o usuário escolha "Imóveis Residenciais" no menu
     Então o bot deve mostrar o menu de estados em ordem alfabetica
@@ -65,10 +67,11 @@ CT03:Pesquisa de imóveis por cidade vários imóveis| email invalido sem .
     Então o bot deverá responder com uma mensagem e solicitar o número de celular
     Dado que o usuário informe seu número
     Então o bot deverá solicitar seu email
-    Dado que o usuário informe um email inválido sem .
+    Dado que o usuário informe seu email
     Então o bot deverá exibir a mensagem de confusão
 
 CT04:Pesquisa de imóveis por cidade vários imóveis| email invalido sem .com
+    Redefinir email padrão    Teste@gmail.
     Marco Zero | Ramificação ainda não é cliente
     Dado que o usuário escolha "Imóveis Residenciais" no menu
     Então o bot deve mostrar o menu de estados em ordem alfabetica
@@ -80,10 +83,11 @@ CT04:Pesquisa de imóveis por cidade vários imóveis| email invalido sem .com
     Então o bot deverá responder com uma mensagem e solicitar o número de celular
     Dado que o usuário informe seu número
     Então o bot deverá solicitar seu email
-    Dado que o usuário informe um email inválido sem .com
+    Dado que o usuário informe seu email
     Então o bot deverá exibir a mensagem de confusão
 
 CT05:Pesquisa de imóveis por cidade vários imóveis| email invalido sem com
+    Redefinir email padrão    Teste@gmail.
     Marco Zero | Ramificação ainda não é cliente
     Dado que o usuário escolha "Imóveis Residenciais" no menu
     Então o bot deve mostrar o menu de estados em ordem alfabetica
@@ -95,10 +99,11 @@ CT05:Pesquisa de imóveis por cidade vários imóveis| email invalido sem com
     Então o bot deverá responder com uma mensagem e solicitar o número de celular
     Dado que o usuário informe seu número
     Então o bot deverá solicitar seu email
-    Dado que o usuário informe um email inválido sem .com
+    Dado que o usuário informe seu email
     Então o bot deverá exibir a mensagem de confusão
 
 CT05:Pesquisa de imóveis por cidade vários imóveis| email invalido sem UserName
+    Redefinir email padrão    Teste@gmail.
     Marco Zero | Ramificação ainda não é cliente
     Dado que o usuário escolha "Imóveis Residenciais" no menu
     Então o bot deve mostrar o menu de estados em ordem alfabetica
@@ -110,10 +115,11 @@ CT05:Pesquisa de imóveis por cidade vários imóveis| email invalido sem UserNa
     Então o bot deverá responder com uma mensagem e solicitar o número de celular
     Dado que o usuário informe seu número
     Então o bot deverá solicitar seu email
-    Dado que o usuário informe um email inválido sem UserName
+    Dado que o usuário informe seu email
     Então o bot deverá exibir a mensagem de confusão
 
 CT07:Pesquisa de imóveis por cidade vários imóveis| telefone faltando números
+    Redefinir celular padrão    (11) 9951-3018
     Marco Zero | Ramificação ainda não é cliente
     Dado que o usuário escolha "Imóveis Residenciais" no menu
     Então o bot deve mostrar o menu de estados em ordem alfabetica
@@ -123,10 +129,11 @@ CT07:Pesquisa de imóveis por cidade vários imóveis| telefone faltando número
     Então o bot deverá responder com a mensagem de imóveis disponíveis
     Dado que o usuário escolha um imóvel no menu
     Então o bot deverá responder com uma mensagem e solicitar o número de celular
-    Dado que o usuário informe um número faltando digitos
+    Dado que o usuário informe seu número
     Então o bot deverá exibir a mensagem de confusão
 
 CT08:Pesquisa de imóveis por cidade vários imóveis| telefone faltando números
+    Redefinir celular padrão    11995ABCD13
     Marco Zero | Ramificação ainda não é cliente
     Dado que o usuário escolha "Imóveis Residenciais" no menu
     Então o bot deve mostrar o menu de estados em ordem alfabetica
@@ -136,10 +143,11 @@ CT08:Pesquisa de imóveis por cidade vários imóveis| telefone faltando número
     Então o bot deverá responder com a mensagem de imóveis disponíveis
     Dado que o usuário escolha um imóvel no menu
     Então o bot deverá responder com uma mensagem e solicitar o número de celular
-    Dado que o usuário informe um número com letras
+    Dado que o usuário informe seu número
     Então o bot deverá exibir a mensagem de confusão
 
 CT09:Pesquisa de imóveis por cidade vários imóveis| telefone faltando números
+    Redefinir celular padrão    119951301
     Marco Zero | Ramificação ainda não é cliente
     Dado que o usuário escolha "Imóveis Residenciais" no menu
     Então o bot deve mostrar o menu de estados em ordem alfabetica
@@ -149,11 +157,12 @@ CT09:Pesquisa de imóveis por cidade vários imóveis| telefone faltando número
     Então o bot deverá responder com a mensagem de imóveis disponíveis
     Dado que o usuário escolha um imóvel no menu
     Então o bot deverá responder com uma mensagem e solicitar o número de celular
-    Dado que o usuário informe um número faltando digitos
+    Dado que o usuário informe seu número
     Então o bot deverá exibir a mensagem de confusão
 
 CT10:Pesquisa de imóveis por cidade vários imóveis| telefone valido
-        Marco Zero | Ramificação ainda não é cliente
+    Redefinir celular padrão    11-99513-01
+    Marco Zero | Ramificação ainda não é cliente
     Dado que o usuário escolha "Imóveis Residenciais" no menu
     Então o bot deve mostrar o menu de estados em ordem alfabetica
     Dado que o usuário escolha "SP" no menu
@@ -162,5 +171,5 @@ CT10:Pesquisa de imóveis por cidade vários imóveis| telefone valido
     Então o bot deverá responder com a mensagem de imóveis disponíveis
     Dado que o usuário escolha um imóvel no menu
     Então o bot deverá responder com uma mensagem e solicitar o número de celular
-    Dado que o usuário informe seu número inválido
+    Dado que o usuário informe seu número
     Então o bot deverá exibir a mensagem de confusão

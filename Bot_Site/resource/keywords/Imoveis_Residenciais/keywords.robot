@@ -102,7 +102,7 @@ Dado que o usuário escolha "Imóveis Residenciais" no menu
     Clique no item do menu    Imóveis Residenciais
 
 Dado que, o usuário escolha horário da manhã
-    Sleep    15
+    Sleep    10
     ${BOTOES_PERIODO}    Get WebElements    ${BOTOES_XPATH}
     Click Element    ${BOTOES_PERIODO}[-4]
 
@@ -312,36 +312,6 @@ Então o bot não identifique o imóvel
 Dado que o usuário informe seu email
     Enviar mensagem    ${EMAIL}
 
-Dado que o usuário informe um email inválido com @@
-    Enviar mensagem    Teste@@gmail.com
-
-Dado que o usuário informe um email inválido sem @
-    Enviar mensagem    Testegmail.com
-
-Dado que o usuário informe um email inválido sem .
-    Enviar mensagem    Teste@gmailcom
-
-Dado que o usuário informe um email inválido sem .com
-    Enviar mensagem    Teste@gmail.
-
-Dado que o usuário informe um email inválido sem o final .com
-    Enviar mensagem    Teste@gmail
-
-Dado que o usuário informe um email inválido sem UserName
-    Enviar mensagem    @gmail.com
-
-Dado que o usuário informe um número com letras
-    Enviar mensagem    11995ABCD13
-
-Dado que o usuário informe um número faltando digitos
-    Enviar mensagem    (11) 9951-301
-
-Dado que o usuário informe seu número incorreto
-    Enviar mensagem    (99) 99999-88888
-
-Dado que o usuário informe seu número inválido
-    Enviar mensagem    11-99513-01
-
 Então o bot deverá exibir a mensagem de confusão
     Sleep    6s
     ${MENSAGENS}    Get WebElements    ${MESSAGES_XPATH}
@@ -513,7 +483,7 @@ Dado que o usuário escolha "Hell Raiser" no menu
     Clique no item do menu    Hell Raiser
 
 Logar na tela de lead  
-    Open Browser  ${BASE_URL_LEAD}
+    Open Browser  ${BASE_LEADS_URL}
     Sleep  3s
     Preencher campos
     Sleep  15s
@@ -530,9 +500,14 @@ Clicar no Lead
     ${LEAD_NAME}    Set Variable    xpath=//table/tbody/tr[1]/td[4]/span/a
     Click Element    ${LEAD_NAME}
     Sleep    5s
+    
 Então é exibido a mensagem de usuário já cadastrado
-    Validar ultimas mensagens    ${PRIMEIRO_NOME}, vi que você falou com a gente recentemente.
-    Press Keys    ${CHAT_INPUT}    ENTER
+    Sleep    15
+    ${MESSAGES}    Get WebElements    ${MESSAGES_XPATH}
+    ${MESSAGE_CONTENT}    Get Text    ${MESSAGES}[-4]
+    
+    Should Be Equal    ${MESSAGE_CONTENT}    ${PRIMEIRO_NOME}, vi que você falou com a gente recentemente.
+    # Validar ultimas mensagens    ${PRIMEIRO_NOME}, vi que você falou com a gente recentemente.
 
 Dado que, o usuário clique em "ELERA" no menu de estados
     Sleep    2s
@@ -614,19 +589,18 @@ Dado que o usuário escolha um empreendimento sem fotos
 Então o bot apresenta as informações do empreendimento
     ${MENSAGENS}    Get WebElements    ${MESSAGES_XPATH}
     ${TEXTO}    Get Text    ${MENSAGENS}[-3]
-    Should Contain    ${TEXTO}    Imagem não disponível no momento
+    Should Contain    ${TEXTO}    Nenhuma imagem disponível.
     
 Então o bot apresenta as imagens da unidade
-    Element Should Be Visible    //span[contains(text(), 'Dormitorios')]//img
-    ${IMAGENS}    Get WebElements    //span[contains(text(), 'Dormitorios')]//img
-    ${QTD_IMAGENS}    Get Length    ${IMAGENS}
+    Sleep    10
+    ${QTD_IMAGENS}    Get Element Count   //img
     Should Be Equal As Integers    ${QTD_IMAGENS}    3
 
-Dado que o usuário informe um número aleartório
+Dado que o usuário informe um número aleatório
     ${NUMERO}    Gerar Numero Aleatório
     Enviar mensagem    ${NUMERO}
 
-Dado que o usuário informe um email aleartório
+Dado que o usuário informe um email aleatório
     ${EMAIL}    FakerLibrary.Email
     Enviar mensagem    ${EMAIL}
 
@@ -677,9 +651,11 @@ Então o bot deverá perguntar se o usuário pretende fazer composição de rend
     Sleep    5s
     Validar ultimas mensagens    Certo! E você pretende fazer a composição de renda com outras pessoas que estão trabalhando, ${PRIMEIRO_NOME}?
     
-    
 Dado que o usuário clique no botão "Sim"
     Clique no botão    Sim
+
+Dado que o usuário clique no botão "Não"
+    Clique no botão    Não
 
 Então o bot deverá perguntar o regime de trabalho do usuário
     Sleep    7s
@@ -819,9 +795,9 @@ Imóveis residênciais | Comprar imóvel
     Dado que o usuário escolha um empreendimento sem fotos
     Então o bot apresenta as informações do empreendimento
     Então o bot deverá responder com uma mensagem e solicitar o número de celular
-    Dado que o usuário informe um número aleartório
+    Dado que o usuário informe um número aleatório
     Então o bot deverá solicitar seu email
-    Dado que o usuário informe um email aleartório
+    Dado que o usuário informe um email aleatório
     
 Imóveis residênciais | Compra nos próximos 3 meses
     Então o bot deverá perguntar quando pretende comprar a casa

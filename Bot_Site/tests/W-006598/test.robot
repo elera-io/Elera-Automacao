@@ -3,7 +3,7 @@ Resource    ../../resource/keywords/common_keywords.robot
 Resource    ../../resource/keywords/Imoveis_Residenciais/keywords.robot
 Resource    ../../resource/keywords/Marco_Zero/keywords.robot
 Test Setup    Efetuar login
-Test Teardown    Close Browser
+Test Teardown    Close All Browsers
 
 
 *** Test Cases ***

@@ -71,7 +71,7 @@ Dado que, o usuário fique inativo por 30 segundos
     Should Be Equal    ${TEXT_INATIVITY_WITHOUT_NUMBERS}    ${EXPECTED}
 
 Quando acaba o limite de tempo de inatividade
-    Sleep    280
+    Sleep    285
     Element Should Be Visible    xpath=//button[contains(@class,'endChatButton')]
 
 Dado que, o usuário continue a conversa
@@ -107,19 +107,20 @@ Clique no botão
     [Arguments]    ${BOTAO}
     ${BOTOES}    Get WebElements    ${BOTOES_XPATH}
     ${BOTOES_LENGTH}    Get Length    ${BOTOES}
-    ${BOTAO_EXISTE}    Set Variable    False
-    FOR  ${INDEX}  IN RANGE    0    ${BOTOES_LENGTH}
+    ${BOTAO_EXISTE}    Set Variable    ${False}
+    
+    FOR  ${INDEX}  IN RANGE    ${BOTOES_LENGTH}
         ${BOTAO_CONTENT}    Get Text    ${BOTOES}[${INDEX}]
 
         IF    '${BOTAO_CONTENT}' == '${BOTAO}'
             Click Element    ${BOTOES}[${INDEX}]
-            ${BOTAO_EXISTE}    Set Variable    True
+            ${BOTAO_EXISTE}    Set Variable    ${True}
             BREAK
         END
 
     END
 
-    Run Keyword If    '${BOTAO_EXISTE}' == 'False'    Fail    Botão "${BOTAO}" não foi encontrado
+    Run Keyword If    ${BOTAO_EXISTE} == ${False}    Fail    Botão "${BOTAO}" não foi encontrado
     Sleep    3s
 
 Validar itens no menu
@@ -152,6 +153,7 @@ Valida presença do botão voltar no menu
 
     Run Keyword If    '${BOTAO_EXISTE}' == 'False'    Fail    Botão Voltar não foi encontrado
     Sleep    3s
+
 Valide os botões
     [Arguments]     @{CONTEUDO_ESPERADO_BOTOES}
     ${BOTOES}    Get WebElements    ${BOTOES_XPATH}

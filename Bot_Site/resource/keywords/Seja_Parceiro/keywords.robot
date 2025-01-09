@@ -21,7 +21,7 @@ Então o bot deverá exibir a mensagem de credenciamento
 
     FOR    ${INDEX}    IN RANGE    ${MENSAGENS_LENGTH}    ${ULTIMAS_TRES_MENSAGENS_INDEX}    -1
         ${TEXT}    Get Text    ${MENSAGENS}[${INDEX}]
-        Continue For Loop If    '${TEXT}' == 'Link formulário (a fazer)'    
+        Continue For Loop If    '${TEXT}' == ' Acessar formulário'    
         Append To List    ${ULTIMAS_TRES_MENSAGENS}    ${TEXT}
     END
     
@@ -30,11 +30,16 @@ Então o bot deverá exibir a mensagem de credenciamento
 E exibir os botões "Sim" e "Não"
     Valide os botões    Sim    Não
 
-Dado que o usuário clique no botão "Não"
-    Clique no botão    Não    
+# Dado que o usuário clique no botão "Não"
+#     Sleep    2s
+#     ${BOTOES}    Get WebElements    ${BOTOES_XPATH}
+#     Click Element    ${BOTOES}[-1]
 
-Dado que o usuário clique no botão "Sim"
-    Clique no botão   Sim
+# Dado que o usuário clique no botão "Sim"
+#     Sleep    2s
+#     ${BOTOES}    Get WebElements    ${BOTOES_XPATH}
+#     Click Element    ${BOTOES}[-2]
 
 Então o bot apresenta a mensagem de despedida
+    Sleep    3
     Validar ultimas mensagens    Obrigada por entrar em contato com a gente. Estamos por aqui sempre que precisar!Quero te convidar também a nos acompanhar pelo Instagram. Um abraço da Pam ❤️
